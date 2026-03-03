@@ -48,3 +48,5 @@ water_nodes = [
 times = [30.,80.,120.,150.,180.,210.,240.,270.,300.,330.,360.,]
 rp.plot_profile('httemp', nodes,times, case)
 data, variables = rp.extract_data('dataPull.txt', case)
+
+cipolla
