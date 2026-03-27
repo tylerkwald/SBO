@@ -381,6 +381,49 @@
 661           561           and           662             n * SG relief
 662           562            or           661             n * SG relief
 663          -662            or          -561             n * SG relief
+
+
+20583500   bllpi   function 1.0  0.0 0 *unc 1.0 0.0  0
+20583501    time  0        004
+*
+20200400    power      TTT 
+20200401  -1.0         7584233.0
+20200402   300.0       7092840.0
+20200403   600.0       6626160.0
+20200404   900.0       6183310.0
+20200405   1200.0      5763420.0
+20200406   1500.0      5365660.0
+20200407   1800.0      4989220.0
+20200408   2100.0      4633290.0
+20200409   2400.0      4297100.0
+20200410   2700.0      3979900.0
+20200411   3000.0      3680950.0
+20200412   3300.0      3399510.0
+20200413   3600.0      3134890.0
+20200414   3900.0      2886390.0
+20200415   4200.0      2653340.0
+20200416   4500.0      2435060.0
+20200417   4800.0      2230920.0
+20200418   5100.0      2040280.0
+20200419   5400.0      1862510.0
+20200420   5700.0      1697010.0
+20200422   6000.0      1543190.0
+20200425   6600.0      1500000.0
+
+
+
+* Finally you will encounter an error because RELAP does not want to compare a 
+* pressure with the table (which RELAP understands as power). To bypass this
+* we will put p-180010000 into a controlvar like this:
+* 
+20583600 setpoint  sum 1.0  0.0     1     0
+*                   a0         scale     name         param
+20583601           0.0        1.0      p     180010000
+* then the trips would be like this:
+551      cntrlvar 836 gt     cntrlvar 835    0.0 n * SG relief setpoint
+552      cntrlvar 836 gt     cntrlvar 835    201076.0 n * SG relief setpoint *
+
+
 *                name          type
 1870000    "sgi-porv"         valve
 *                from            to          area
