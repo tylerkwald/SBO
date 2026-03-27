@@ -71,6 +71,9 @@
 455 httemp 336001017 ge      null          0 1700.0      n * stop the case
 504   time         0 le      null          0   0.0       n
 600  455
+
+456  tempf   114010000  ge  sattemp   114010000  0.0  n * Trip 456: true if fluid temp is higher than sat in intact loop
+457  tempf   210010000  ge  sattemp   210010000  0.0  n * Trip 457: true if fluid temp is higher than sat in broken loop
 *
 *                         Logicla trips
 *-----------------------------------------------------------------------
@@ -80,6 +83,8 @@
 611          -501           and           501             n * always false
 691          -750           and          -750             n * not SCRAM
 750           501            or           452             n * SCRAM
+771           454           and           456             n
+772           454           and           457             n
 *
 *}}}
 *****************************************************************************************************
@@ -363,15 +368,15 @@
 664           661           and           423             n
 665           663           and           423             n
 *
-551      p 180010000 gt     null 0    7584233.0 n * SG relief setpoint
-552      p 180010000 gt     null 0    7791076.0 n * SG relief setpoint
+551      p 180010000 gt     cntrlvar 835    0.0 n * SG relief setpoint
+552      p 180010000 gt     cntrlvar 835    201076.0 n * SG relief setpoint
 *
 651           551           and           652             n * SG relief
 652           552            or           651             n * SG relief
 653          -652            or          -551             n * SG relief
 *
-561      p 280010000 gt     null 0      7584233.0 n * SG relief setpoint
-562      p 280010000 gt     null 0      7791076.0 n * SG relief setpoint
+561      p 280010000 gt     cntrlvar 835    0.0 n * SG relief setpoint
+562      p 280010000 gt     cntrlvar 835    201076.0 n * SG relief setpoint
 *
 661           561           and           662             n * SG relief
 662           562            or           661             n * SG relief
