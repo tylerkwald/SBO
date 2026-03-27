@@ -249,11 +249,11 @@
 *  Turbo driven Auxiliary Feedwater at constant rate
 *****************************************************************************************************{{{
 *
-490   time          0 ge    timeof         750   30.0e9  l * turbo driven AFW signal with delay
+490   time          0 ge    timeof         750   18.000  l * turbo driven AFW signal with delay
 491   time          0 lt      null           0   1.0e9   n * availability of the system 
 492   voidf 171010000 ge      null           0    0.5    l * finish turbo driven AFW
 493   voidf 271010000 ge      null           0    0.5    l * finish turbo driven AFW
-755          490      and       491                      n
+755          750      and      -491                      n
 756          755      and      -492                      n
 757          755      and      -493                      n
 *
