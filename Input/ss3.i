@@ -71,6 +71,9 @@
 455 httemp 336001017 ge      null          0 1700.0      n * stop the case
 504   time         0 le      null          0   0.0       n
 600  455
+
+456  tempf   114010000  ge  sattemp   114010000  0.0  n * Trip 456: true if fluid temp is higher than sat in intact loop
+457  tempf   210010000  ge  sattemp   210010000  0.0  n * Trip 457: true if fluid temp is higher than sat in broken loop
 *
 *                         Logicla trips
 *-----------------------------------------------------------------------
@@ -80,6 +83,8 @@
 611          -501           and           501             n * always false
 691          -750           and          -750             n * not SCRAM
 750           501            or           452             n * SCRAM
+771           454           and           456             n
+772           454           and           457             n
 *
 *}}}
 *****************************************************************************************************
