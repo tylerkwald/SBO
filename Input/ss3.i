@@ -66,7 +66,7 @@
 *      var     param  r       var      param       acon l
 *-----------------------------------------------------------------------
 452   time         0 ge      null          0   0.000     l * SBO starting time
-501      p 150010000 le      null          0  1.2824e+7  l * scram signal
+501      p 150010000 le      null          0  0.00  l * scram signal
 505      p 150010000 le      null          0 1.226998e7  l * safety injection signal
 455 httemp 336001017 ge      null          0 1700.0      n * stop the case
 504   time         0 le      null          0   0.0       n
