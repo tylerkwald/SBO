@@ -363,15 +363,15 @@
 664           661           and           423             n
 665           663           and           423             n
 *
-551      p 180010000 gt     null 0    7584233.0 n * SG relief setpoint
-552      p 180010000 gt     null 0    7791076.0 n * SG relief setpoint
+551      p 180010000 gt     cntrlvar 835    0.0 n * SG relief setpoint
+552      p 180010000 gt     cntrlvar 835    201076.0 n * SG relief setpoint
 *
 651           551           and           652             n * SG relief
 652           552            or           651             n * SG relief
 653          -652            or          -551             n * SG relief
 *
-561      p 280010000 gt     null 0      7584233.0 n * SG relief setpoint
-562      p 280010000 gt     null 0      7791076.0 n * SG relief setpoint
+561      p 280010000 gt     cntrlvar 835    0.0 n * SG relief setpoint
+562      p 280010000 gt     cntrlvar 835    201076.0 n * SG relief setpoint
 *
 661           561           and           662             n * SG relief
 662           562            or           661             n * SG relief
