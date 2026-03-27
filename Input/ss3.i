@@ -195,7 +195,7 @@
 *                from            to          area       jefvcahs
 1830101     184010001     174010001    0.20512991             
 *             control          trip         alpha           num
-1830200             1          515  cntrlvar           176
+1830200             1          758  cntrlvar           176
 *                srch           mfl           mfv        unused
 1830201          -1.0           0.0           0.0           0.0
 1830202           0.0          37.5    0.0           0.0
@@ -221,7 +221,7 @@
 *                from            to          area       jefvcahs
 2830101     284010001     274010001   0.068376638             
 *             control          trip         alpha           num
-2830200             1          515   cntrlvar           276
+2830200             1          758   cntrlvar           276
 *                srch           mfl           mfv        unused
 2830201          -1.0           0.0           0.0           0.0
 2830202           0.0           12.5    0.0           0.0
