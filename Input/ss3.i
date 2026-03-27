@@ -187,7 +187,8 @@
 *  Auxiliary Feedwater
 *****************************************************************************************************{{{
 *
-515   time         0 ge    timeof        750 30.0 l * AFW signal with delay
+515   time         0 ge    timeof        750 18.000 l * AFW signal with delay (5 h)
+491   time         0 lt    timeof        515 1.0e9   n * availability of the system
 *
 *                name          type
 1830000    "iauxfeed"       tmdpjun
