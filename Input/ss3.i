@@ -413,7 +413,7 @@
 * 1.0e7 1  
 *****************************************************************************************************{{{
 *
-454   time         0 gt      timeof       452     0.0             n * start of leaking time after SBO
+454   time         0 gt      timeof       452     600.0             n * start of leaking time after SBO
 458   time         0 lt      null          0      1.0e9           n * end of RCP leak
 770           458           and           454                     n 
 *
