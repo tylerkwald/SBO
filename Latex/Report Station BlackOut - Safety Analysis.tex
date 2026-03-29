@@ -183,6 +183,10 @@
 \addcontentsline{toc}{section}{Introduction}
 The aim of this report is to present the first part of the Station Black-Out (SBO) project developed with RELAP5 as a system code. The main purpose of this first delivery is to study the reference model before any new safety-system design is introduced. In particular, the work is divided in two tasks: first, the verification of the steady-state conditions of the plant model and second the analysis of the SBO base case transient. The steady-state analysis is used to check that the model starts from physically consistent and stable operating conditions. The main thermal-hydraulic parameters are compared with the target values provided in the project statement, and their time evolution is checked in order to confirm that the initial condition is sufficiently stable for the transient calculations. After the steady-state verification, the SBO base case is analyzed. This case represents the reference accident scenario and is used as the starting point for the following parts of the project. The objective is to understand the sequence of events, the system response and the main thermal-hydraulic trends during the transient.
 
+
+\section*{Methodology}
+\addcontentsline{toc}{section}{Methodology}
+
 The reference plant selected for this analysis is the Zion Nuclear Power Station (United States), which was decommisioned in 1998. Although the real plant originally had four primary loops, the RELAP model used in this project is simplified into two equivalent loops only. One loop represents the broken loop and keeps the dimensions of a single loop, while the other represents the intact side and groups the remaining three loops into one single equivalent loop. 
 
 \figref{fig:ZionNPP_Nodalization} shows the nodalization used in order to represent in the best way possible the Zion nuclear power plant.
@@ -246,7 +250,7 @@ The general assumptions that are common to all the considered accident sequences
 \centering
 \caption{Main events to be included in the SBO base case description.}
 \label{tab:SBO_events}
-\begin{tabular}{p{4cm} p{9cm}}
+\begin{tabular}{p{4.5cm} p{10.5cm}}
 \toprule
 \textbf{Event / action} & \textbf{Short description} \\
 \midrule
@@ -268,6 +272,16 @@ From the first analyses, the system code RELAP5 can be used as the model basis f
 
 At this stage, the report is intended as a structured first draft. The final discussion will be completed after adding the detailed numerical results, the transient plots, and the comparison with the additional scenarios required in the following stages of the project.
 
+\newpage
+
+\section*{CRediT Author Statement}
+
+\begin{itemize}
+    \item \textbf{Filippo Dalmonego:} 
+    \item \textbf{Tyler Ewald:} 
+    \item \textbf{Riccardo Fasano:}
+    \item \textbf{Francesco Qualizza:} Methodology, Supervision, Writing - Original Draft, Review \& Editing.
+\end{itemize}
 
 
 \end{document}
