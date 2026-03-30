@@ -199,8 +199,8 @@
 *
 515   time         0 ge    timeof        750 0.000 l * AFW signal with delay (5 h)
 491   time         0 lt    timeof        515 18000.0   n * availability of the system
-758          515      and       491
-759          758       or       453
+758           515           and           491             n
+759           758            or           453             n
 *
 *                name          type
 1830000    "iauxfeed"       tmdpjun
