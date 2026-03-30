@@ -52,6 +52,8 @@
 *                   a0         scale     name         param
 20550401           0.0        1.0      mflowj     506000000
 20550402                      1.0      mflowj     507000000
+20550403                      1.0      mflowj     508000000
+20550404                      1.0      mflowj     509000000
 *
 20550500   PZRporvs   integral    1.0         0.0         1
 20550501             cntrlvar    504
@@ -374,15 +376,15 @@
 664           661           and           423             n
 665           663           and           423             n
 * then the trips would be like this:
-551      cntrlvar 837 gt     cntrlvar 835    0.0 n * SG relief setpoint
-552      cntrlvar 837 gt     cntrlvar 835    201076.0 n * SG relief setpoint *
+551      cntrlvar 836 gt     cntrlvar 835    0.0 n * SG relief setpoint
+552      cntrlvar 836 gt     cntrlvar 835    201076.0 n * SG relief setpoint *
 *
 651           551           and           652             n * SG relief
 652           552            or           651             n * SG relief
 653          -652            or          -551             n * SG relief
 *
-561      p 280010000 gt     cntrlvar 835    0.0 n * SG relief setpoint
-562      p 280010000 gt     cntrlvar 835    201076.0 n * SG relief setpoint
+561      cntrlvar 837 gt     cntrlvar 835    0.0 n * SG relief setpoint
+562      cntrlvar 837 gt     cntrlvar 835    201076.0 n * SG relief setpoint *
 *
 661           561           and           662             n * SG relief
 662           562            or           661             n * SG relief
@@ -472,7 +474,7 @@
 454   time         0 gt      timeof       452     600.0             n * start of leaking time after SBO
 458   time         0 lt      null          0      1.0e9           n * end of RCP leak
 770           458           and           454                     n 
-*
+* 
 *                name          type
 5020000     "contain"       tmdpvol
 *                area        length           vol
@@ -528,6 +530,65 @@
 5060300        trpvlv
 *                trip
 5060301           770 
+* EXTRA LEAK
+*                name          type
+5030000     "contain"       tmdpvol
+*                area        length           vol
+5030101        1.54e4           0.0        2.98e7
+*            az-angle     inc-angle            dz
+5030102           0.0          90.0         100.0
+*             x-rough          x-hd         flags
+5030103           0.0           0.0            10
+*               cword
+5030200             2
+*                srch         press         squal
+5030201           0.0    1.013529e5           1.0
+*
+*                name          type
+5080000    "breakvlv"         valve
+*                from            to          area
+5080101     114010006     502010001         9.e-5
+*           fwd. loss     rev. loss       efvcahs
+5080102           0.0           0.0       1010100
+*           discharge       thermal       
+5080103           1.0          0.14
+*                flow           mfl           mfv        unused
+5080201             1           0.0           0.0           0.0
+*                type
+5080300        trpvlv
+*                trip
+5080301           771
+*
+*                name          type
+5040000     "contain"       tmdpvol
+*                area        length           vol
+5040101        1.54e4           0.0        2.98e7
+*            az-angle     inc-angle            dz
+5040102           0.0          90.0         100.0
+*             x-rough          x-hd         flags
+5040103           0.0           0.0            10
+*               cword
+5040200             2
+*                srch         press         squal
+5040201           0.0    1.013529e5           1.0
+*
+*                name          type
+5090000    "breakvlv"         valve
+*                from            to          area
+5090101     210010006     501010001        3.0e-5
+*           fwd. loss     rev. loss       efvcahs
+5090102           0.0           0.0       1010100
+*           discharge       thermal       
+5090103           1.0          0.14
+*                flow           mfl           mfv        unused
+5090201             1           0.0           0.0           0.0
+*                type
+5090300        trpvlv
+*                trip
+5090301           772 
+
+
+
 *}}}
 *****************************************************************************************************
 *
