@@ -96,7 +96,7 @@
 *
 508      p 150010000 ge      null          0 1.620268e7       n * PZR relief setpoint
 509      p 150010000 ge      null          0 1.606478e7       n * PZR relief setpoint
-462  time          0 gt      null          0 1.0e9            l * open PZR relief valve as manual action
+462  tempg 336012000 ge      null          0 923.0            l * open PZR relief valve on high Core Exit Thermocouples
 463  time          0 gt      null          0 1.0e9            l * open PZR relief valve at time
 464  time          0 lt    timeof        604 30.0             n * close PZR relief valve after time
 465 acvliq       290 le      null          0 -1.0             n * close PZR relief valve when Acc volume is low 
