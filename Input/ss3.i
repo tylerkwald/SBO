@@ -68,6 +68,7 @@
 *      var     param  r       var      param       acon l
 *-----------------------------------------------------------------------
 452   time         0 ge      null          0   0.000     l * SBO starting time
+453   time         0 ge      timeof       452 43200.0       l * AC power recovery 12h after SBO
 501      p 150010000 le      null          0  0.00  l * scram signal
 505      p 150010000 le      null          0 1.226998e7  l * safety injection signal
 455 httemp 336001017 ge      null          0 1700.0      n * stop the case
@@ -87,6 +88,8 @@
 750           501            or           452             n * SCRAM
 771           454           and           456             n
 772           454           and           457             n
+780           503           and           453             n * HPSI available (AC recovered + Low Press)
+781           520           and           453             n * LPSI available (AC recovered + Low Press)
 *
 *}}}
 *****************************************************************************************************
@@ -197,13 +200,14 @@
 515   time         0 ge    timeof        750 0.000 l * AFW signal with delay (5 h)
 491   time         0 lt    timeof        515 18000.0   n * availability of the system
 758          515      and       491
+759          758       or       453
 *
 *                name          type
 1830000    "iauxfeed"       tmdpjun
 *                from            to          area       jefvcahs
 1830101     184010001     174010001    0.20512991             
 *             control          trip         alpha           num
-1830200             1          758  cntrlvar           176
+1830200             1          759  cntrlvar           176
 *                srch           mfl           mfv        unused
 1830201          -1.0           0.0           0.0           0.0
 1830202           0.0          37.5    0.0           0.0
@@ -229,7 +233,7 @@
 *                from            to          area       jefvcahs
 2830101     284010001     274010001   0.068376638             
 *             control          trip         alpha           num
-2830200             1          758   cntrlvar           276
+2830200             1          759   cntrlvar           276
 *                srch           mfl           mfv        unused
 2830201          -1.0           0.0           0.0           0.0
 2830202           0.0           12.5    0.0           0.0
@@ -613,7 +617,7 @@
 *                from            to          area       jefvcahs
 1980101     197010002     116010001        0.0654             0
 *             control          trip         alpha           num
-1980200             1           611             p     116010000
+1980200             1           780             p     116010000
 *                srch           mfl           mfv      unused
 1980201          -1.0           0.0           0.0         0.0
 1980202       1.00d+5          16.0           0.0         0.0
@@ -641,7 +645,7 @@
 *                from            to          area       jefvcahs
 2980101     297010002     212010001        0.0654             0
 *             control          trip         alpha           num
-2980200             1           611       p     116010000
+2980200             1           780       p     116010000
 *                srch           mfl           mfv      unused
 2980201          -1.0           0.0           0.0         0.0
 2980202       1.00d+5          48.0           0.0         0.0
@@ -677,7 +681,7 @@
 *                from            to          area       jefvcahs
 1960101     195010002     116010001        0.0654             0
 *             control          trip         alpha           num
-1960200             1           611             p     116010000
+1960200             1           780             p     116010000
 *                srch           mfl           mfv        unused
 1960201          -1.0           0.0           0.0           0.0
 1960202           0.0           0.0           0.0           0.0
@@ -703,7 +707,7 @@
 *                from            to          area       jefvcahs
 2960101     295010002     212010001        0.0654             0
 *             control          trip         alpha           num
-2960200             1           611             p     212010000
+2960200             1           780             p     212010000
 *                srch           mfl           mfv        unused
 2960201          -1.0           0.0           0.0           0.0
 2960202           0.0           0.0           0.0           0.0
