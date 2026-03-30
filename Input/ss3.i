@@ -26,7 +26,7 @@
 *
 *-----------------------------------------------
 * Integral of Pressurizer and safety valve mass flow
-20550000 PZRporvs  sum 1.0  0.0     1     0
+20550000 PZRporvs  sum 1.0  0.0     1.0     0
 *                   a0         scale     name         param
 20550001           0.0        1.0      mflowj     155000000
 20550002                      1.0      mflowj     157000000
@@ -551,7 +551,7 @@
 *                name          type
 5080000    "breakvlv"         valve
 *                from            to          area
-5080101     114010006     502010001         9.e-5
+5080101     114010006     503010001         9.e-5
 *           fwd. loss     rev. loss       efvcahs
 5080102           0.0           0.0       1010100
 *           discharge       thermal       
@@ -579,7 +579,7 @@
 *                name          type
 5090000    "breakvlv"         valve
 *                from            to          area
-5090101     210010006     501010001        3.0e-5
+5090101     210010006     504010001        3.0e-5
 *           fwd. loss     rev. loss       efvcahs
 5090102           0.0           0.0       1010100
 *           discharge       thermal       
