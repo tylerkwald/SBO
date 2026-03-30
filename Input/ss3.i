@@ -194,13 +194,14 @@
 *
 515   time         0 ge    timeof        750 0.000 l * AFW signal with delay (5 h)
 491   time         0 lt    timeof        515 18000.0   n * availability of the system
+758          515      and       491
 *
 *                name          type
 1830000    "iauxfeed"       tmdpjun
 *                from            to          area       jefvcahs
 1830101     184010001     174010001    0.20512991             
 *             control          trip         alpha           num
-1830200             1          611  cntrlvar           176
+1830200             1          758  cntrlvar           176
 *                srch           mfl           mfv        unused
 1830201          -1.0           0.0           0.0           0.0
 1830202           0.0          37.5    0.0           0.0
@@ -226,7 +227,7 @@
 *                from            to          area       jefvcahs
 2830101     284010001     274010001   0.068376638             
 *             control          trip         alpha           num
-2830200             1          611   cntrlvar           276
+2830200             1          758   cntrlvar           276
 *                srch           mfl           mfv        unused
 2830201          -1.0           0.0           0.0           0.0
 2830202           0.0           12.5    0.0           0.0
@@ -372,9 +373,9 @@
 655           653           and           422             n
 664           661           and           423             n
 665           663           and           423             n
-*
-551      p 180010000 gt     cntrlvar 835    0.0 n * SG relief setpoint
-552      p 180010000 gt     cntrlvar 835    201076.0 n * SG relief setpoint
+* then the trips would be like this:
+551      cntrlvar 837 gt     cntrlvar 835    0.0 n * SG relief setpoint
+552      cntrlvar 837 gt     cntrlvar 835    201076.0 n * SG relief setpoint *
 *
 651           551           and           652             n * SG relief
 652           552            or           651             n * SG relief
@@ -428,9 +429,7 @@
 20583700 setpointb  sum 1.0  0.0     1     0
 *                   a0       scale    name      param
 20583701           0.0        1.0      p     280010000
-* then the trips would be like this:
-551      cntrlvar 837 gt     cntrlvar 835    0.0 n * SG relief setpoint
-552      cntrlvar 837 gt     cntrlvar 835    201076.0 n * SG relief setpoint *
+
 
 
 *                name          type
