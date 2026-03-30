@@ -1,7 +1,7 @@
 = SBO_exercise
 100 restart transnt
 101 run
-103 0 * restart block
+103 0 restart.r 
 *
 201  2000.0    1.0-7   0.1   3    50     50000  50000
 
