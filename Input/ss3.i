@@ -141,8 +141,8 @@
 *   RCP trip
 *****************************************************************************************************{{{
 *
-715           511           or         511  n * RCP trip 511=normal operation actuation
-716           512           or         512  n * RCP trip 512=normal operation actuation
+715           511           or         750  n * RCP trip 511=normal operation actuation
+716           512           or         750  n * RCP trip 512=normal operation actuation
 *}}}
 *****************************************************************************************************
 *
@@ -193,14 +193,14 @@
 *****************************************************************************************************{{{
 *
 515   time         0 ge    timeof        750 0.000 l * AFW signal with delay (5 h)
-491   time         0 lt    timeof        515 18.000   n * availability of the system
+491   time         0 lt    timeof        515 18000.0   n * availability of the system
 *
 *                name          type
 1830000    "iauxfeed"       tmdpjun
 *                from            to          area       jefvcahs
 1830101     184010001     174010001    0.20512991             
 *             control          trip         alpha           num
-1830200             1          758  cntrlvar           176
+1830200             1          611  cntrlvar           176
 *                srch           mfl           mfv        unused
 1830201          -1.0           0.0           0.0           0.0
 1830202           0.0          37.5    0.0           0.0
@@ -226,7 +226,7 @@
 *                from            to          area       jefvcahs
 2830101     284010001     274010001   0.068376638             
 *             control          trip         alpha           num
-2830200             1          758   cntrlvar           276
+2830200             1          611   cntrlvar           276
 *                srch           mfl           mfv        unused
 2830201          -1.0           0.0           0.0           0.0
 2830202           0.0           12.5    0.0           0.0
@@ -255,7 +255,6 @@
 *****************************************************************************************************{{{
 *
 490   time          0 ge    timeof         750   18.000  l * turbo driven AFW signal with delay
-491   time          0 lt      null           0   1.0e9   n * availability of the system 
 492   voidf 171010000 ge      null           0    0.5    l * finish turbo driven AFW
 493   voidf 271010000 ge      null           0    0.5    l * finish turbo driven AFW
 755          750      and      -491                      n
@@ -310,6 +309,12 @@
 *
 *
 *}}}
+*  PZR heaters - off during SBO (no AC power)
+*
+* Override cntrlvar 833 from restart: force heater power to 0
+20583300   pzrheat   sum   1.0   0.0   1   0
+*                   a0       scale    name      param
+20583301           0.0       0.0    time    0
 *****************************************************************************************************
 *
 *  Accumulators
@@ -384,7 +389,7 @@
 
 
 20583500   bllpi   function 1.0  0.0 0 *unc 1.0 0.0  0
-20583501    time  0        004
+20583501    time  0        611
 *
 20200400    power      TTT 
 20200401  -1.0         7584233.0
@@ -419,9 +424,13 @@
 20583600 setpoint  sum 1.0  0.0     1     0
 *                   a0         scale     name         param
 20583601           0.0        1.0      p     180010000
+
+20583700 setpointb  sum 1.0  0.0     1     0
+*                   a0       scale    name      param
+20583701           0.0        1.0      p     280010000
 * then the trips would be like this:
-551      cntrlvar 836 gt     cntrlvar 835    0.0 n * SG relief setpoint
-552      cntrlvar 836 gt     cntrlvar 835    201076.0 n * SG relief setpoint *
+551      cntrlvar 837 gt     cntrlvar 835    0.0 n * SG relief setpoint
+552      cntrlvar 837 gt     cntrlvar 835    201076.0 n * SG relief setpoint *
 
 
 *                name          type
@@ -544,7 +553,7 @@
 *                from            to          area       jefvcahs
 1980101     197010002     116010001        0.0654             0
 *             control          trip         alpha           num
-1980200             1           503             p     116010000
+1980200             1           611             p     116010000
 *                srch           mfl           mfv      unused
 1980201          -1.0           0.0           0.0         0.0
 1980202       1.00d+5          16.0           0.0         0.0
@@ -572,7 +581,7 @@
 *                from            to          area       jefvcahs
 2980101     297010002     212010001        0.0654             0
 *             control          trip         alpha           num
-2980200             1           503       p     116010000
+2980200             1           611       p     116010000
 *                srch           mfl           mfv      unused
 2980201          -1.0           0.0           0.0         0.0
 2980202       1.00d+5          48.0           0.0         0.0
@@ -608,7 +617,7 @@
 *                from            to          area       jefvcahs
 1960101     195010002     116010001        0.0654             0
 *             control          trip         alpha           num
-1960200             1           520             p     116010000
+1960200             1           611             p     116010000
 *                srch           mfl           mfv        unused
 1960201          -1.0           0.0           0.0           0.0
 1960202           0.0           0.0           0.0           0.0
@@ -634,7 +643,7 @@
 *                from            to          area       jefvcahs
 2960101     295010002     212010001        0.0654             0
 *             control          trip         alpha           num
-2960200             1           520             p     212010000
+2960200             1           611             p     212010000
 *                srch           mfl           mfv        unused
 2960201          -1.0           0.0           0.0           0.0
 2960202           0.0           0.0           0.0           0.0
