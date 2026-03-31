@@ -208,35 +208,31 @@ If the variables remain approximately constant and the deviations from the targe
 
 
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
-\caption{Reference values for steady-state verification.}
-\label{tab:Targetvalues}
-\begin{tabular}{l l l}
+\begin{tabular}{lcc}
 \toprule
-\multicolumn{1}{c}{\textbf{Parameter}} & \textbf{Reference value} & \textbf{RELAP5 result} \\
+Parameter & Expected value & Steady State Results\\
 \midrule
-Power (MW) & 3250 & \\
-Primary pressure in the hot leg (MPa) & 15.5 & \\
-Secondary pressure (MPa) & 6.7 & \\
-Pressurizer level (m) & 8.8 & \\
-Broken SG downcomer level (m) & 12.2 & \\
-Intact SG downcomer level (m) & 12.2 & \\
-Core outlet temperature (K) & 603 & \\
-Core inlet temperature (K) & 571 & \\
-Broken Main FW flow (kg/s) & 459 & \\
-Intact Main FW flow (kg/s) & 1325 & \\
-Intact loop flow (kg/s) & 12865 & \\
-Broken loop flow (kg/s) & 4351 & \\
+Power (MW) & 3250 & 3250.0\\
+Primary pressure in the hot leg (MPa) & 15.5 & 15.5\\
+Secondary pressure (MPa) & 6.7 & 6.71\\
+Pressurizer level (m) & 8.8 & 8.86\\
+Broken Steam Generators DC level (m) & 12.2 & 12.2\\
+Intact Steam Generators DC level (m) & 12.2 & 12.2\\
+Core outlet temperature (K) & 603 & 603.4\\
+Core inlet temperature (K) & 571 & 570.8\\
+Broken Main feedwater flow (kg/s) & 459 & 455.8\\
+Intact Main feedwater flow (kg/s) & 1325 & 1324.4\\
+Intact loop flow (kg/s) & 12865 & 12436\\
+Broken loop flow (kg/s) & 4351 & 4356\\
 \bottomrule
 \end{tabular}
+\caption{Expected vs Simulation results for Steady State Values}
+\label{tab:Targetvalues}
 \end{table}
 
-\tabref{tab:Targetvalues} shows the main variables that must be checked in the steady-state calculation.  
-The last column is intentionally left empty for the simulation results, so that it can be completed later.
-
-
-The steady-state calculation shows that the main plant variables are close to the reference values; small deviations may appear because of nodalization choices, control-system settings, and numerical approximations.  
+\tabref{tab:Targetvalues} shows the main variables that must be checked in the steady-state calculation. The steady-state calculation shows that the main plant variables are close to the reference values; small deviations may appear because of nodalization choices, control-system settings, and numerical approximations.  
 However, the overall agreement is sufficient to accept the initial condition for the SBO transient analysis.
 
 \section{Base Case Analysis}
