@@ -283,11 +283,11 @@ def make_plots(file_path, out_dir):
     # FIG 1 – Potenza reattore vs tempo (0-2000 s)
     # ══════════════════════════════════════════════════════════════════════════
     fig1, ax1 = plt.subplots(figsize=(12, 5))
-    fig1.suptitle("RELAP5 – Potenza Reattore vs Tempo", fontweight="bold")
+    fig1.suptitle("RELAP5 – Reactor Power vs Time", fontweight="bold")
 
-    ax1.plot(t, power / 1e6, color=COLORS["main"], lw=1.8, label="Potenza calcolata")
+    ax1.plot(t, power / 1e6, color=COLORS["main"], lw=1.8, label="Calculated Power")
     ax1.axhline(TABLE2["Power (MW)"], color=COLORS["ref"], lw=1.4,
-                ls="--", label=f"Riferimento (Table 2): {TABLE2['Power (MW)']:.0f} MW")
+                ls="--", label=f"Reference Value (Table 2): {TABLE2['Power (MW)']:.0f} MW")
     ax1.axvline(T_SBO, color=COLORS["sbo"], lw=2, ls=":", label=f"SBO @ t = {T_SBO:.0f} s")
     ax1.axvspan(0, T_SBO, alpha=0.06, color=COLORS["ok"])
     ax1.text(T_SBO / 2, ax1.get_ylim()[0] + 50,
@@ -297,8 +297,8 @@ def make_plots(file_path, out_dir):
                  color=COLORS["sbo"], fontsize=9, fontweight="bold",
                  arrowprops=dict(arrowstyle="->", color=COLORS["sbo"], lw=1.2))
 
-    ax1.set_xlabel("Tempo (s)")
-    ax1.set_ylabel("Potenza (MW)")
+    ax1.set_xlabel("Time (s)")
+    ax1.set_ylabel("Power (MW)")
     ax1.legend(loc="upper right")
     ax1.set_xlim(t[0], t[-1])
     fig1.tight_layout()
@@ -311,13 +311,13 @@ def make_plots(file_path, out_dir):
     # FIG 2 – Temperatura cladding vs tempo (0-2000 s)
     # ══════════════════════════════════════════════════════════════════════════
     fig2, ax2 = plt.subplots(figsize=(12, 5))
-    fig2.suptitle("RELAP5 – Temperatura Cladding (nodo 336-000817) vs Tempo", fontweight="bold")
+    fig2.suptitle("RELAP5 – Cladding Temperature (node 336-000817) vs Time", fontweight="bold")
 
-    ax2.plot(t, httemp, color="#7C3AED", lw=1.8, label="T cladding calcolata")
+    ax2.plot(t, httemp, color="#7C3AED", lw=1.8, label="Calculated Cladding Temperature")
     ax2.axvline(T_SBO, color=COLORS["sbo"], lw=2, ls=":", label=f"SBO @ t = {T_SBO:.0f} s")
     ax2.axvspan(0, T_SBO, alpha=0.06, color=COLORS["ok"], label="Steady state")
-    ax2.set_xlabel("Tempo (s)")
-    ax2.set_ylabel("Temperatura cladding (K)")
+    ax2.set_xlabel("Time (s)")
+    ax2.set_ylabel(" Cladding Temperature (K)")
     ax2.legend(loc="upper right")
     ax2.set_xlim(t[0], t[-1])
     fig2.tight_layout()
@@ -426,15 +426,15 @@ def make_plots(file_path, out_dir):
     mask = t <= T_SBO
 
     fig4, (ax4a, ax4b) = plt.subplots(1, 2, figsize=(14, 5))
-    fig4.suptitle("RELAP5 – Verifica Steady State (t = 0 ÷ 1000 s)", fontweight="bold")
+    fig4.suptitle("RELAP5 – Steady State Verification (t = 0 ÷ 1000 s)", fontweight="bold")
 
     # Potenza
     ax4a.plot(t[mask], power[mask] / 1e6, color=COLORS["main"], lw=2)
     ax4a.axhline(TABLE2["Power (MW)"], color=COLORS["ref"], lw=1.5, ls="--",
-                 label=f"Riferimento: {TABLE2['Power (MW)']:.0f} MW")
-    ax4a.set_xlabel("Tempo (s)")
-    ax4a.set_ylabel("Potenza (MW)")
-    ax4a.set_title("Potenza reattore")
+                 label=f"Reference Value: {TABLE2['Power (MW)']:.0f} MW")
+    ax4a.set_xlabel("Time (s)")
+    ax4a.set_ylabel("Power (MW)")
+    ax4a.set_title("Reactor Thermal Power")
     ax4a.legend()
     ax4a.set_xlim(0, T_SBO)
     if mask.sum() > 0:
@@ -445,9 +445,9 @@ def make_plots(file_path, out_dir):
 
     # httemp
     ax4b.plot(t[mask], httemp[mask], color="#7C3AED", lw=2)
-    ax4b.set_xlabel("Tempo (s)")
+    ax4b.set_xlabel("Time (s)")
     ax4b.set_ylabel("T cladding (K)")
-    ax4b.set_title("Temperatura cladding (nodo 336-000817)")
+    ax4b.set_title("Cladding Temperature (node 336-000817)")
     ax4b.set_xlim(0, T_SBO)
     if mask.sum() > 0:
         ymid   = httemp[mask].mean()
