@@ -129,7 +129,7 @@
     73    505      p 150010000 le      null          0 1.226998e7  l * safety injection signal            
     74    455 httemp 336001017 ge      null          0 1700.0      n * stop the case                      
     75    504   time         0 le      null          0   0.0       n                                      
-    76    600          455            or            455             n                                     
+    76    600          455                                                                                
     77                                                                                                    
     78    456  tempf   114010000  ge  sattemp   114010000  0.0  n * Trip 456: true if fluid temp is higher
     79    457  tempf   210010000  ge  sattemp   210010000  0.0  n * Trip 457: true if fluid temp is higher
@@ -146,640 +146,643 @@
     90    772           454           and           457             n                                     
     91    780           503           and           453             n * HPSI available (AC recovered + Low
     92    781           520           and           453             n * LPSI available (AC recovered + Low
-    93    *                                                                                               
-    94    *}}}                                                                                            
-    95    ************************************************************************************************
-    96    *                                                                                               
-    97    *  PZR relief valve (to containment)                                                            
-    98    ************************************************************************************************
-    99    *                                                                                               
-   100    508      p 150010000 ge      null          0 1.620268e7       n * PZR relief setpoint           
-   101    509      p 150010000 ge      null          0 1.606478e7       n * PZR relief setpoint           
-   102    462  tempg 336012000 ge      null          0 923.0            l * open PZR relief valve on high 
-   103    463  time          0 gt      null          0 1.0e9            l * open PZR relief valve at time 
-   104    464  time          0 lt    timeof        604 30.0             n * close PZR relief valve after t
-   105    465 acvliq       290 le      null          0 -1.0             n * close PZR relief valve when Ac
-   106    *                                                                                               
-   107    601           603           and           509                 n                                 
-   108    602           601            or           508                 n                                 
-   109    603           602           and           509                 n * automatic                     
-   110    604           462            or           463                 n * PZR relief manual opening     
-   111    605           464            or          -465                 n * PZR relief manual closing     
-   112    606           604           and           605                 n * PZR relief manual opening/clos
-   113    607           603            or           606                 n * PZR relief all                
-   114    *                                                                                               
-   115    *                name          type                                                             
-   116    1570000        "porv"         valve                                                             
-   117    *                from            to          area                                               
-   118    1570101     158010001     150010001        1.70966e-2                                           
-   119    *           fwd. loss     rev. loss       efvcahs                                               
-   120    1570102           0.0           0.0           100                                               
-   121    *           discharge       thermal                                                             
-   122    1570103           1.0          0.14                                                             
-   123    *                flow            vl            vv        unused                                 
-   124    1570201             0           0.0           0.0           0.0                                 
-   125    *                type                                                                           
-   126    1570300        trpvlv                                                                           
-   127    *                trip                                                                           
-   128    1570301           607                                                                           
-   129    *                                                                                               
-   130    *                name          type                                                             
-   131    1580000        "cont"       tmdpvol                                                             
-   132    *                area        length           vol                                               
-   133    1580101      92.90304        0.3048           0.0                                               
-   134    *            az-angle     inc-angle            dz                                               
-   135    1580102           0.0           0.0           0.0                                               
-   136    *             x-rough          x-hd         flags                                               
-   137    1580103           0.0           0.0             0                                               
-   138    *               cword                                                                           
-   139    1580200             4                                                                           
-   140    *                srch         press          temp         squal                                 
-   141    1580201           1.0    1.013529e5       305.372           1.0                                 
-   142    *                                                                                               
-   143    *}}}                                                                                            
-   144    ************************************************************************************************
-   145    *                                                                                               
-   146    *   RCP trip                                                                                    
-   147    ************************************************************************************************
-   148    *                                                                                               
-   149    715           511           or         750  n * RCP trip 511=normal operation actuation         
-   150    716           512           or         750  n * RCP trip 512=normal operation actuation         
-   151    *}}}                                                                                            
-   152    ************************************************************************************************
-   153    *                                                                                               
-   154    *  PZR safety valve (to containment)                                                            
-   155    *                                                                                               
-   156    ************************************************************************************************
-   157    *                                                                                               
+    93    531   time         0 ge    timeof         750 0.0             l   * start cooldown immediately a
+    94    *                                                                                               
+    95    *}}}                                                                                            
+    96    ************************************************************************************************
+    97    *                                                                                               
+    98    *  PZR relief valve (to containment)                                                            
+    99    ************************************************************************************************
+   100    *                                                                                               
+   101    508      p 150010000 ge      null          0 1.620268e7       n * PZR relief setpoint           
+   102    509      p 150010000 ge      null          0 1.606478e7       n * PZR relief setpoint           
+   103    462  tempg 336012000 ge      null          0 923.0            l * open PZR relief valve on high 
+   104    463  time          0 gt      null          0 1.0e9            l * open PZR relief valve at time 
+   105    464  time          0 lt    timeof        604 30.0             n * close PZR relief valve after t
+   106    465 acvliq       290 le      null          0 -1.0             n * close PZR relief valve when Ac
+   107    *                                                                                               
+   108    601           603           and           509                 n                                 
+   109    602           601            or           508                 n                                 
+   110    603           602           and           509                 n * automatic                     
+   111    604           462            or           463                 n * PZR relief manual opening     
+   112    605           464            or          -465                 n * PZR relief manual closing     
+   113    606           604           and           605                 n * PZR relief manual opening/clos
+   114    607           603            or           606                 n * PZR relief all                
+   115    *                                                                                               
+   116    *                name          type                                                             
+   117    1570000        "porv"         valve                                                             
+   118    *                from            to          area                                               
+   119    1570101     158010001     150010001        1.70966e-2                                           
+   120    *           fwd. loss     rev. loss       efvcahs                                               
+   121    1570102           0.0           0.0           100                                               
+   122    *           discharge       thermal                                                             
+   123    1570103           1.0          0.14                                                             
+   124    *                flow            vl            vv        unused                                 
+   125    1570201             0           0.0           0.0           0.0                                 
+   126    *                type                                                                           
+   127    1570300        trpvlv                                                                           
+   128    *                trip                                                                           
+   129    1570301           607                                                                           
+   130    *                                                                                               
+   131    *                name          type                                                             
+   132    1580000        "cont"       tmdpvol                                                             
+   133    *                area        length           vol                                               
+   134    1580101      92.90304        0.3048           0.0                                               
+   135    *            az-angle     inc-angle            dz                                               
+   136    1580102           0.0           0.0           0.0                                               
+   137    *             x-rough          x-hd         flags                                               
+   138    1580103           0.0           0.0             0                                               
+   139    *               cword                                                                           
+   140    1580200             4                                                                           
+   141    *                srch         press          temp         squal                                 
+   142    1580201           1.0    1.013529e5       305.372           1.0                                 
+   143    *                                                                                               
+   144    *}}}                                                                                            
+   145    ************************************************************************************************
+   146    *                                                                                               
+   147    *   RCP trip                                                                                    
+   148    ************************************************************************************************
+   149    *                                                                                               
+   150    715           511           or         750  n * RCP trip 511=normal operation actuation         
+   151    716           512           or         750  n * RCP trip 512=normal operation actuation         
+   152    *}}}                                                                                            
+   153    ************************************************************************************************
+   154    *                                                                                               
+   155    *  PZR safety valve (to containment)                                                            
+   156    *                                                                                               
+   157    ************************************************************************************************
    158    *                                                                                               
-   159    460      p 150010000 ge      null          0 1.720268e7 n * PZR safety setpoint                 
-   160    461      p 150010000 ge      null          0 1.706478e7 n * PZR safety setpoint                 
-   161    *                                                                                               
-   162    711           713           and           461             n                                     
-   163    712           711            or           460             n                                     
-   164    713           712           and           461             n * PZR relief                        
-   165    *                                                                                               
-   166    *                name          type                                                             
-   167    1550000        "porv"         valve                                                             
-   168    *                from            to          area                                               
-   169    1550101     156010001     150010001    1.70966e-2                                               
-   170    *           fwd. loss     rev. loss       efvcahs                                               
-   171    1550102           0.0           0.0           100                                               
-   172    *           discharge       thermal                                                             
-   173    1550103           1.0          0.14                                                             
-   174    *                flow            vl            vv        unused                                 
-   175    1550201             0           0.0           0.0           0.0                                 
-   176    *                type                                                                           
-   177    1550300        trpvlv                                                                           
-   178    *                trip                                                                           
-   179    1550301           713                                                                           
-   180    *                                                                                               
-   181    *                name          type                                                             
-   182    1560000        "cont"       tmdpvol                                                             
-   183    *                area        length           vol                                               
-   184    1560101      92.90304        0.3048           0.0                                               
-   185    *            az-angle     inc-angle            dz                                               
-   186    1560102           0.0           0.0           0.0                                               
-   187    *             x-rough          x-hd         flags                                               
-   188    1560103           0.0           0.0             0                                               
-   189    *               cword                                                                           
-   190    1560200             4                                                                           
-   191    *                srch         press          temp         squal                                 
-   192    1560201           1.0    1.013529e5       305.372           1.0                                 
-   193    *                                                                                               
-   194    *}}}                                                                                            
-   195    ************************************************************************************************
-   196    *                                                                                               
-   197    *  Auxiliary Feedwater                                                                          
-   198    ************************************************************************************************
-   199    *                                                                                               
-   200    515   time         0 ge    timeof        750 0.000 l * AFW signal with delay (5 h)              
-   201    491   time         0 lt    timeof        515 18000.0   n * availability of the system           
-   202    758           515           and           491             n                                     
-   203    759           758            or           453             n                                     
-   204    *                                                                                               
-   205    *                name          type                                                             
-   206    1830000    "iauxfeed"       tmdpjun                                                             
-   207    *                from            to          area       jefvcahs                                
-   208    1830101     184010001     174010001    0.20512991                                               
-   209    *             control          trip         alpha           num                                 
-   210    1830200             1          759  cntrlvar           176                                      
-   211    *                srch           mfl           mfv        unused                                 
-   212    1830201          -1.0           0.0           0.0           0.0                                 
-   213    1830202           0.0          37.5    0.0           0.0                                        
-   214    1830203           0.1          37.5    0.0           0.0                                        
-   215    1830204           7.7          37.5    0.0           0.0                                        
-   216    1830205          8.15           0.0           0.0           0.0                                 
-   217    *                                                                                               
-   218    *                name          type                                                             
-   219    1840000    "iauxfeed"       tmdpvol                                                             
-   220    *                area        length           vol                                               
-   221    1840101     278.70912        0.3048           0.0                                               
-   222    *            az-angle     inc-angle            dz                                               
-   223    1840102           0.0           0.0           0.0                                               
-   224    *             x-rough          x-hd         flags                                               
-   225    1840103           0.0         15.24             0                                               
-   226    *               cword                                                                           
-   227    1840200             3                                                                           
-   228    *                srch         press          temp                                               
-   229    1840201           0.0    4.853909e6       310.928                                               
-   230    *                                                                                               
-   231    *                name          type                                                             
-   232    2830000    "bauxfeed"       tmdpjun                                                             
-   233    *                from            to          area       jefvcahs                                
-   234    2830101     284010001     274010001   0.068376638                                               
-   235    *             control          trip         alpha           num                                 
-   236    2830200             1          759   cntrlvar           276                                     
-   237    *                srch           mfl           mfv        unused                                 
-   238    2830201          -1.0           0.0           0.0           0.0                                 
-   239    2830202           0.0           12.5    0.0           0.0                                       
-   240    2830203           0.1           12.5    0.0           0.0                                       
-   241    2830204           7.7           12.5    0.0           0.0                                       
-   242    2830205          8.15           0.0           0.0           0.0                                 
-   243    *                                                                                               
-   244    *                name          type                                                             
-   245    2840000    "bauxfeed"       tmdpvol                                                             
-   246    *                area        length           vol                                               
-   247    2840101      92.90304        0.3048           0.0                                               
-   248    *            az-angle     inc-angle            dz                                               
-   249    2840102           0.0           0.0           0.0                                               
-   250    *             x-rough          x-hd         flags                                               
-   251    2840103           0.0         15.24             0                                               
-   252    *               cword                                                                           
-   253    2840200             3                                                                           
-   254    *                srch         press          temp                                               
-   255    2840201           0.0    4.853909e6       310.928                                               
-   256    *                                                                                               
+   159    *                                                                                               
+   160    460      p 150010000 ge      null          0 1.720268e7 n * PZR safety setpoint                 
+   161    461      p 150010000 ge      null          0 1.706478e7 n * PZR safety setpoint                 
+   162    *                                                                                               
+   163    711           713           and           461             n                                     
+   164    712           711            or           460             n                                     
+   165    713           712           and           461             n * PZR relief                        
+   166    *                                                                                               
+   167    *                name          type                                                             
+   168    1550000        "porv"         valve                                                             
+   169    *                from            to          area                                               
+   170    1550101     156010001     150010001    1.70966e-2                                               
+   171    *           fwd. loss     rev. loss       efvcahs                                               
+   172    1550102           0.0           0.0           100                                               
+   173    *           discharge       thermal                                                             
+   174    1550103           1.0          0.14                                                             
+   175    *                flow            vl            vv        unused                                 
+   176    1550201             0           0.0           0.0           0.0                                 
+   177    *                type                                                                           
+   178    1550300        trpvlv                                                                           
+   179    *                trip                                                                           
+   180    1550301           713                                                                           
+   181    *                                                                                               
+   182    *                name          type                                                             
+   183    1560000        "cont"       tmdpvol                                                             
+   184    *                area        length           vol                                               
+   185    1560101      92.90304        0.3048           0.0                                               
+   186    *            az-angle     inc-angle            dz                                               
+   187    1560102           0.0           0.0           0.0                                               
+   188    *             x-rough          x-hd         flags                                               
+   189    1560103           0.0           0.0             0                                               
+   190    *               cword                                                                           
+   191    1560200             4                                                                           
+   192    *                srch         press          temp         squal                                 
+   193    1560201           1.0    1.013529e5       305.372           1.0                                 
+   194    *                                                                                               
+   195    *}}}                                                                                            
+   196    ************************************************************************************************
+   197    *                                                                                               
+   198    *  Auxiliary Feedwater                                                                          
+   199    ************************************************************************************************
+   200    *                                                                                               
+   201    515   time         0 ge    timeof        750 0.000 l * AFW signal with delay (5 h)              
+   202    491   time         0 lt    timeof        515 18000.0   n * availability of the system           
+   203    758           515           and           491             n                                     
+   204    759           758            or           453             n                                     
+   205    *                                                                                               
+   206    *                name          type                                                             
+   207    1830000    "iauxfeed"       tmdpjun                                                             
+   208    *                from            to          area       jefvcahs                                
+   209    1830101     184010001     174010001    0.20512991                                               
+   210    *             control          trip         alpha           num                                 
+   211    1830200             1          759  cntrlvar           176                                      
+   212    *                srch           mfl           mfv        unused                                 
+   213    1830201          -1.0           0.0           0.0           0.0                                 
+   214    1830202           0.0          37.5    0.0           0.0                                        
+   215    1830203           0.1          37.5    0.0           0.0                                        
+   216    1830204           7.7          37.5    0.0           0.0                                        
+   217    1830205          8.15           0.0           0.0           0.0                                 
+   218    *                                                                                               
+   219    *                name          type                                                             
+   220    1840000    "iauxfeed"       tmdpvol                                                             
+   221    *                area        length           vol                                               
+   222    1840101     278.70912        0.3048           0.0                                               
+   223    *            az-angle     inc-angle            dz                                               
+   224    1840102           0.0           0.0           0.0                                               
+   225    *             x-rough          x-hd         flags                                               
+   226    1840103           0.0         15.24             0                                               
+   227    *               cword                                                                           
+   228    1840200             3                                                                           
+   229    *                srch         press          temp                                               
+   230    1840201           0.0    4.853909e6       310.928                                               
+   231    *                                                                                               
+   232    *                name          type                                                             
+   233    2830000    "bauxfeed"       tmdpjun                                                             
+   234    *                from            to          area       jefvcahs                                
+   235    2830101     284010001     274010001   0.068376638                                               
+   236    *             control          trip         alpha           num                                 
+   237    2830200             1          759   cntrlvar           276                                     
+   238    *                srch           mfl           mfv        unused                                 
+   239    2830201          -1.0           0.0           0.0           0.0                                 
+   240    2830202           0.0           12.5    0.0           0.0                                       
+   241    2830203           0.1           12.5    0.0           0.0                                       
+   242    2830204           7.7           12.5    0.0           0.0                                       
+   243    2830205          8.15           0.0           0.0           0.0                                 
+   244    *                                                                                               
+   245    *                name          type                                                             
+   246    2840000    "bauxfeed"       tmdpvol                                                             
+   247    *                area        length           vol                                               
+   248    2840101      92.90304        0.3048           0.0                                               
+   249    *            az-angle     inc-angle            dz                                               
+   250    2840102           0.0           0.0           0.0                                               
+   251    *             x-rough          x-hd         flags                                               
+   252    2840103           0.0         15.24             0                                               
+   253    *               cword                                                                           
+   254    2840200             3                                                                           
+   255    *                srch         press          temp                                               
+   256    2840201           0.0    4.853909e6       310.928                                               
    257    *                                                                                               
-   258    *}}}                                                                                            
-   259    ************************************************************************************************
-   260    *                                                                                               
-   261    *  Turbo driven Auxiliary Feedwater at constant rate                                            
-   262    ************************************************************************************************
-   263    *                                                                                               
-   264    490   time          0 ge    timeof         750   18.000  l * turbo driven AFW signal with delay 
-   265    492   voidf 171010000 ge      null           0    0.5    l * finish turbo driven AFW            
-   266    493   voidf 271010000 ge      null           0    0.5    l * finish turbo driven AFW            
-   267    755          750      and      -491                      n                                      
-   268    756          755      and      -492                      n                                      
-   269    757          755      and      -493                      n                                      
-   270    *                                                                                               
-   271    *                name          type                                                             
-   272    4730000    "iauxfeed"       tmdpjun                                                             
-   273    *                from            to          area       jefvcahs                                
-   274    4730101     474010001     174010001    0.20512991                                               
-   275    *             control          trip                                                             
-   276    4730200             1           756                                                             
-   277    *                srch           mfl           mfv        unused                                 
-   278    4730201          -1.0           0.0           0.0           0.0                                 
-   279    4730202           0.0          24.0           0.0           0.0                                 
-   280    *                                                                                               
-   281    *                name          type                                                             
-   282    4740000    "iauxfeed"       tmdpvol                                                             
-   283    *                area        length           vol                                               
-   284    4740101     278.70912        0.3048           0.0                                               
-   285    *            az-angle     inc-angle            dz                                               
-   286    4740102           0.0           0.0           0.0                                               
-   287    *             x-rough          x-hd         flags                                               
-   288    4740103           0.0         15.24             0                                               
-   289    *               cword                                                                           
-   290    4740200             3                                                                           
-   291    *                srch         press          temp                                               
-   292    4740201           0.0    4.853909e6       310.928                                               
-   293    *                                                                                               
-   294    *                name          type                                                             
-   295    4750000    "bauxfeed"       tmdpjun                                                             
-   296    *                from            to          area       jefvcahs                                
-   297    4750101     476010001     274010001   0.068376638                                               
-   298    *             control          trip                                                             
-   299    4750200             1           757                                                             
-   300    *                srch           mfl           mfv        unused                                 
-   301    4750201          -1.0           0.0           0.0           0.0                                 
-   302    4750202           0.0           8.0           0.0           0.0                                 
-   303    *                                                                                               
-   304    *                name          type                                                             
-   305    4760000    "bauxfeed"       tmdpvol                                                             
-   306    *                area        length           vol                                               
-   307    4760101      92.90304        0.3048           0.0                                               
-   308    *            az-angle     inc-angle            dz                                               
-   309    4760102           0.0           0.0           0.0                                               
-   310    *             x-rough          x-hd         flags                                               
-   311    4760103           0.0         15.24             0                                               
-   312    *               cword                                                                           
-   313    4760200             3                                                                           
-   314    *                srch         press          temp                                               
-   315    4760201           0.0    4.853909e6       310.928                                               
-   316    *                                                                                               
+   258    *                                                                                               
+   259    *}}}                                                                                            
+   260    ************************************************************************************************
+   261    *                                                                                               
+   262    *  Turbo driven Auxiliary Feedwater at constant rate                                            
+   263    ************************************************************************************************
+   264    *                                                                                               
+   265    490   time          0 ge    timeof         750   18.000  l * turbo driven AFW signal with delay 
+   266    492   voidf 171010000 ge      null           0    0.5    l * finish turbo driven AFW            
+   267    493   voidf 271010000 ge      null           0    0.5    l * finish turbo driven AFW            
+   268    755          750      and      -491                      n                                      
+   269    756          755      and      -492                      n                                      
+   270    757          755      and      -493                      n                                      
+   271    *                                                                                               
+   272    *                name          type                                                             
+   273    4730000    "iauxfeed"       tmdpjun                                                             
+   274    *                from            to          area       jefvcahs                                
+   275    4730101     474010001     174010001    0.20512991                                               
+   276    *             control          trip                                                             
+   277    4730200             1           756                                                             
+   278    *                srch           mfl           mfv        unused                                 
+   279    4730201          -1.0           0.0           0.0           0.0                                 
+   280    4730202           0.0          24.0           0.0           0.0                                 
+   281    *                                                                                               
+   282    *                name          type                                                             
+   283    4740000    "iauxfeed"       tmdpvol                                                             
+   284    *                area        length           vol                                               
+   285    4740101     278.70912        0.3048           0.0                                               
+   286    *            az-angle     inc-angle            dz                                               
+   287    4740102           0.0           0.0           0.0                                               
+   288    *             x-rough          x-hd         flags                                               
+   289    4740103           0.0         15.24             0                                               
+   290    *               cword                                                                           
+   291    4740200             3                                                                           
+   292    *                srch         press          temp                                               
+   293    4740201           0.0    4.853909e6       310.928                                               
+   294    *                                                                                               
+   295    *                name          type                                                             
+   296    4750000    "bauxfeed"       tmdpjun                                                             
+   297    *                from            to          area       jefvcahs                                
+   298    4750101     476010001     274010001   0.068376638                                               
+   299    *             control          trip                                                             
+   300    4750200             1           757                                                             
+   301    *                srch           mfl           mfv        unused                                 
+   302    4750201          -1.0           0.0           0.0           0.0                                 
+   303    4750202           0.0           8.0           0.0           0.0                                 
+   304    *                                                                                               
+   305    *                name          type                                                             
+   306    4760000    "bauxfeed"       tmdpvol                                                             
+   307    *                area        length           vol                                               
+   308    4760101      92.90304        0.3048           0.0                                               
+   309    *            az-angle     inc-angle            dz                                               
+   310    4760102           0.0           0.0           0.0                                               
+   311    *             x-rough          x-hd         flags                                               
+   312    4760103           0.0         15.24             0                                               
+   313    *               cword                                                                           
+   314    4760200             3                                                                           
+   315    *                srch         press          temp                                               
+   316    4760201           0.0    4.853909e6       310.928                                               
    317    *                                                                                               
-   318    *}}}                                                                                            
-   319    *  PZR heaters - off during SBO (no AC power)                                                   
-   320    *                                                                                               
-   321    * Override cntrlvar 833 from restart: force heater power to 0                                   
-   322    20583300   pzrheat   sum   1.0   0.0   1   0                                                    
-   323    *                   a0       scale    name      param                                           
-   324    20583301           0.0       0.0    time    0                                                   
-   325    ************************************************************************************************
-   326    *                                                                                               
-   327    *  Accumulators                                                                                 
-   328    ************************************************************************************************
-   329    *                                                                                               
-   330    591 acvliq       190 ge      null          0 0.4247527 n * Acc isolation signal                 
-   331    592 acvliq       290 ge      null          0 0.1415842 n * Acc isolation signal                 
-   332    *                                                                                               
-   333    *}}}                                                                                            
-   334    ************************************************************************************************
-   335    *                                                                                               
-   336    *  Volumetrical control system                                                                  
-   337    *                                                                                               
-   338    ************************************************************************************************
-   339    *                                                                                               
-   340    *                name          type                                                             
-   341    1610000       "pzrin"       tmdpjun                                                             
-   342    *                from            to          area       jefvcahs                                
-   343    1610101     162010002     112040001           0.0                                               
-   344    *             control          trip         alpha           num                                 
-   345    1610200             1           691      cntrlvar           150                                 
-   346    *                srch           mfl           mfv        unused                                 
-   347    1610201          -1.0           0.0           0.0           0.0                                 
-   348    1610202          8.15      11.07769           0.0           0.0                                 
-   349    1610203          8.55      5.718458           0.0           0.0                                 
-   350    1610204          8.70           0.0           0.0           0.0                                 
-   351    1610205          8.90           0.0           0.0           0.0                                 
-   352    1610206          9.05     -2.718458           0.0           0.0                                 
-   353    1610207          9.35      -6.07769           0.0           0.0                                 
-   354    *                                                                                               
-   355    *                name          type                                                             
-   356    1620000        "cont"       tmdpvol                                                             
-   357    *                area        length           vol                                               
-   358    1620101     2.7870912           0.0     0.8495054                                               
-   359    *            az-angle     inc-angle            dz                                               
-   360    1620102           0.0           0.0           0.0                                               
-   361    *             x-rough          x-hd         flags                                               
-   362    1620103           0.0           0.0             0                                               
-   363    *               cword                                                                           
-   364    1620200             3                                                                           
-   365    *                srch         press          temp                                               
-   366    1620201           0.0    1.586104e7       560.928                                               
-   367    *                                                                                               
-   368    *}}}                                                                                            
-   369    *                                                                                               
-   370    ************************************************************************************************
-   371    *                                                                                               
-   372    *   SG Relief valves                                                                            
-   373    *                                                                                               
-   374    ************************************************************************************************
-   375    *                                                                                               
-   376    422  time          0 gt      null          0 1.0e9  l * open SG intact loop relief valve at time
-   377    423  time          0 gt      null          0 1.0e9   l * open SG broken loop relief valve at tim
-   378    654           651           and           422             n                                     
-   379    655           653           and           422             n                                     
-   380    664           661           and           423             n                                     
-   381    665           663           and           423             n                                     
-   382    * then the trips would be like this:                                                            
-   383    551      cntrlvar 836 gt     cntrlvar 835    0.0 n * SG relief setpoint                         
-   384    552      cntrlvar 836 gt     cntrlvar 835    201076.0 n * SG relief setpoint *                  
-   385    *                                                                                               
-   386    651           551           and           652             n * SG relief                         
-   387    652           552            or           651             n * SG relief                         
-   388    653          -652            or          -551             n * SG relief                         
-   389    *                                                                                               
-   390    561      cntrlvar 837 gt     cntrlvar 835    0.0 n * SG relief setpoint                         
-   391    562      cntrlvar 837 gt     cntrlvar 835    201076.0 n * SG relief setpoint *                  
+   318    *                                                                                               
+   319    *}}}                                                                                            
+   320    *  PZR heaters - off during SBO (no AC power)                                                   
+   321    *                                                                                               
+   322    * Override cntrlvar 833 from restart: force heater power to 0                                   
+   323    20583300   pzrheat   sum   1.0   0.0   1   0                                                    
+   324    *                   a0       scale    name      param                                           
+   325    20583301           1.0       0.0    time    0                                                   
+   326    ************************************************************************************************
+   327    *                                                                                               
+   328    *  Accumulators                                                                                 
+   329    ************************************************************************************************
+   330    *                                                                                               
+   331    591 acvliq       190 ge      null          0 0.4247527 n * Acc isolation signal                 
+   332    592 acvliq       290 ge      null          0 0.1415842 n * Acc isolation signal                 
+   333    *                                                                                               
+   334    *}}}                                                                                            
+   335    ************************************************************************************************
+   336    *                                                                                               
+   337    *  Volumetrical control system                                                                  
+   338    *                                                                                               
+   339    ************************************************************************************************
+   340    *                                                                                               
+   341    *                name          type                                                             
+   342    1610000       "pzrin"       tmdpjun                                                             
+   343    *                from            to          area       jefvcahs                                
+   344    1610101     162010002     112040001           0.0                                               
+   345    *             control          trip         alpha           num                                 
+   346    1610200             1           691      cntrlvar           150                                 
+   347    *                srch           mfl           mfv        unused                                 
+   348    1610201          -1.0           0.0           0.0           0.0                                 
+   349    1610202          8.15      11.07769           0.0           0.0                                 
+   350    1610203          8.55      5.718458           0.0           0.0                                 
+   351    1610204          8.70           0.0           0.0           0.0                                 
+   352    1610205          8.90           0.0           0.0           0.0                                 
+   353    1610206          9.05     -2.718458           0.0           0.0                                 
+   354    1610207          9.35      -6.07769           0.0           0.0                                 
+   355    *                                                                                               
+   356    *                name          type                                                             
+   357    1620000        "cont"       tmdpvol                                                             
+   358    *                area        length           vol                                               
+   359    1620101     2.7870912           0.0     0.8495054                                               
+   360    *            az-angle     inc-angle            dz                                               
+   361    1620102           0.0           0.0           0.0                                               
+   362    *             x-rough          x-hd         flags                                               
+   363    1620103           0.0           0.0             0                                               
+   364    *               cword                                                                           
+   365    1620200             3                                                                           
+   366    *                srch         press          temp                                               
+   367    1620201           0.0    1.586104e7       560.928                                               
+   368    *                                                                                               
+   369    *}}}                                                                                            
+   370    *                                                                                               
+   371    ************************************************************************************************
+   372    *                                                                                               
+   373    *   SG Relief valves                                                                            
+   374    *                                                                                               
+   375    ************************************************************************************************
+   376    *                                                                                               
+   377    *422  time          0 gt      null          0 1.0e9  l * open SG intact loop relief valve at tim
+   378    *423  time          0 gt      null          0 1.0e9   l * open SG broken loop relief valve at ti
+   379    422   time          0 ge    timeof         531      0.0  l   * start SG cooldown intact loop    
+   380    423   time          0 ge    timeof         531      0.0  l   * start SG cooldown broken loop    
+   381    654           651           and           422             n                                     
+   382    655           653           and           422             n                                     
+   383    664           661           and           423             n                                     
+   384    665           663           and           423             n                                     
+   385    * then the trips would be like this:                                                            
+   386    551      cntrlvar 836 gt     cntrlvar 835    0.0 n * SG relief setpoint                         
+   387    552      cntrlvar 836 gt     cntrlvar 835    201076.0 n * SG relief setpoint *                  
+   388    *                                                                                               
+   389    651           551           and           652             n * SG relief                         
+   390    652           552            or           651             n * SG relief                         
+   391    653          -652            or          -551             n * SG relief                         
    392    *                                                                                               
-   393    661           561           and           662             n * SG relief                         
-   394    662           562            or           661             n * SG relief                         
-   395    663          -662            or          -561             n * SG relief                         
-   396                                                                                                    
-   397                                                                                                    
-   398    20583500   bllpi   function 1.0  0.0 4                                                          
-   399    20583501    time  0        452                                                                  
-   400    *                                                                                               
-   401    20200400    power      TTT                                                                      
-   402    20200401  -1.0         7584233.0                                                                
-   403    20200402   300.0       7092840.0                                                                
-   404    20200403   600.0       6626160.0                                                                
-   405    20200404   900.0       6183310.0                                                                
-   406    20200405   1200.0      5763420.0                                                                
-   407    20200406   1500.0      5365660.0                                                                
-   408    20200407   1800.0      4989220.0                                                                
-   409    20200408   2100.0      4633290.0                                                                
-   410    20200409   2400.0      4297100.0                                                                
-   411    20200410   2700.0      3979900.0                                                                
-   412    20200411   3000.0      3680950.0                                                                
-   413    20200412   3300.0      3399510.0                                                                
-   414    20200413   3600.0      3134890.0                                                                
-   415    20200414   3900.0      2886390.0                                                                
-   416    20200415   4200.0      2653340.0                                                                
-   417    20200416   4500.0      2435060.0                                                                
-   418    20200417   4800.0      2230920.0                                                                
-   419    20200418   5100.0      2040280.0                                                                
-   420    20200419   5400.0      1862510.0                                                                
-   421    20200420   5700.0      1697010.0                                                                
-   422    20200422   6000.0      1543190.0                                                                
-   423    20200425   6600.0      1500000.0                                                                
-   424                                                                                                    
-   425                                                                                                    
-   426                                                                                                    
-   427    * Finally you will encounter an error because RELAP does not want to compare a                  
-   428    * pressure with the table (which RELAP understands as power). To bypass this                    
-   429    * we will put p-180010000 into a controlvar like this:                                          
-   430    *                                                                                               
-   431    20583600 setpoint  sum 1.0  0.0     1     0                                                     
-   432    *                   a0         scale     name         param                                     
-   433    20583601           0.0        1.0      p     180010000                                          
-   434                                                                                                    
-   435    20583700 setpointb  sum 1.0  0.0     1     0                                                    
-   436    *                   a0       scale    name      param                                           
-   437    20583701           0.0        1.0      p     280010000                                          
-   438                                                                                                    
-   439                                                                                                    
-   440                                                                                                    
-   441    *                name          type                                                             
-   442    1870000    "sgi-porv"         valve                                                             
-   443    *                from            to          area                                               
-   444    1870101     180010002     189010001   6.967728e-3                                               
-   445    *           fwd. loss     rev. loss       efvcahs                                               
-   446    1870102           0.0           0.0           100                                               
-   447    *           discharge       thermal                                                             
-   448    1870103           1.0          0.14                                                             
-   449    *                flow            vl            vv        unused                                 
-   450    1870201             0           0.0           0.0           0.0                                 
-   451    *                type                                                                           
-   452    1870300        mtrvlv                                                                           
-   453    *               topen        tclose         vrate          ipos                                 
-   454    1870301           654           655         0.556           0.0                                 
-   455    *                                                                                               
-   456    *                name          type                                                             
-   457    2870000    "sgb-porv"         valve                                                             
-   458    *                from            to          area                                               
-   459    2870101     280010002     289010001   2.32257e-3                                                
-   460    *           fwd. loss     rev. loss       efvcahs                                               
-   461    2870102           0.0           0.0           100                                               
-   462    *           discharge       thermal                                                             
-   463    2870103           1.0          0.14                                                             
-   464    *                flow            vl            vv        unused                                 
-   465    2870201             0           0.0           0.0           0.0                                 
-   466    *                type                                                                           
-   467    2870300        mtrvlv                                                                           
-   468    *               topen        tclose         vrate          ipos                                 
-   469    2870301           664           665         0.556           0.0                                 
-   470    *                                                                                               
-   471    *}}}                                                                                            
-   472    ************************************************************************************************
+   393    561      cntrlvar 837 gt     cntrlvar 835    0.0 n * SG relief setpoint                         
+   394    562      cntrlvar 837 gt     cntrlvar 835    201076.0 n * SG relief setpoint *                  
+   395    *                                                                                               
+   396    661           561           and           662             n * SG relief                         
+   397    662           562            or           661             n * SG relief                         
+   398    663          -662            or          -561             n * SG relief                         
+   399                                                                                                    
+   400                                                                                                    
+   401    20583500   bllpi   function 1.0  7584233.0 531                                                  
+   402    20583501    time  531        004                                                                
+   403    *                                                                                               
+   404    20200400    power      531                                                                      
+   405    20200401  -1.0         7584233.0                                                                
+   406    20200402   300.0       7092840.0                                                                
+   407    20200403   600.0       6626160.0                                                                
+   408    20200404   900.0       6183310.0                                                                
+   409    20200405   1200.0      5763420.0                                                                
+   410    20200406   1500.0      5365660.0                                                                
+   411    20200407   1800.0      4989220.0                                                                
+   412    20200408   2100.0      4633290.0                                                                
+   413    20200409   2400.0      4297100.0                                                                
+   414    20200410   2700.0      3979900.0                                                                
+   415    20200411   3000.0      3680950.0                                                                
+   416    20200412   3300.0      3399510.0                                                                
+   417    20200413   3600.0      3134890.0                                                                
+   418    20200414   3900.0      2886390.0                                                                
+   419    20200415   4200.0      2653340.0                                                                
+   420    20200416   4500.0      2435060.0                                                                
+   421    20200417   4800.0      2230920.0                                                                
+   422    20200418   5100.0      2040280.0                                                                
+   423    20200419   5400.0      1862510.0                                                                
+   424    20200420   5700.0      1697010.0                                                                
+   425    20200422   6000.0      1543190.0                                                                
+   426    20200425   6600.0      1500000.0                                                                
+   427                                                                                                    
+   428                                                                                                    
+   429                                                                                                    
+   430    * Finally you will encounter an error because RELAP does not want to compare a                  
+   431    * pressure with the table (which RELAP understands as power). To bypass this                    
+   432    * we will put p-180010000 into a controlvar like this:                                          
+   433    *                                                                                               
+   434    20583600 setpoint  sum 1.0  0.0     1     0                                                     
+   435    *                   a0         scale     name         param                                     
+   436    20583601           0.0        1.0      p     180010000                                          
+   437                                                                                                    
+   438    20583700 setpointb  sum 1.0  0.0     1     0                                                    
+   439    *                   a0       scale    name      param                                           
+   440    20583701           0.0        1.0      p     280010000                                          
+   441                                                                                                    
+   442                                                                                                    
+   443                                                                                                    
+   444    *                name          type                                                             
+   445    1870000    "sgi-porv"         valve                                                             
+   446    *                from            to          area                                               
+   447    1870101     180010002     189010001   6.967728e-3                                               
+   448    *           fwd. loss     rev. loss       efvcahs                                               
+   449    1870102           0.0           0.0           100                                               
+   450    *           discharge       thermal                                                             
+   451    1870103           1.0          0.14                                                             
+   452    *                flow            vl            vv        unused                                 
+   453    1870201             0           0.0           0.0           0.0                                 
+   454    *                type                                                                           
+   455    1870300        mtrvlv                                                                           
+   456    *               topen        tclose         vrate          ipos                                 
+   457    1870301           654           655         0.556           0.0                                 
+   458    *                                                                                               
+   459    *                name          type                                                             
+   460    2870000    "sgb-porv"         valve                                                             
+   461    *                from            to          area                                               
+   462    2870101     280010002     289010001   2.32257e-3                                                
+   463    *           fwd. loss     rev. loss       efvcahs                                               
+   464    2870102           0.0           0.0           100                                               
+   465    *           discharge       thermal                                                             
+   466    2870103           1.0          0.14                                                             
+   467    *                flow            vl            vv        unused                                 
+   468    2870201             0           0.0           0.0           0.0                                 
+   469    *                type                                                                           
+   470    2870300        mtrvlv                                                                           
+   471    *               topen        tclose         vrate          ipos                                 
+   472    2870301           664           665         0.556           0.0                                 
    473    *                                                                                               
-   474    *  Pump seal leak                                                                               
-   475    * 1.0e7 1                                                                                       
-   476    ************************************************************************************************
-   477    *                                                                                               
-   478    454   time         0 gt      timeof       452     600.0             n * start of leaking time af
-   479    458   time         0 lt      null          0      1.0e9           n * end of RCP leak           
-   480    770           458           and           454                     n                             
-   481    *                                                                                               
-   482    *                name          type                                                             
-   483    5020000     "contain"       tmdpvol                                                             
-   484    *                area        length           vol                                               
-   485    5020101        1.54e4           0.0        2.98e7                                               
-   486    *            az-angle     inc-angle            dz                                               
-   487    5020102           0.0          90.0         100.0                                               
-   488    *             x-rough          x-hd         flags                                               
-   489    5020103           0.0           0.0            10                                               
-   490    *               cword                                                                           
-   491    5020200             2                                                                           
-   492    *                srch         press         squal                                               
-   493    5020201           0.0    1.013529e5           1.0                                               
-   494    *                                                                                               
-   495    *                name          type                                                             
-   496    5070000    "breakvlv"         valve                                                             
-   497    *                from            to          area                                               
-   498    5070101     210010006     502010001         1.e-5                                               
-   499    *           fwd. loss     rev. loss       efvcahs                                               
-   500    5070102           0.0           0.0       1010100                                               
-   501    *           discharge       thermal                                                             
-   502    5070103           1.0          0.14                                                             
-   503    *                flow           mfl           mfv        unused                                 
-   504    5070201             1           0.0           0.0           0.0                                 
-   505    *                type                                                                           
-   506    5070300        trpvlv                                                                           
-   507    *                trip                                                                           
-   508    5070301           770                                                                           
-   509    *                                                                                               
-   510    *                name          type                                                             
-   511    5010000     "contain"       tmdpvol                                                             
-   512    *                area        length           vol                                               
-   513    5010101        1.54e4           0.0        2.98e7                                               
-   514    *            az-angle     inc-angle            dz                                               
-   515    5010102           0.0          90.0         100.0                                               
-   516    *             x-rough          x-hd         flags                                               
-   517    5010103           0.0           0.0            10                                               
-   518    *               cword                                                                           
-   519    5010200             2                                                                           
-   520    *                srch         press         squal                                               
-   521    5010201           0.0    1.013529e5           1.0                                               
-   522    *                                                                                               
-   523    *                name          type                                                             
-   524    5060000    "breakvlv"         valve                                                             
-   525    *                from            to          area                                               
-   526    5060101     114010006     501010001        3.0e-5                                               
-   527    *           fwd. loss     rev. loss       efvcahs                                               
-   528    5060102           0.0           0.0       1010100                                               
-   529    *           discharge       thermal                                                             
-   530    5060103           1.0          0.14                                                             
-   531    *                flow           mfl           mfv        unused                                 
-   532    5060201             1           0.0           0.0           0.0                                 
-   533    *                type                                                                           
-   534    5060300        trpvlv                                                                           
-   535    *                trip                                                                           
-   536    5060301           770                                                                           
-   537    * EXTRA LEAK                                                                                    
-   538    *                name          type                                                             
-   539    5030000     "contain"       tmdpvol                                                             
-   540    *                area        length           vol                                               
-   541    5030101        1.54e4           0.0        2.98e7                                               
-   542    *            az-angle     inc-angle            dz                                               
-   543    5030102           0.0          90.0         100.0                                               
-   544    *             x-rough          x-hd         flags                                               
-   545    5030103           0.0           0.0            10                                               
-   546    *               cword                                                                           
-   547    5030200             2                                                                           
-   548    *                srch         press         squal                                               
-   549    5030201           0.0    1.013529e5           1.0                                               
-   550    *                                                                                               
-   551    *                name          type                                                             
-   552    5080000    "breakvlv"         valve                                                             
-   553    *                from            to          area                                               
-   554    5080101     114010006     503010001         9.e-5                                               
-   555    *           fwd. loss     rev. loss       efvcahs                                               
-   556    5080102           0.0           0.0       1010100                                               
-   557    *           discharge       thermal                                                             
-   558    5080103           1.0          0.14                                                             
-   559    *                flow           mfl           mfv        unused                                 
-   560    5080201             1           0.0           0.0           0.0                                 
-   561    *                type                                                                           
-   562    5080300        trpvlv                                                                           
-   563    *                trip                                                                           
-   564    5080301           771                                                                           
-   565    *                                                                                               
-   566    *                name          type                                                             
-   567    5040000     "contain"       tmdpvol                                                             
-   568    *                area        length           vol                                               
-   569    5040101        1.54e4           0.0        2.98e7                                               
-   570    *            az-angle     inc-angle            dz                                               
-   571    5040102           0.0          90.0         100.0                                               
-   572    *             x-rough          x-hd         flags                                               
-   573    5040103           0.0           0.0            10                                               
-   574    *               cword                                                                           
-   575    5040200             2                                                                           
-   576    *                srch         press         squal                                               
-   577    5040201           0.0    1.013529e5           1.0                                               
-   578    *                                                                                               
-   579    *                name          type                                                             
-   580    5090000    "breakvlv"         valve                                                             
-   581    *                from            to          area                                               
-   582    5090101     210010006     504010001        3.0e-5                                               
-   583    *           fwd. loss     rev. loss       efvcahs                                               
-   584    5090102           0.0           0.0       1010100                                               
-   585    *           discharge       thermal                                                             
-   586    5090103           1.0          0.14                                                             
-   587    *                flow           mfl           mfv        unused                                 
-   588    5090201             1           0.0           0.0           0.0                                 
-   589    *                type                                                                           
-   590    5090300        trpvlv                                                                           
-   591    *                trip                                                                           
-   592    5090301           772                                                                           
-   593                                                                                                    
-   594                                                                                                    
-   595                                                                                                    
-   596    *}}}                                                                                            
-   597    ************************************************************************************************
-   598    *                                                                                               
-   599    *  HPIS                                                                                         
+   474    *}}}                                                                                            
+   475    ************************************************************************************************
+   476    *                                                                                               
+   477    *  Pump seal leak                                                                               
+   478    * 1.0e7 1                                                                                       
+   479    ************************************************************************************************
+   480    *                                                                                               
+   481    454   time         0 gt      timeof       452     600.0             n * start of leaking time af
+   482    458   time         0 lt      null          0      1.0e9           n * end of RCP leak           
+   483    770           458           and           454                     n                             
+   484    *                                                                                               
+   485    *                name          type                                                             
+   486    5020000     "contain"       tmdpvol                                                             
+   487    *                area        length           vol                                               
+   488    5020101        1.54e4           0.0        2.98e7                                               
+   489    *            az-angle     inc-angle            dz                                               
+   490    5020102           0.0          90.0         100.0                                               
+   491    *             x-rough          x-hd         flags                                               
+   492    5020103           0.0           0.0            10                                               
+   493    *               cword                                                                           
+   494    5020200             2                                                                           
+   495    *                srch         press         squal                                               
+   496    5020201           0.0    1.013529e5           1.0                                               
+   497    *                                                                                               
+   498    *                name          type                                                             
+   499    5070000    "breakvlv"         valve                                                             
+   500    *                from            to          area                                               
+   501    5070101     210010006     502010001         1.e-5                                               
+   502    *           fwd. loss     rev. loss       efvcahs                                               
+   503    5070102           0.0           0.0       1010100                                               
+   504    *           discharge       thermal                                                             
+   505    5070103           1.0          0.14                                                             
+   506    *                flow           mfl           mfv        unused                                 
+   507    5070201             1           0.0           0.0           0.0                                 
+   508    *                type                                                                           
+   509    5070300        trpvlv                                                                           
+   510    *                trip                                                                           
+   511    5070301           770                                                                           
+   512    *                                                                                               
+   513    *                name          type                                                             
+   514    5010000     "contain"       tmdpvol                                                             
+   515    *                area        length           vol                                               
+   516    5010101        1.54e4           0.0        2.98e7                                               
+   517    *            az-angle     inc-angle            dz                                               
+   518    5010102           0.0          90.0         100.0                                               
+   519    *             x-rough          x-hd         flags                                               
+   520    5010103           0.0           0.0            10                                               
+   521    *               cword                                                                           
+   522    5010200             2                                                                           
+   523    *                srch         press         squal                                               
+   524    5010201           0.0    1.013529e5           1.0                                               
+   525    *                                                                                               
+   526    *                name          type                                                             
+   527    5060000    "breakvlv"         valve                                                             
+   528    *                from            to          area                                               
+   529    5060101     114010006     501010001        3.0e-5                                               
+   530    *           fwd. loss     rev. loss       efvcahs                                               
+   531    5060102           0.0           0.0       1010100                                               
+   532    *           discharge       thermal                                                             
+   533    5060103           1.0          0.14                                                             
+   534    *                flow           mfl           mfv        unused                                 
+   535    5060201             1           0.0           0.0           0.0                                 
+   536    *                type                                                                           
+   537    5060300        trpvlv                                                                           
+   538    *                trip                                                                           
+   539    5060301           770                                                                           
+   540    * EXTRA LEAK                                                                                    
+   541    *                name          type                                                             
+   542    5030000     "contain"       tmdpvol                                                             
+   543    *                area        length           vol                                               
+   544    5030101        1.54e4           0.0        2.98e7                                               
+   545    *            az-angle     inc-angle            dz                                               
+   546    5030102           0.0          90.0         100.0                                               
+   547    *             x-rough          x-hd         flags                                               
+   548    5030103           0.0           0.0            10                                               
+   549    *               cword                                                                           
+   550    5030200             2                                                                           
+   551    *                srch         press         squal                                               
+   552    5030201           0.0    1.013529e5           1.0                                               
+   553    *                                                                                               
+   554    *                name          type                                                             
+   555    5080000    "breakvlv"         valve                                                             
+   556    *                from            to          area                                               
+   557    5080101     114010006     503010001         9.e-5                                               
+   558    *           fwd. loss     rev. loss       efvcahs                                               
+   559    5080102           0.0           0.0       1010100                                               
+   560    *           discharge       thermal                                                             
+   561    5080103           1.0          0.14                                                             
+   562    *                flow           mfl           mfv        unused                                 
+   563    5080201             1           0.0           0.0           0.0                                 
+   564    *                type                                                                           
+   565    5080300        trpvlv                                                                           
+   566    *                trip                                                                           
+   567    5080301           771                                                                           
+   568    *                                                                                               
+   569    *                name          type                                                             
+   570    5040000     "contain"       tmdpvol                                                             
+   571    *                area        length           vol                                               
+   572    5040101        1.54e4           0.0        2.98e7                                               
+   573    *            az-angle     inc-angle            dz                                               
+   574    5040102           0.0          90.0         100.0                                               
+   575    *             x-rough          x-hd         flags                                               
+   576    5040103           0.0           0.0            10                                               
+   577    *               cword                                                                           
+   578    5040200             2                                                                           
+   579    *                srch         press         squal                                               
+   580    5040201           0.0    1.013529e5           1.0                                               
+   581    *                                                                                               
+   582    *                name          type                                                             
+   583    5090000    "breakvlv"         valve                                                             
+   584    *                from            to          area                                               
+   585    5090101     210010006     504010001        3.0e-5                                               
+   586    *           fwd. loss     rev. loss       efvcahs                                               
+   587    5090102           0.0           0.0       1010100                                               
+   588    *           discharge       thermal                                                             
+   589    5090103           1.0          0.14                                                             
+   590    *                flow           mfl           mfv        unused                                 
+   591    5090201             1           0.0           0.0           0.0                                 
+   592    *                type                                                                           
+   593    5090300        trpvlv                                                                           
+   594    *                trip                                                                           
+   595    5090301           772                                                                           
+   596                                                                                                    
+   597                                                                                                    
+   598                                                                                                    
+   599    *}}}                                                                                            
    600    ************************************************************************************************
-   601    503      p 150010000 le      null          0 1.261741e7 l * HPSI                                
-   602    *                name          type                                                             
-   603    1970000       "ihpis"       tmdpvol                                                             
-   604    *                area        length           vol                                               
-   605    1970101           1.0           0.0          30.0                                               
-   606    *            az-angle     inc-angle            dz                                               
-   607    1970102          90.0           0.0           0.0                                               
-   608    *             x-rough          x-hd         flags                                               
-   609    1970103           0.0         0.167             0                                               
-   610    *               cword                                                                           
-   611    1970200             3                                                                           
-   612    *                srch         press          temp                                               
-   613    1970201           0.0         2.0e6       310.928                                               
-   614    *                                                                                               
-   615    *                name          type                                                             
-   616    1980000       "ihpis"       tmdpjun                                                             
-   617    *                from            to          area       jefvcahs                                
-   618    1980101     197010002     116010001        0.0654             0                                 
-   619    *             control          trip         alpha           num                                 
-   620    1980200             1           780             p     116010000                                 
-   621    *                srch           mfl           mfv      unused                                   
-   622    1980201          -1.0           0.0           0.0         0.0                                   
-   623    1980202       1.00d+5          16.0           0.0         0.0                                   
-   624    1980208       4.00d+6         11.52           0.0         0.0                                   
-   625    1980214       1.00d+7          6.27           0.0         0.0                                   
-   626    1980215       1.10d+7         5.248           0.0         0.0                                   
-   627    1980217       1.23d+7         4.016           0.0         0.0                                   
-   628    1980218       1.23d+7           0.0           0.0         0.0                                   
-   629    *                                                                                               
-   630    *                name          type                                                             
-   631    2970000       "bhpis"       tmdpvol                                                             
-   632    *                area        length           vol                                               
-   633    2970101           1.0           0.0          30.0                                               
-   634    *            az-angle     inc-angle            dz                                               
-   635    2970102          90.0           0.0           0.0                                               
-   636    *             x-rough          x-hd         flags                                               
-   637    2970103           0.0         0.167             0                                               
-   638    *               cword                                                                           
-   639    2970200             3                                                                           
-   640    *                srch         press          temp                                               
-   641    2970201           0.0         2.0e6       310.928                                               
-   642    *                                                                                               
-   643    *                name          type                                                             
-   644    2980000       "bhpis"       tmdpjun                                                             
-   645    *                from            to          area       jefvcahs                                
-   646    2980101     297010002     212010001        0.0654             0                                 
-   647    *             control          trip         alpha           num                                 
-   648    2980200             1           780       p     212010000                                       
-   649    *                srch           mfl           mfv      unused                                   
-   650    2980201          -1.0           0.0           0.0         0.0                                   
-   651    2980202       1.00d+5          48.0           0.0         0.0                                   
-   652    2980208       4.00d+6         33.52           0.0         0.0                                   
-   653    2980214       1.00d+7         18.27           0.0         0.0                                   
-   654    2980215       1.10d+7        15.248           0.0         0.0                                   
-   655    2980217       1.23d+7        12.016           0.0         0.0                                   
-   656    2980218       1.23d+7           0.0           0.0         0.0                                   
-   657    *                                                                                               
-   658    *}}}                                                                                            
-   659    ************************************************************************************************
+   601    *                                                                                               
+   602    *  HPIS                                                                                         
+   603    ************************************************************************************************
+   604    503      p 150010000 le      null          0 1.261741e7 l * HPSI                                
+   605    *                name          type                                                             
+   606    1970000       "ihpis"       tmdpvol                                                             
+   607    *                area        length           vol                                               
+   608    1970101           1.0           0.0          30.0                                               
+   609    *            az-angle     inc-angle            dz                                               
+   610    1970102          90.0           0.0           0.0                                               
+   611    *             x-rough          x-hd         flags                                               
+   612    1970103           0.0         0.167             0                                               
+   613    *               cword                                                                           
+   614    1970200             3                                                                           
+   615    *                srch         press          temp                                               
+   616    1970201           0.0         2.0e6       310.928                                               
+   617    *                                                                                               
+   618    *                name          type                                                             
+   619    1980000       "ihpis"       tmdpjun                                                             
+   620    *                from            to          area       jefvcahs                                
+   621    1980101     197010002     116010001        0.0654             0                                 
+   622    *             control          trip         alpha           num                                 
+   623    1980200             1           780             p     116010000                                 
+   624    *                srch           mfl           mfv      unused                                   
+   625    1980201          -1.0           0.0           0.0         0.0                                   
+   626    1980202       1.00d+5          16.0           0.0         0.0                                   
+   627    1980208       4.00d+6         11.52           0.0         0.0                                   
+   628    1980214       1.00d+7          6.27           0.0         0.0                                   
+   629    1980215       1.10d+7         5.248           0.0         0.0                                   
+   630    1980217       1.23d+7         4.016           0.0         0.0                                   
+   631    1980218       1.23d+7           0.0           0.0         0.0                                   
+   632    *                                                                                               
+   633    *                name          type                                                             
+   634    2970000       "bhpis"       tmdpvol                                                             
+   635    *                area        length           vol                                               
+   636    2970101           1.0           0.0          30.0                                               
+   637    *            az-angle     inc-angle            dz                                               
+   638    2970102          90.0           0.0           0.0                                               
+   639    *             x-rough          x-hd         flags                                               
+   640    2970103           0.0         0.167             0                                               
+   641    *               cword                                                                           
+   642    2970200             3                                                                           
+   643    *                srch         press          temp                                               
+   644    2970201           0.0         2.0e6       310.928                                               
+   645    *                                                                                               
+   646    *                name          type                                                             
+   647    2980000       "bhpis"       tmdpjun                                                             
+   648    *                from            to          area       jefvcahs                                
+   649    2980101     297010002     212010001        0.0654             0                                 
+   650    *             control          trip         alpha           num                                 
+   651    2980200             1           780       p     212010000                                       
+   652    *                srch           mfl           mfv      unused                                   
+   653    2980201          -1.0           0.0           0.0         0.0                                   
+   654    2980202       1.00d+5          48.0           0.0         0.0                                   
+   655    2980208       4.00d+6         33.52           0.0         0.0                                   
+   656    2980214       1.00d+7         18.27           0.0         0.0                                   
+   657    2980215       1.10d+7        15.248           0.0         0.0                                   
+   658    2980217       1.23d+7        12.016           0.0         0.0                                   
+   659    2980218       1.23d+7           0.0           0.0         0.0                                   
    660    *                                                                                               
-   661    *  LPIS                                                                                         
-   662    *                                                                                               
-   663    ************************************************************************************************
-   664    *                                                                                               
-   665    520      p 345010000 lt      null          0    1.42e+6 l * LPSI                                
-   666    *                name          type                                                             
-   667    1950000       "ilpis"       tmdpvol                                                             
-   668    *                area        length           vol                                               
-   669    1950101           1.0           0.0          30.0                                               
-   670    *            az-angle     inc-angle            dz                                               
-   671    1950102          90.0           0.0           0.0                                               
-   672    *             x-rough          x-hd         flags                                               
-   673    1950103           0.0         0.167             0                                               
-   674    *               cword                                                                           
-   675    1950200             3                                                                           
-   676    *                srch         press          temp                                               
-   677    1950201           0.0         2.0e6       310.928                                               
-   678    *                                                                                               
-   679    *                name          type                                                             
-   680    1960000       "ilpis"       tmdpjun                                                             
-   681    *                from            to          area       jefvcahs                                
-   682    1960101     195010002     116010001        0.0654             0                                 
-   683    *             control          trip         alpha           num                                 
-   684    1960200             1           780             p     116010000                                 
-   685    *                srch           mfl           mfv        unused                                 
-   686    1960201          -1.0           0.0           0.0           0.0                                 
-   687    1960202           0.0           0.0           0.0           0.0                                 
-   688    1960203        1.01e5         122.4           0.0           0.0                                 
-   689    1960204        1.01e6         122.4           0.0           0.0                                 
-   690    1960205        1.42e6           0.0           0.0           0.0                                 
-   691    *                                                                                               
-   692    *                name          type                                                             
-   693    2950000       "blpis"       tmdpvol                                                             
-   694    *                area        length           vol                                               
-   695    2950101           1.0           0.0          30.0                                               
-   696    *            az-angle     inc-angle            dz                                               
-   697    2950102          90.0           0.0           0.0                                               
-   698    *             x-rough          x-hd         flags                                               
-   699    2950103           0.0         0.167             0                                               
-   700    *               cword                                                                           
-   701    2950200             3                                                                           
-   702    *                srch         press          temp                                               
-   703    2950201           0.0         2.0e6       310.928                                               
-   704    *                                                                                               
-   705    *                name          type                                                             
-   706    2960000       "blpis"       tmdpjun                                                             
-   707    *                from            to          area       jefvcahs                                
-   708    2960101     295010002     212010001        0.0654             0                                 
-   709    *             control          trip         alpha           num                                 
-   710    2960200             1           780             p     212010000                                 
-   711    *                srch           mfl           mfv        unused                                 
-   712    2960201          -1.0           0.0           0.0           0.0                                 
-   713    2960202           0.0           0.0           0.0           0.0                                 
-   714    2960203        1.01e5          40.8           0.0           0.0                                 
-   715    2960204        1.01e6          40.8           0.0           0.0                                 
-   716    2960205        1.42e6           0.0           0.0           0.0                                 
-   717    *                                                                                               
-   718    *                                                                                               
-   719    *}}}                                                                                            
-   720    .                                                                                               
+   661    *}}}                                                                                            
+   662    ************************************************************************************************
+   663    *                                                                                               
+   664    *  LPIS                                                                                         
+   665    *                                                                                               
+   666    ************************************************************************************************
+   667    *                                                                                               
+   668    520      p 345010000 lt      null          0    1.42e+6 l * LPSI                                
+   669    *                name          type                                                             
+   670    1950000       "ilpis"       tmdpvol                                                             
+   671    *                area        length           vol                                               
+   672    1950101           1.0           0.0          30.0                                               
+   673    *            az-angle     inc-angle            dz                                               
+   674    1950102          90.0           0.0           0.0                                               
+   675    *             x-rough          x-hd         flags                                               
+   676    1950103           0.0         0.167             0                                               
+   677    *               cword                                                                           
+   678    1950200             3                                                                           
+   679    *                srch         press          temp                                               
+   680    1950201           0.0         2.0e6       310.928                                               
+   681    *                                                                                               
+   682    *                name          type                                                             
+   683    1960000       "ilpis"       tmdpjun                                                             
+   684    *                from            to          area       jefvcahs                                
+   685    1960101     195010002     116010001        0.0654             0                                 
+   686    *             control          trip         alpha           num                                 
+   687    1960200             1           780             p     116010000                                 
+   688    *                srch           mfl           mfv        unused                                 
+   689    1960201          -1.0           0.0           0.0           0.0                                 
+   690    1960202           0.0           0.0           0.0           0.0                                 
+   691    1960203        1.01e5         122.4           0.0           0.0                                 
+   692    1960204        1.01e6         122.4           0.0           0.0                                 
+   693    1960205        1.42e6           0.0           0.0           0.0                                 
+   694    *                                                                                               
+   695    *                name          type                                                             
+   696    2950000       "blpis"       tmdpvol                                                             
+   697    *                area        length           vol                                               
+   698    2950101           1.0           0.0          30.0                                               
+   699    *            az-angle     inc-angle            dz                                               
+   700    2950102          90.0           0.0           0.0                                               
+   701    *             x-rough          x-hd         flags                                               
+   702    2950103           0.0         0.167             0                                               
+   703    *               cword                                                                           
+   704    2950200             3                                                                           
+   705    *                srch         press          temp                                               
+   706    2950201           0.0         2.0e6       310.928                                               
+   707    *                                                                                               
+   708    *                name          type                                                             
+   709    2960000       "blpis"       tmdpjun                                                             
+   710    *                from            to          area       jefvcahs                                
+   711    2960101     295010002     212010001        0.0654             0                                 
+   712    *             control          trip         alpha           num                                 
+   713    2960200             1           780             p     212010000                                 
+   714    *                srch           mfl           mfv        unused                                 
+   715    2960201          -1.0           0.0           0.0           0.0                                 
+   716    2960202           0.0           0.0           0.0           0.0                                 
+   717    2960203        1.01e5          40.8           0.0           0.0                                 
+   718    2960204        1.01e6          40.8           0.0           0.0                                 
+   719    2960205        1.42e6           0.0           0.0           0.0                                 
+   720    *                                                                                               
+   721    *                                                                                               
+   722    *}}}                                                                                            
+   723    .                                                                                               
 0    RBIC/3.3iy          RELAP5 Based Integrated Code                                            
 0 Copyright (C) 2001-2010  Information Systems Laboratories, Inc.
-   SBO_exercise                                                                   02-Apr-26    12:57:11      
+   SBO_exercise                                                                   02-Apr-26    17:34:58      
 1    RBIC/3.3iy          RELAP5 Based Integrated Code                                            
 1 Copyright (C) 2001-2010  Information Systems Laboratories, Inc.
-   SBO_exercise                                                                   02-Apr-26    12:57:11      
+   SBO_exercise                                                                   02-Apr-26    17:34:58      
 0Processing type is restart 
 +                                       problem option is transnt 
 0inp-chk, run option is run.    
@@ -839,7 +842,6 @@
      end time         min.time step    max.time step  option   minor edit   major edit     restart
      (sec)            (sec)            (sec)                    frequency    frequency    frequency
      2.000000E+03     1.000000E-07     1.000000E-01        3           50        50000        50000
-0******** too many numbers on cards       600 through       600
 0Gravitational constant is   9.80665    
 0                                         Edit of component input data
                  (quantities printed are input values, set by default, or set by error recovery)
@@ -1378,7 +1380,32 @@
  509000000                         772
 0                              Edit of general table input
 0                             General table no.   4
-0******** word  2 on card  20200400 should be in integer format.
+0Table trip number is 531.
+0Table is power vs. time, time factor is  1.000000E+00, power factor is  1.000000E+00.
+0    time             power            time             power
+     (as input)       (as input)       (sec)            (Watts)
+    -1.000000E+00     7.584233E+06    -1.000000E+00     7.584233E+06
+     3.000000E+02     7.092840E+06     3.000000E+02     7.092840E+06
+     6.000000E+02     6.626160E+06     6.000000E+02     6.626160E+06
+     9.000000E+02     6.183310E+06     9.000000E+02     6.183310E+06
+     1.200000E+03     5.763420E+06     1.200000E+03     5.763420E+06
+     1.500000E+03     5.365660E+06     1.500000E+03     5.365660E+06
+     1.800000E+03     4.989220E+06     1.800000E+03     4.989220E+06
+     2.100000E+03     4.633290E+06     2.100000E+03     4.633290E+06
+     2.400000E+03     4.297100E+06     2.400000E+03     4.297100E+06
+     2.700000E+03     3.979900E+06     2.700000E+03     3.979900E+06
+     3.000000E+03     3.680950E+06     3.000000E+03     3.680950E+06
+     3.300000E+03     3.399510E+06     3.300000E+03     3.399510E+06
+     3.600000E+03     3.134890E+06     3.600000E+03     3.134890E+06
+     3.900000E+03     2.886390E+06     3.900000E+03     2.886390E+06
+     4.200000E+03     2.653340E+06     4.200000E+03     2.653340E+06
+     4.500000E+03     2.435060E+06     4.500000E+03     2.435060E+06
+     4.800000E+03     2.230920E+06     4.800000E+03     2.230920E+06
+     5.100000E+03     2.040280E+06     5.100000E+03     2.040280E+06
+     5.400000E+03     1.862510E+06     5.400000E+03     1.862510E+06
+     5.700000E+03     1.697010E+06     5.700000E+03     1.697010E+06
+     6.000000E+03     1.543190E+06     6.000000E+03     1.543190E+06
+     6.600000E+03     1.500000E+06     6.600000E+03     1.500000E+06
 1                                        Edit of control component input data
 0Control component  500    PZRporvs          type =   sum     
 0          y =   1.00000    *(    0.00000    
@@ -1414,16 +1441,16 @@
 0          y =   1.00000    *int(cntrlvar        504)
               initial value of integral of y =   0.00000    
 0Control component  833    pzrheat           type =   sum     
-0          y =   1.00000    *(    0.00000    
+0          y =   1.00000    *(    1.00000    
                              +   0.00000    *(time              0)
 +                                                                   )
 0******** One or more constant factors on cards 20583301-20583398 are zero.
  initialization flag is on , input initial value is    0.00000    
 0******** Incorrect initialization control in control component  835.
 0Control component  835    bllpi             type =   function
-0          y =   1.00000    *function (time              0)
-              function is defined by general table 452
- initialization flag is off, input initial value is    0.00000    
+0          y =   1.00000    *function (time            531)
+              function is defined by general table   4
+ initialization flag is off, input initial value is   7.584233E+06
 0Control component  836    setpoint          type =   sum     
 0          y =   1.00000    *(    0.00000    
                              +   1.00000    *(p         180010000)
@@ -1440,8 +1467,8 @@
 0******** Numeric part,  336012000, of variable request,       462, refers to a variable that is not part of this problem.
 0          Edit trip data
 0Trip no.   left var. code parameter   rel.  right var. code parameter   +   constant           latch option   trptim
-      422     time                 0    gt     null                  0       1.000000E+09       latch          -1.00000    
-      423     time                 0    gt     null                  0       1.000000E+09       latch          -1.00000    
+      422     time                 0    ge     timeof              531        0.00000           latch          -1.00000    
+      423     time                 0    ge     timeof              531        0.00000           latch          -1.00000    
       452     time                 0    ge     null                  0        1000.00           latch          -1.00000    
       453     time                 0    ge     timeof              452        43200.0           latch          -1.00000    
       454     time                 0    gt     timeof              452        600.000           nolatch        -1.00000    
@@ -1473,6 +1500,7 @@
       515     time                 0    ge     timeof              750        0.00000           latch          -1.00000    
       520     p            345010000    lt     null                  0       1.420000E+06       latch          -1.00000    
       522     time                 0    ge     null                  0        0.00000           nolatch         0.00000    
+      531     time                 0    ge     timeof              750        0.00000           latch          -1.00000    
       551     cntrlvar           836    gt     cntrlvar            835        0.00000           nolatch        -1.00000    
       552     cntrlvar           836    gt     cntrlvar            835        201076.           nolatch        -1.00000    
       561     cntrlvar           837    gt     cntrlvar            835        0.00000           nolatch        -1.00000    
@@ -1528,6 +1556,7 @@
       772         454   and          457     nolatch          -1.00000    
       780         503   and          453     nolatch          -1.00000    
       781         520   and          453     nolatch          -1.00000    
+0Transient advancement will be terminated by trip      455.
 0$$$$$$$$ Found     0 level stacks
 0$$$$$$$$ Found     0 level stacks
 0$$$$$$$$ Found     0 level stacks
@@ -2642,7 +2671,6 @@
  287-000000  4.03175E-06   1.0000       0.0000       0.00       0.00       0.00       0.00       0.00       0.00     0      0      0
  288-000000  4.03175E-06   1.0000       5.3802       0.00       0.00       0.00       0.00       0.00       0.00     0      0      0
  475-000000  0.93780      6.21995E-02   0.0000       0.00       0.00       0.00       0.00       0.00       0.00     0      0      0
-0******** Control component  20583501 references missing or erroneous table.
 0                    Control variable edit
     1     cormass      sum           31599.8                  2     upmass       sum           62235.2    
     3     lpmass       sum           43510.8                  4     dnmass       sum           46822.6    
@@ -2668,7 +2696,7 @@
   812     feedctl      mult          2919.82                820     feedctl      constant      12.2000    
   821     feedctl      feedctl       455.780                822     feedctl      mult          1004.82    
   830     trpproon     tripunit      1.00000                831     pzrset       constant     1.550000E+07
-  832     pzhtrpr      steamctl      32462.0                833     pzrheat      sum           0.00000    
-  834     trpproon     tripunit      1.00000                835     bllpi        function      0.00000    
+  832     pzhtrpr      steamctl      32462.0                833     pzrheat      sum           1.00000    
+  834     trpproon     tripunit      1.00000                835     bllpi        function     7.584233E+06
   836     setpoint     sum          6.700000E+06            837                                0.00000    
 0******** Errors detected during input processing.

@@ -73,7 +73,7 @@
 505      p 150010000 le      null          0 1.226998e7  l * safety injection signal
 455 httemp 336001017 ge      null          0 1700.0      n * stop the case
 504   time         0 le      null          0   0.0       n
-600          455            or            455             n
+600          455   
 
 456  tempf   114010000  ge  sattemp   114010000  0.0  n * Trip 456: true if fluid temp is higher than sat in intact loop
 457  tempf   210010000  ge  sattemp   210010000  0.0  n * Trip 457: true if fluid temp is higher than sat in broken loop
@@ -100,7 +100,7 @@
 *
 508      p 150010000 ge      null          0 1.620268e7       n * PZR relief setpoint
 509      p 150010000 ge      null          0 1.606478e7       n * PZR relief setpoint
-462  tempg 336012000 ge      null          0 923.0            l * open PZR relief valve on high Core Exit Thermocouples
+462  httemp 336001217 ge      null          0 923.0            l * open PZR relief valve on high Core Exit Thermocouples
 463  time          0 gt      null          0 1.0e9            l * open PZR relief valve at time
 464  time          0 lt    timeof        604 30.0             n * close PZR relief valve after time
 465 acvliq       290 le      null          0 -1.0             n * close PZR relief valve when Acc volume is low 
@@ -320,9 +320,10 @@
 *  PZR heaters - off during SBO (no AC power)
 *
 * Override cntrlvar 833 from restart: force heater power to 0
-20583300   pzrheat   sum   1.0   0.0   1   0
+*20583300   pzrheat   sum   1.0   0.0   1   0
 *                   a0       scale    name      param
-20583301           0.0       0.0    time    0
+*20583301           1.0       0.0    time    0
+20583300   pzrheat   constant   0.0
 *****************************************************************************************************
 *
 *  Accumulators
@@ -398,7 +399,7 @@
 663          -662            or          -561             n * SG relief
 
 
-20583500   bllpi   function 1.0  7584233.0 531
+20583500   bllpi   function 1.0  0.0 0
 20583501    time  531        004
 *
 20200400    power      531 
@@ -434,8 +435,7 @@
 20583600 setpoint  sum 1.0  0.0     1     0
 *                   a0         scale     name         param
 20583601           0.0        1.0      p     180010000
-
-20583700 setpointb  sum 1.0  0.0     1     0
+20583700 sgbset    sum 1.0  0.0     1     0
 *                   a0       scale    name      param
 20583701           0.0        1.0      p     280010000
 
