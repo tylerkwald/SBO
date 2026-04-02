@@ -82,7 +82,7 @@
     26    *                                                                                               
     27    *-----------------------------------------------                                                
     28    * Integral of Pressurizer and safety valve mass flow                                            
-    29    20550000 PZRporvs  sum 1.0  0.0     1.0     0                                                   
+    29    20550000 PZRporvs  sum 1.0  0.0     1     0                                                     
     30    *                   a0         scale     name         param                                     
     31    20550001           0.0        1.0      mflowj     155000000                                     
     32    20550002                      1.0      mflowj     157000000                                     
@@ -451,7 +451,7 @@
    395    663          -662            or          -561             n * SG relief                         
    396                                                                                                    
    397                                                                                                    
-   398    20583500   bllpi   function 1.0  0.0 0 *unc 1.0 0.0  0                                          
+   398    20583500   bllpi   function 1.0  0.0 4                                                          
    399    20583501    time  0        452                                                                  
    400    *                                                                                               
    401    20200400    power      TTT                                                                      
@@ -776,10 +776,10 @@
    720    .                                                                                               
 0    RBIC/3.3iy          RELAP5 Based Integrated Code                                            
 0 Copyright (C) 2001-2010  Information Systems Laboratories, Inc.
-   SBO_exercise                                                                   02-Apr-26    12:40:46      
+   SBO_exercise                                                                   02-Apr-26    12:57:11      
 1    RBIC/3.3iy          RELAP5 Based Integrated Code                                            
 1 Copyright (C) 2001-2010  Information Systems Laboratories, Inc.
-   SBO_exercise                                                                   02-Apr-26    12:40:46      
+   SBO_exercise                                                                   02-Apr-26    12:57:11      
 0Processing type is restart 
 +                                       problem option is transnt 
 0inp-chk, run option is run.    
@@ -1380,8 +1380,12 @@
 0                             General table no.   4
 0******** word  2 on card  20200400 should be in integer format.
 1                                        Edit of control component input data
-0******** word  5 on card  20550000 should be in integer format.
-0******** Data for control component  500 cannot be processed.
+0Control component  500    PZRporvs          type =   sum     
+0          y =   1.00000    *(    0.00000    
+                             +   1.00000    *(mflowj    155000000)
+                             +   1.00000    *(mflowj    157000000)
++                                                                   )
+ initialization flag is on , input initial value is    0.00000    
 0Control component  501    PZRporvs          type =   integral
 0          y =   1.00000    *int(cntrlvar        500)
               initial value of integral of y =   0.00000    
@@ -1415,6 +1419,7 @@
 +                                                                   )
 0******** One or more constant factors on cards 20583301-20583398 are zero.
  initialization flag is on , input initial value is    0.00000    
+0******** Incorrect initialization control in control component  835.
 0Control component  835    bllpi             type =   function
 0          y =   1.00000    *function (time              0)
               function is defined by general table 452
@@ -2652,18 +2657,18 @@
    21     corlev       sum           4.07663                 22     uplev        sum           3.81945    
    23     DClev        sum           5.53737                150     pzrlvl       sum           8.85499    
   176     dwrsg        sum           12.2000                276     dwrsg        sum           12.2000    
-  501     PZRporvs     integral      0.00000                502     PZRporvs     sum           0.00000    
-  503     PZRporvs     integral      0.00000                504     PZRporvs     sum           0.00000    
-  505     PZRporvs     integral      0.00000                709     trpproon     tripunit      1.00000    
-  710     steamctl     constant     6.700000E+06            711     steamctl     steamctl     9.316096E-02
-  712     stmctl       mult         9.316096E-02            719     trpproon     tripunit      1.00000    
-  720     steamctl     constant     6.700000E+06            721     steamctl     steamctl     9.618066E-02
-  722     stmctl       mult         9.618066E-02            810     feedctl      constant      12.2000    
-  811     feedctl      feedctl       1324.41                812     feedctl      mult          2919.82    
-  820     feedctl      constant      12.2000                821     feedctl      feedctl       455.780    
-  822     feedctl      mult          1004.82                830     trpproon     tripunit      1.00000    
-  831     pzrset       constant     1.550000E+07            832     pzhtrpr      steamctl      32462.0    
-  833     pzrheat      sum           0.00000                834     trpproon     tripunit      1.00000    
-  500                                0.00000                835     bllpi        function      0.00000    
+  500     PZRporvs     sum           0.00000                501     PZRporvs     integral      0.00000    
+  502     PZRporvs     sum           0.00000                503     PZRporvs     integral      0.00000    
+  504     PZRporvs     sum           0.00000                505     PZRporvs     integral      0.00000    
+  709     trpproon     tripunit      1.00000                710     steamctl     constant     6.700000E+06
+  711     steamctl     steamctl     9.316096E-02            712     stmctl       mult         9.316096E-02
+  719     trpproon     tripunit      1.00000                720     steamctl     constant     6.700000E+06
+  721     steamctl     steamctl     9.618066E-02            722     stmctl       mult         9.618066E-02
+  810     feedctl      constant      12.2000                811     feedctl      feedctl       1324.41    
+  812     feedctl      mult          2919.82                820     feedctl      constant      12.2000    
+  821     feedctl      feedctl       455.780                822     feedctl      mult          1004.82    
+  830     trpproon     tripunit      1.00000                831     pzrset       constant     1.550000E+07
+  832     pzhtrpr      steamctl      32462.0                833     pzrheat      sum           0.00000    
+  834     trpproon     tripunit      1.00000                835     bllpi        function      0.00000    
   836     setpoint     sum          6.700000E+06            837                                0.00000    
 0******** Errors detected during input processing.
