@@ -123,13 +123,13 @@
     67    *-----------------------------------------------------------------------                        
     68    *      var     param  r       var      param       acon l                                       
     69    *-----------------------------------------------------------------------                        
-    70    452   time         0 ge      null          0   0.000     l * SBO starting time                  
+    70    452   time         0 ge      null          0   1.0e3     l * SBO starting time                  
     71    453   time         0 ge      timeof       452 43200.0       l * AC power recovery 12h after SBO 
     72    501      p 150010000 le      null          0  0.00  l * scram signal                            
     73    505      p 150010000 le      null          0 1.226998e7  l * safety injection signal            
     74    455 httemp 336001017 ge      null          0 1700.0      n * stop the case                      
     75    504   time         0 le      null          0   0.0       n                                      
-    76    600  455                                                                                        
+    76    600          455            or            455             n                                     
     77                                                                                                    
     78    456  tempf   114010000  ge  sattemp   114010000  0.0  n * Trip 456: true if fluid temp is higher
     79    457  tempf   210010000  ge  sattemp   210010000  0.0  n * Trip 457: true if fluid temp is higher
@@ -452,7 +452,7 @@
    396                                                                                                    
    397                                                                                                    
    398    20583500   bllpi   function 1.0  0.0 0 *unc 1.0 0.0  0                                          
-   399    20583501    time  0        611                                                                  
+   399    20583501    time  0        452                                                                  
    400    *                                                                                               
    401    20200400    power      TTT                                                                      
    402    20200401  -1.0         7584233.0                                                                
@@ -701,7 +701,7 @@
    645    *                from            to          area       jefvcahs                                
    646    2980101     297010002     212010001        0.0654             0                                 
    647    *             control          trip         alpha           num                                 
-   648    2980200             1           780       p     116010000                                       
+   648    2980200             1           780       p     212010000                                       
    649    *                srch           mfl           mfv      unused                                   
    650    2980201          -1.0           0.0           0.0         0.0                                   
    651    2980202       1.00d+5          48.0           0.0         0.0                                   
@@ -776,10 +776,10 @@
    720    .                                                                                               
 0    RBIC/3.3iy          RELAP5 Based Integrated Code                                            
 0 Copyright (C) 2001-2010  Information Systems Laboratories, Inc.
-   SBO_exercise                                                                   02-Apr-26    10:36:11      
+   SBO_exercise                                                                   02-Apr-26    12:40:46      
 1    RBIC/3.3iy          RELAP5 Based Integrated Code                                            
 1 Copyright (C) 2001-2010  Information Systems Laboratories, Inc.
-   SBO_exercise                                                                   02-Apr-26    10:36:11      
+   SBO_exercise                                                                   02-Apr-26    12:40:46      
 0Processing type is restart 
 +                                       problem option is transnt 
 0inp-chk, run option is run.    
@@ -839,6 +839,7 @@
      end time         min.time step    max.time step  option   minor edit   major edit     restart
      (sec)            (sec)            (sec)                    frequency    frequency    frequency
      2.000000E+03     1.000000E-07     1.000000E-01        3           50        50000        50000
+0******** too many numbers on cards       600 through       600
 0Gravitational constant is   9.80665    
 0                                         Edit of component input data
                  (quantities printed are input values, set by default, or set by error recovery)
@@ -1169,7 +1170,7 @@
 0Table trip number is 780.
 0Tabular data
       p               liquid flow      vapor flow    
-       116010000        (kg/sec)         (kg/sec)
+       212010000        (kg/sec)         (kg/sec)
       (Pa)            
                       
      -1.00000          0.00000          0.00000    
@@ -1416,7 +1417,7 @@
  initialization flag is on , input initial value is    0.00000    
 0Control component  835    bllpi             type =   function
 0          y =   1.00000    *function (time              0)
-              function is defined by general table 611
+              function is defined by general table 452
  initialization flag is off, input initial value is    0.00000    
 0Control component  836    setpoint          type =   sum     
 0          y =   1.00000    *(    0.00000    
@@ -1436,7 +1437,7 @@
 0Trip no.   left var. code parameter   rel.  right var. code parameter   +   constant           latch option   trptim
       422     time                 0    gt     null                  0       1.000000E+09       latch          -1.00000    
       423     time                 0    gt     null                  0       1.000000E+09       latch          -1.00000    
-      452     time                 0    ge     null                  0        0.00000           latch          -1.00000    
+      452     time                 0    ge     null                  0        1000.00           latch          -1.00000    
       453     time                 0    ge     timeof              452        43200.0           latch          -1.00000    
       454     time                 0    gt     timeof              452        600.000           nolatch        -1.00000    
       455     httemp       336001017    ge     null                  0        1700.00           nolatch        -1.00000    
@@ -1522,7 +1523,6 @@
       772         454   and          457     nolatch          -1.00000    
       780         503   and          453     nolatch          -1.00000    
       781         520   and          453     nolatch          -1.00000    
-0Transient advancement will be terminated by trip      455.
 0$$$$$$$$ Found     0 level stacks
 0$$$$$$$$ Found     0 level stacks
 0$$$$$$$$ Found     0 level stacks
