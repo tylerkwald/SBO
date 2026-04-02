@@ -26,7 +26,7 @@
 *
 *-----------------------------------------------
 * Integral of Pressurizer and safety valve mass flow
-20550000 PZRporvs  sum 1.0  0.0     1.0     0
+20550000 PZRporvs  sum 1.0  0.0     1     0
 *                   a0         scale     name         param
 20550001           0.0        1.0      mflowj     155000000
 20550002                      1.0      mflowj     157000000
@@ -395,7 +395,7 @@
 663          -662            or          -561             n * SG relief
 
 
-20583500   bllpi   function 1.0  0.0 0 *unc 1.0 0.0  0
+20583500   bllpi   function 1.0  0.0 4
 20583501    time  0        452
 *
 20200400    power      TTT 
