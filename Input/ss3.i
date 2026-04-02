@@ -90,6 +90,7 @@
 772           454           and           457             n
 780           503           and           453             n * HPSI available (AC recovered + Low Press)
 781           520           and           453             n * LPSI available (AC recovered + Low Press)
+531   time         0 ge    timeof         750 0.0             l   * start cooldown immediately after SCRAM 
 *
 *}}}
 *****************************************************************************************************
@@ -373,8 +374,10 @@
 *
 ******************************************************************************************************{{{
 *
-422  time          0 gt      null          0 1.0e9  l * open SG intact loop relief valve at time
-423  time          0 gt      null          0 1.0e9   l * open SG broken loop relief valve at time
+*422  time          0 gt      null          0 1.0e9  l * open SG intact loop relief valve at time
+*423  time          0 gt      null          0 1.0e9   l * open SG broken loop relief valve at time
+422   time          0 ge    timeof         531      0.0  l   * start SG cooldown intact loop
+423   time          0 ge    timeof         531      0.0  l   * start SG cooldown broken loop
 654           651           and           422             n
 655           653           and           422             n
 664           661           and           423             n
@@ -395,10 +398,10 @@
 663          -662            or          -561             n * SG relief
 
 
-20583500   bllpi   function 1.0  0.0 4
-20583501    time  0        611
+20583500   bllpi   function 1.0  7584233.0 531
+20583501    time  531        004
 *
-20200400    power      TTT 
+20200400    power      531 
 20200401  -1.0         7584233.0
 20200402   300.0       7092840.0
 20200403   600.0       6626160.0
