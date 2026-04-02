@@ -73,7 +73,7 @@
 505      p 150010000 le      null          0 1.226998e7  l * safety injection signal
 455 httemp 336001017 ge      null          0 1700.0      n * stop the case
 504   time         0 le      null          0   0.0       n
-600  455
+600          455            or            455             n
 
 456  tempf   114010000  ge  sattemp   114010000  0.0  n * Trip 456: true if fluid temp is higher than sat in intact loop
 457  tempf   210010000  ge  sattemp   210010000  0.0  n * Trip 457: true if fluid temp is higher than sat in broken loop
@@ -396,7 +396,7 @@
 
 
 20583500   bllpi   function 1.0  0.0 0 *unc 1.0 0.0  0
-20583501    time  0        611
+20583501    time  0        452
 *
 20200400    power      TTT 
 20200401  -1.0         7584233.0
@@ -645,7 +645,7 @@
 *                from            to          area       jefvcahs
 2980101     297010002     212010001        0.0654             0
 *             control          trip         alpha           num
-2980200             1           780       p     116010000
+2980200             1           780       p     212010000
 *                srch           mfl           mfv      unused
 2980201          -1.0           0.0           0.0         0.0
 2980202       1.00d+5          48.0           0.0         0.0
