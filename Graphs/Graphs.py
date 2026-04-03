@@ -231,7 +231,6 @@ t = bc['t_sbo']
 fig, ax = plt.subplots(figsize=FIGSIZE, dpi=DPI)
 ax.plot(t / 3600, bc['rktpow-0'] / 1e6,
         color=COLORS['primary'], linewidth=LW, label='Core power (decay heat)')
-ax.set_xlim(0, 200/3600)  
 add_sbo_line(ax)
 style_ax(ax, 'Time after SBO [h]', 'Power [MW]',
          'Base Case - Core Decay Heat')
