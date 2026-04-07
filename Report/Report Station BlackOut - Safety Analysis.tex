@@ -522,10 +522,25 @@ the TDP becomes uncontrolled and injects water until the SG separator is flooded
 
 
 \section{Additional Calculations}
-\noindent In this section we are going to perform two additional 
-calculations, in which the EOPs's unavailability (one for each calculation) is assumed. 
-This analysis in necessary in order to verify that the plant is able to respond to this kinds of scenarios 
-even in hostile conditions.
+\noindent As part of the base case simulation, there are two operator procedures assumed to be preformed. These are the steady depressurization of the secondary system, and the depressurization of the primary based on a high outlet core temperature. 
+A part from the complete base case, the simulation was also performed without these operator interventions in order to gauge their effectiveness. The second EOP mentioned above, pertaining to primary depressurization, was never actuated in the base case as the outlet temperature never reached the threshold value. Therefore, only one additional simulation is analyzed below. This simulation analyzes the dynamics of the system when the steam generators are not depressurized allowing for a further reduction in primary temperature and pressure. 
+
+The graph below demonstrates the lack of pressure relief of the secondary system. The lack of the depressurization EOP maintains the pressure high in the secondary system. This graph verifies that the EOP is not initiated as intended.
+Graph of Secondary Pressure
+
+One of the main concerns during the transient event is the protection of the fuel cladding. The below graph shows the temperature of the cladding as a way to verify a lack of oxidation of the zirconium. The temperature in the primary does not reach excessive levels. Although it is higher than the base case which sees a drop in temperature of the cladding shortly after the event initiation, the temperature is still a safe margin away from rapid oxidation.
+
+Graph of Peak Cladding Temperature
+
+Another factor of concern is the pressure in the primary. Without the further cooldown of primary system as a result of the steam generator depressurization, the pressure in the primary is much more elevated. One of the main concerns of this values is the correlation between leak rate and pressure. With higher primary pressures, we can expect to lose more inventory through the RCP seals.
+
+Graph of Primary Pressure
+
+As discussed above, the leak rate of the RCP seals is of concern in this event, and becomes more of an issue with higher primary pressures. The graph below confirms this. The leak rate in the seals remains much higher than the base case due to the higher pressure. This higher value can lead to additional accident scenarios in longer SBO events. In the 12 hour event however, we do not see a complete loss of inventory or core uncovery. 
+Graph of  RCP Leak Rate
+
+The simulation demonstrated that the EOP does help to reduce the temperature of the core and the pressure of the primary system. However, based on this analysis is not essential in order to protect the integrity of the fuel cladding during a 12 hour station black out. 
+
 
 
 
