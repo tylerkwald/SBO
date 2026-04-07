@@ -187,7 +187,7 @@ The aim of this report is to present the first part of the Station Black-Out (SB
 \section*{Methodology}
 \addcontentsline{toc}{section}{Methodology}
 
-The reference plant selected for this analysis is the Zion Nuclear Power Station (United States), which was decommisioned in 1998. Although the real plant originally had four primary loops, the RELAP model used in this project is simplified into two equivalent loops only. One loop represents the broken loop and keeps the dimensions of a single loop, while the other represents the intact side and groups the remaining three loops into one single equivalent loop. 
+The reference plant selected for this analysis is the Zion Nuclear Power Station (United States), which was decommissioned in 1998. Although the real plant originally had four primary loops, the RELAP model used in this project is simplified into two equivalent loops only. One loop represents the broken loop and keeps the dimensions of a single loop, while the other represents the intact side and groups the remaining three loops into one single equivalent loop. 
 
 \figref{fig:ZionNPP_Nodalization} shows the nodalization used in order to represent in the best way possible the Zion nuclear power plant.
 
@@ -359,13 +359,13 @@ listed below.
 \begin{tabular}{|p{4.5cm}|p{10.5cm}|}
 \hline
 \textbf{Action / Event} & \textbf{Description} \\ \hline
-RCP Seal Leak & Starts 10 minutes after SBO initiation with a leak size of 0.00001 m2 per pump[cite: 63, 64]. \\ \hline
-Leak area increase & The leak area increases 4x when saturation takes place at the RCP[cite: 66, 67]. \\ \hline
-TDP AFW Injection & Auxiliary feed water is provided by a turbo-driven pump (TDP) which is controlled manually and requires batteries[cite: 68]. \\ \hline
-TDP battery depletion & Batteries last for 5h, after which the TDP becomes uncontrolled, injecting water until the separator is flooded and the TDP stops[cite: 69, 70]. \\ \hline
-Cooldown strategy (EOP) & Operators follow a strategy to cool down the SG at a rate of 55 K/h until 15 bar[cite: 72, 73]. \\ \hline
-Primary depressurization (EOP) & Operators fully open the Pressurizer relief valves to depressurize the primary system if the Core Exit Temperature is higher than 923 K[cite: 75, 76]. \\ \hline
-AC power recovery & Recovery of AC power occurs after 12h, which recovers AFW, HPIS, and LPIS[cite: 77]. \\ \hline
+RCP Seal Leak & Starts 10 minutes after SBO initiation with a leak size of 0.00001 m2 per pump. \\ \hline
+Leak area increase & The leak area increases 4x when saturation takes place at the RCP. \\ \hline
+TDP AFW Injection & Auxiliary feed water is provided by a turbo-driven pump (TDP) which is controlled manually and requires batteries. \\ \hline
+TDP battery depletion & Batteries last for 5h, after which the TDP becomes uncontrolled, injecting water until the separator is flooded and the TDP stops. \\ \hline
+Cooldown strategy (EOP) & Operators follow a strategy to cool down the SG at a rate of 55 K/h until 15 bar. \\ \hline
+Primary depressurization (EOP) & Operators fully open the Pressurizer relief valves to depressurize the primary system if the Core Exit Temperature is higher than 923 K. \\ \hline
+AC power recovery & Recovery of AC power occurs after 12h, which recovers AFW, HPIS, and LPIS. \\ \hline
 \end{tabular}
 \caption{Configurable actions and conditions for the SBO sequences in the Zion model}
 \label{tab:sbo_actions_en}
@@ -375,16 +375,16 @@ AC power recovery & Recovery of AC power occurs after 12h, which recovers AFW, H
 
 \noindent The first analysis was performed considering that all the EOPs
 listed in \tabref{tab:sbo_actions_en} have taken place. We are going to 
-anaylize the transient in order to verify the situation of the plant after the 
+analyze the transient in order to verify the situation of the plant after the 
 SBO has occurred. 
 
 \subsubsection{Reactor Coolant System}
 
-\noindent Right after the SBO event, the SCRAM immidiately shuts down 
+\noindent Right after the SBO event, the SCRAM immediately shuts down 
 the reactor by inserting the control rods, leading to a rapid decrease in power, that 
 is plotted in \figref{power}. The residual value present in the graph 
 is due to the decay heat, which represents the main issue in this types of scenarios.
-Moreover, the loss of AC power causes the immidiate trip of the pumps.
+Moreover, the loss of AC power causes the immediate trip of the pumps.
 
 \begin{figure}[H]
     \centering
@@ -523,9 +523,9 @@ the TDP becomes uncontrolled and injects water until the SG separator is flooded
 
 \section{Additional Calculations}
 \noindent As part of the base case simulation, there are two operator procedures assumed to be preformed. These are the steady depressurization of the secondary system, and the depressurization of the primary based on a high outlet core temperature. 
-Apart from the complete base case, the simulation was also performed without these operator interventions in order to gauge their effectiveness. The second EOP mentioned above, pertaining to primary depressurization, was never actuated in the base case as the outlet temperature never reached the threshold value. Therefore, only one additional simulation is analyzed below. This simulation analyzes the dynamics and critical values of the system when the steam generators are not depressurized allowing for a further reduction in primary temperature and pressure. 
+Apart from the complete base case, the simulation was also performed without these operator interventions in order to gauge their effectiveness. The second EOP mentioned above, pertaining to primary depressurization, was never actuated in the base case as the outlet temperature never reached the threshold value. Therefore, this case was identical to the base case and will not be analyzed further and only the additional case without the EOP 1  is analyzed below. This simulation analyzes the dynamics and critical values of the system when the steam generators are not depressurized allowing for a further reduction in primary temperature and pressure. 
 
-\figref{PSNOSG} below demonstrates the lack of pressure relief of the secondary system. The lack of the depressurization EOP maintains the pressure high in the secondary system. This graph verifies that the EOP is not initiated as intended.
+\figref{PSNOSG} below demonstrates the lack of pressure relief of the secondary system. The lack of the depressurization EOP maintains the pressure high in the secondary system. This graph verifies that the EOP is not initiated as intended. In the base case, the relief valve setpoint is progressively reduced from the nominal value of 6.7 MPa down to 1.5 MPa, following the 55 K/h cooldown ramp. Without this operator action, the setpoint remains fixed at the nominal opening value of 7.58 MPa throughout the entire transient. As a consequence, the secondary pressure does not decrease monotonically but instead exhibits a strong cyclic behaviour: as the decay heat continuously produces steam, the pressure rises until the relief valve opens at 7.58 MPa, releasing steam to the atmosphere. Once the pressure drops below the closing setpoint of 7.79 MPa, the valve closes and the pressure begins to rise again. This open-close cycling of the relief valves repeats continuously, maintaining the secondary pressure oscillating between approximately 4.5 and 8.0 MPa rather than reaching the 1.5 MPa target of the EOP.
 %Graph of Secondary Pressure
 
 
@@ -567,7 +567,7 @@ This situation is well represented in \figref{primaryNoSG}.
     \label{primaryNoSG}
 \end{figure}
 
-As discussed above, the leak rate of the RCP seals is of concern in this event, and becomes more of an issue with higher primary pressures. \figref{primaryNoSG} confirms this. The leak rate in the seals remains much higher than the base case due to the higher pressure. This higher value can lead to additional accident scenarios in longer SBO events. In the 12 hour event however, we do not see a complete loss of inventory or core uncovery. 
+As discussed above, the leak rate of the RCP seals is of concern in this event, and becomes more of an issue with higher primary pressures. \figref{primaryNoSG} confirms this. The higher primary pressure has a direct consequence on the RCP seal leak rates. Since the leak flow is driven by the pressure difference between the primary circuit and the containment atmosphere, a higher primary pressure results in a significantly larger leak flow. The seal leak rates in the no-cooldown case reach peak values of approximately 8-10 kg/s for the intact loop, compared to roughly 2.5 kg/s in the base case — about 3-4 higher. The irregular oscillating pattern of the leak rate directly correlates with the cyclic pressure oscillations of the secondary system described above. Despite this increased inventory loss, no core uncovery is observed within the 12-hour simulation window, indicating that the plant remains in a safe condition. However, in a longer SBO scenario, the sustained high leak rate would represent a more serious concern for primary inventory management.
 
 The simulation demonstrated that the EOP does help to reduce the temperature of the core and the pressure of the primary system. However, based on this analysis is not essential in order to protect the integrity of the fuel cladding during a 12 hour station black out. 
 
@@ -578,6 +578,11 @@ The simulation demonstrated that the EOP does help to reduce the temperature of 
 
 From the first analyses, the system code RELAP5 can be used as the model basis for the next stages of the project. The steady-state calculation is first checked against the target values, and the SBO base case is then used to observe the main thermal-hydraulic response of the plant under blackout conditions.
 
+The SBO base case transient showed that the plant is able to maintain core cooling for at least 12 hours without core damage. The decay heat is effectively removed through natural circulation in the primary system and by the Auxiliary Feedwater system on the secondary side. The peak cladding temperature remains well below the safety limit of 1477 K throughout the entire transient, and the core is never uncovered.
+
+Having analyzed two EOPs, we can say that the SG cooldown procedure (EOP 1) proved usefil but not strictly necessary to prevent core damage within the 12-hour simulation window. The cooldown EOP reduces primary pressure and lowers the RCP seal leak rate. It is therefore recommended as a prudent operator action. Instead, the primary depressurization procedure (EOP 2) was never triggered in either the base case or the no-cooldown case, as the Core Exit Temperature did not reach the 923 K threshold at any point during the transient. 
+Overall, the results demonstrate that the existing safety systems and operator procedures are sufficient to manage the SBO scenario for 12 hours. However, the analysis also highlights that the absence of the SG cooldown EOP leads to a more challenging scenario and could lead to core damage in a longer event.
+
 At this stage, the report is intended as a structured first draft. The final discussion will be completed after adding the detailed numerical results, the transient plots, and the comparison with the additional scenarios required in the following stages of the project.
 
 \newpage
@@ -585,10 +590,10 @@ At this stage, the report is intended as a structured first draft. The final dis
 \section*{CRediT Author Statement}
 
 \begin{itemize}
-    \item \textbf{Filippo Dalmonego:} Methodology, Coding, Writing, Review, Supervision.
-    \item \textbf{Tyler Ewald:} Methodology, Coding, Writing, Editing, Supervision.
-    \item \textbf{Riccardo Fasano:} Methodology, Writing, Coding, Editing, Supervision.
-    \item \textbf{Francesco Qualizza:} Methodology, Supervision, Writing, Review \& Editing.
+    \item \textbf{Filippo Dalmonego:} Coding, Writing, Review, Supervision.
+    \item \textbf{Tyler Ewald:} Coding, Writing, Editing, Supervision.
+    \item \textbf{Riccardo Fasano:} Writing, Coding, Supervision.
+    \item \textbf{Francesco Qualizza:} Methodology, Supervision, Writing - Original Draft, Review \& Editing.
 \end{itemize}
 
 
