@@ -523,7 +523,7 @@ the TDP becomes uncontrolled and injects water until the SG separator is flooded
 
 \section{Additional Calculations}
 \noindent As part of the base case simulation, there are two operator procedures assumed to be preformed. These are the steady depressurization of the secondary system, and the depressurization of the primary based on a high outlet core temperature. 
-A part from the complete base case, the simulation was also performed without these operator interventions in order to gauge their effectiveness. The second EOP mentioned above, pertaining to primary depressurization, was never actuated in the base case as the outlet temperature never reached the threshold value. Therefore, only one additional simulation is analyzed below. This simulation analyzes the dynamics of the system when the steam generators are not depressurized allowing for a further reduction in primary temperature and pressure. 
+Apart from the complete base case, the simulation was also performed without these operator interventions in order to gauge their effectiveness. The second EOP mentioned above, pertaining to primary depressurization, was never actuated in the base case as the outlet temperature never reached the threshold value. Therefore, only one additional simulation is analyzed below. This simulation analyzes the dynamics and critical values of the system when the steam generators are not depressurized allowing for a further reduction in primary temperature and pressure. 
 
 \figref{PSNOSG} below demonstrates the lack of pressure relief of the secondary system. The lack of the depressurization EOP maintains the pressure high in the secondary system. This graph verifies that the EOP is not initiated as intended.
 %Graph of Secondary Pressure
@@ -544,29 +544,30 @@ One of the main concerns during the transient event is the protection of the fue
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.55\linewidth]{../Pictures/No SG Case/noSG10_peak_clad_temperature.pdf}
-    \caption{\centering Peak Cladding Temperature. }
+    \caption{\centering Peak Cladding Temperature.}
     \label{TcladNOSG}
 \end{figure}
 
 
-Another factor of concern is the pressure in the primary. Without the further cooldown of primary system as a result of the steam generator depressurization, the pressure in the primary is much more elevated. One of the main concerns of this values is the correlation between leak rate and pressure. With higher primary pressures, we can expect to lose more inventory through the RCP seals.
-This situation is well represented in \figref{PNOSG}
+Another factor of concern is the pressure in the primary. Without the further cooldown of primary system as a result of the steam generator depressurization, the pressure in the primary is much more elevated. One of the main concerns of this value is the correlation between leak rate and pressure. With higher primary pressures, we can expect to lose more inventory through the RCP seals.
+This situation is well represented in \figref{primaryNoSG}.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.55\linewidth]{../Pictures/No SG Case/noSG2_primary_pressure.pdf}
-    \caption{\centering Primary Pressure. }
-    \label{PNOSG}
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/No SG Case/noSG2_primary_pressure.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/No SG Case/noSG12_RCP_seal_leaks.pdf}    
+    \end{minipage}
+    \caption{\centering {Primary pressure (on the left) and RCP seal leak rate (on the right).}}
+    \label{primaryNoSG}
 \end{figure}
 
-
-As discussed above, the leak rate of the RCP seals is of concern in this event, and becomes more of an issue with higher primary pressures. \figref{leakNOSG} confirms this. The leak rate in the seals remains much higher than the base case due to the higher pressure. This higher value can lead to additional accident scenarios in longer SBO events. In the 12 hour event however, we do not see a complete loss of inventory or core uncovery. 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\linewidth]{../Pictures/No SG Case/noSG12_RCP_seal_leaks.pdf}
-    \caption{\centering RCP seal leak. }
-    \label{leakNOSG}
-\end{figure}
-
+As discussed above, the leak rate of the RCP seals is of concern in this event, and becomes more of an issue with higher primary pressures. \figref{primaryNoSG} confirms this. The leak rate in the seals remains much higher than the base case due to the higher pressure. This higher value can lead to additional accident scenarios in longer SBO events. In the 12 hour event however, we do not see a complete loss of inventory or core uncovery. 
 
 The simulation demonstrated that the EOP does help to reduce the temperature of the core and the pressure of the primary system. However, based on this analysis is not essential in order to protect the integrity of the fuel cladding during a 12 hour station black out. 
 
