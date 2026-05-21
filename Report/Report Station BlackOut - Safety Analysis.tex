@@ -268,7 +268,7 @@ RELAP are coherent with the steady state conditions the plant should be operatin
         \centering
         \includegraphics[width=\linewidth]{../Pictures/Steady State/SS4_pressurizer_level.pdf}
     \end{minipage}
-    \hfill
+    \hfillSBO FirstReport/Images
     \begin{minipage}{0.49\textwidth}  
         \centering
         \includegraphics[width=\linewidth]{../Pictures/Steady State/SS3_secondary_pressure.pdf}    
@@ -693,6 +693,91 @@ core damage is declared when PCT exceeds the safety limit of 1477 K.}
 \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Probabilstic Safety Analysis}
+
+The creation and verification of the event tree for the SBO case allows for the calculation of the contributions of the SBO to the Core Damage Frequency and to identify the Conditional Core Damage Frequency (CCFD).
+
+\subsection{Mathmatical Representation}
+
+The first step to analysis the event tree qualitativly is identify the initating event frequency and the conditional probabilities of each of the elements of the event tree. The key variables under consideration are as follows: 
+
+\begin{tabular}{c l}
+    $I$ & Initiating Event (SBO)\\
+    $LT$ & Long-term SBO\\
+    $SB$ & Short-term SBO\\
+    $A$ & AFW \& TDP\\
+    $S$ & Small Leak\\
+    $L$ & Large Leak\\
+    $R$ & Restoration of AC \\
+\end{tabular}
+
+\subsubsection*{Initiating Event}
+
+The initiating event frequency of the SBO is derived from the NUREG CR-7110 Vol .2 /cite{nureg7110}. From this report the frequency of Long-Term SBO frequency is identified as $2\text{x}10^{-5}$ pry (per reactor year), and the Short-Term SBO frequency is defined as $2\text{x}10^{-6}$ pry. One interesting finding from this is the higher frequency of long-term SBOs than short term ones. From the frequencies above the initiaing event frequency is derived below:
+
+\begin{flalign}
+    F(I) & = F(LT \cup ST) \\ \nonumber
+         & = 2\text{x}10^{-5} + 2\text{x}10^{-6} \\ \nonumber
+         & =  2.2 \text{x} 10 ^ {-5} \text{ pry}
+\end{flalign}
+
+\subsubsection*{AFW \& TDP}
+
+The AFW and TDP failure frequency is assumed to be largely driven by the failure of the TDP (try to find a source to back up this claim). As such, the probability of failure of this system is taken from the frequency of failure of the TDP system. This system has two failure modes: failure on demand and failure on run. To use a conservative estimate, the sum of the probability of the failure on demand and failure during a mission time of 5 hours is used. The failure on demand probability is:
+
+\begin{equation}
+    P(A_d) = 4.6\text{x}10{-3} \nonumber
+\end{equation}
+
+The failure on run probality is calculated as follows:
+
+\begin{flalign}
+    P(A_r) & \approx  \lambda_f * t_m \\ \nonumber
+           &  \approx 8.45\text{x}10^{-5}  \text{hr}^{-1} * 5 \text{hr} \\ \nonumber
+           & \approx 4.225\text{x}10^{-5} 
+\end{flalign}
+
+Giving a total probability of:
+
+\begin{flalign}
+    P(A) = P(A_d \cup A_r) \\ \nonumber
+    P(A) = 4.54\text{x}10^{-5}
+\end{flalign}
+
+The data for the failure of the TDP was taken from the IHL TDP Performance Analysis \cite{IHL_TDP}.
+
+\subsubsection*{Small Leak}
+
+The small leak event is assumed to happen in the case that the Westinghouse Shut Down Seal. A primilinary safety analysis of this component from Westinghouse gives it a conservative failure frequency of 1 in 100 cases giving us the follow probability:
+
+\begin{equation}
+    P(S) = 0.01 \nonumber
+\end{equation}
+
+\subsubsection*{Large Leak}
+
+Large leaks in the RCP seals occur in the situation in which saturation temperatures are reached. The conditional probability of this event during an SBO is listed in the NUREG CR-7110 Vol 2. report \cite{nureg7110}, it gives a the following conditional proability. 
+
+\begin{equation}
+    P(L) = 0.2 \nonumber
+\end{equation}
+
+The conditional probability is used in this case as the probability of a large leak dramatically increases during an SBO event. 
+
+\subsubsection*{AC Power Restoration}
+
+The AC power restoration after 12 hours is estimating using the conditional probability of a long term SBO given an SBO event. This method allows us to obtain the probability that AC power is restored within a 12 hour window. The calculation is done using Bayes Theroum for conditional probabilities:
+
+\begin{flalign}
+    P(R)    & = P(LT|I) \\ \nonumber
+            & =\frac{P(I|LT)*P(LT)}{P(I)} \\ \nonumber
+            & = \frac{1(2\text{x}10^{-5})}{2.2\text{x}10^{-5}} \\ \nonumber
+            & = 0.909
+\end{flalign}
+
+
+
 
 
 \section{Preliminary Conclusions}
