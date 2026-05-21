@@ -1,0 +1,600 @@
+\documentclass[a4paper,11pt]{article}
+
+% ---------------------------------------------------------
+% ENCODING / LINGUA
+% ---------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+% ---------------------------------------------------------
+% LAYOUT PAGINA
+% ---------------------------------------------------------
+\usepackage[a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+% ---------------------------------------------------------
+% PACCHETTI GENERALI
+% ---------------------------------------------------------
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{textcomp}
+\usepackage{eurosym}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}        % per [H]
+\usepackage{booktabs}
+\usepackage{indentfirst}
+\usepackage{multirow}
+\usepackage{makecell}
+\renewcommand\theadfont{\bfseries}
+
+\usepackage{xcolor}
+\usepackage[version=4]{mhchem} % evita warning mhchem
+\usepackage{siunitx}
+\sisetup{group-separator={\,}, group-minimum-digits=4}
+
+% ---------------------------------------------------------
+% LISTINGS (CODICE)
+% ---------------------------------------------------------
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny,
+    frame=single,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{orange},
+    language=Matlab
+}
+
+% ---------------------------------------------------------
+% MATEMATICA
+% ---------------------------------------------------------
+\usepackage{amsmath,amsfonts,amssymb,mathrsfs,bm,dsfont,mathtools,bigints,cancel}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\bm{\mathsf{#1}}}
+
+% ---------------------------------------------------------
+% STRUTTURA E TITOLI
+% ---------------------------------------------------------
+\usepackage[explicit]{titlesec}
+
+\numberwithin{subsubsection}{subsection}
+\numberwithin{subsection}{section}
+\renewcommand{\thetable}{\Roman{table}}
+
+% Colors
+\definecolor{navy}{RGB}{0,0,128}
+\definecolor{teal}{RGB}{0,128,128}
+\definecolor{crimson}{RGB}{220,20,60}
+\definecolor{olive}{RGB}{128,128,0} % <-- aggiunta
+
+% Formatting sections
+\titleformat{\section}
+  {\Large\bfseries\color{navy}}
+  {\thesection}
+  {0.8em}
+  {#1}
+  [{\titlerule[0.8pt]}]
+
+\titleformat{\subsection}
+  {\large\bfseries\color{teal}}
+  {\thesubsection}
+  {0.8em}
+  {#1}
+
+\titleformat{\subsubsection}
+  {\bfseries\color{olive}}
+  {\thesubsubsection}
+  {0.8em}
+  {#1}
+
+% ---------------------------------------------------------
+% COMANDI PERSONALIZZATI
+% ---------------------------------------------------------
+\setlength{\parindent}{0pt}
+
+\newcommand{\PRLsep}{\noindent\makebox[\linewidth]{\resizebox{0.45\linewidth}{1pt}{$\bullet$}}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\chapref}[1]{Chapter~\ref{#1}}
+\newcommand{\eqrefx}[1]{Equation~(\ref{#1})}
+
+\usepackage{newunicodechar}
+\newunicodechar{ʻ}{ʻ}
+
+% ---------------------------------------------------------
+% BIBLIOGRAFIA (BIBLATEX + BIBER)
+% ---------------------------------------------------------
+\usepackage[style=ieee,backend=biber]{biblatex}
+\addbibresource{Bibliography.bib}
+
+% ---------------------------------------------------------
+% HYPERREF (VERSO LA FINE)
+% ---------------------------------------------------------
+\usepackage[
+  pdftex,
+  pdfauthor={Francesco Qualizza},
+  pdftitle={Report Station BlackOut - Safety Analysis},
+  hidelinks,
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linktoc=page
+]{hyperref}
+
+\date{\today}
+% ---------------------------------------------------------
+% HEADER/FOOTER
+% ---------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small \textsc{Regulation and Safety}}
+\rhead{\small \textsc{Station BlackOut - Safety Analysis}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% ---------------------------------------------------------
+% DOCUMENT
+% ---------------------------------------------------------
+\begin{document}
+
+% ----------------- TITLE PAGE -----------------
+\begin{titlepage}
+\begin{flushleft}
+ \vspace*{-1.5cm}\hspace*{-1.5cm}\includegraphics[scale=0.4]{Images/logo-ETSEIB-UPC.png}
+\end{flushleft}
+
+\centering
+\vspace*{4cm}
+
+{\Huge \bfseries \textsc{Regulation and Safety}}\\[1cm]
+{\huge\emph{Station BlackOut - Safety Analysis}}\\[1.5cm]
+{\LARGE Filippo Dalmonego}\\[0.3cm]
+{\LARGE Tyler Ewald}\\[0.3cm]
+{\LARGE Riccardo Fasano}\\[0.3cm]
+{\LARGE Francesco Qualizza}\\[0.3cm]
+\vspace{4cm}
+{\Large Supervisor:}\\[0.3cm]
+{\Large Jordi Freixa}\\[0.3cm]
+\vspace{2cm}
+{\large \today}\\[0.3cm]
+\end{titlepage}
+
+% ----------------- TOC -----------------
+\clearpage
+\pagenumbering{roman}
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+
+\clearpage
+\pagenumbering{arabic}
+
+% ----------------- INTRO (non numerata ma nel ToC) -----------------
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+The aim of this report is to present the first part of the Station Black-Out (SBO) project developed with RELAP5 as a system code. The main purpose of this first delivery is to study the reference model before any new safety-system design is introduced. In particular, the work is divided in two tasks: first, the verification of the steady-state conditions of the plant model and second the analysis of the SBO base case transient. The steady-state analysis is used to check that the model starts from physically consistent and stable operating conditions. The main thermal-hydraulic parameters are compared with the target values provided in the project statement, and their time evolution is checked in order to confirm that the initial condition is sufficiently stable for the transient calculations. After the steady-state verification, the SBO base case is analyzed. This case represents the reference accident scenario and is used as the starting point for the following parts of the project. The objective is to understand the sequence of events, the system response and the main thermal-hydraulic trends during the transient.
+
+
+\section*{Methodology}
+\addcontentsline{toc}{section}{Methodology}
+
+The reference plant selected for this analysis is the Zion Nuclear Power Station (United States), which was decommissioned in 1998. Although the real plant originally had four primary loops, the RELAP model used in this project is simplified into two equivalent loops only. One loop represents the broken loop and keeps the dimensions of a single loop, while the other represents the intact side and groups the remaining three loops into one single equivalent loop. 
+
+\figref{fig:ZionNPP_Nodalization} shows the nodalization used in order to represent in the best way possible the Zion nuclear power plant.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Images/Nodalization of the Zion NPP.png}
+    \caption{RELAP5 nodalization of the Zion Nuclear Power Plant model.}
+    \label{fig:ZionNPP_Nodalization}
+\end{figure}
+
+
+\section{Steady State Analysis}
+Before starting the accident analysis, it is necessary to verify that the model is in a stable and realistic initial condition.  
+A correct steady state is important because the transient results strongly depend on the quality of the initial condition.
+The steady-state run is checked by comparing the calculated values with the reference values and by observing the time evolution of the main parameters.  
+If the variables remain approximately constant and the deviations from the target values are acceptable, the initial condition can be considered suitable for the transient simulation.
+ 
+
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Parameter & Expected value & Steady State Results\\
+\midrule
+Power (MW) & 3250 & 3250.0\\
+Primary pressure in the hot leg (MPa) & 15.5 & 15.5\\
+Secondary pressure (MPa) & 6.7 & 6.71\\
+Pressurizer level (m) & 8.8 & 8.86\\
+Broken Steam Generators DC level (m) & 12.2 & 12.2\\
+Intact Steam Generators DC level (m) & 12.2 & 12.2\\
+Core outlet temperature (K) & 603 & 603.4\\
+Core inlet temperature (K) & 571 & 570.8\\
+Broken Main feedwater flow (kg/s) & 459 & 455.8\\
+Intact Main feedwater flow (kg/s) & 1325 & 1324.4\\
+Intact loop flow (kg/s) & 12865 & 12436\\
+Broken loop flow (kg/s) & 4351 & 4356\\
+\bottomrule
+\end{tabular}
+\caption{Expected vs Simulation results for Steady State Values}
+\label{tab:Targetvalues}
+\end{table}
+
+\tabref{tab:Targetvalues} shows the main variables that must be checked in the steady-state calculation. The steady-state calculation shows that the main plant variables are close to the reference values; small deviations may appear because of nodalization choices, control-system settings, and numerical approximations.  
+However, the overall agreement is sufficient to accept the initial condition for the SBO transient analysis.
+
+\subsection{Steady State Verification}
+\noindent In this section some plots regarding the steady state case
+are provided. The purpose is only to ensure that the calculations done with 
+RELAP are coherent with the steady state conditions the plant should be operating at.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Steady State/SS1_core_power.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{..//Pictures/Steady State/SS2_primary_pressure.pdf}    
+    \end{minipage}
+    \caption{\centering {Core Power (on the left) and primary pressure (on the right).}}
+    \label{RCS steady}
+\end{figure}
+
+
+
+
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Steady State/SS4_pressurizer_level.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Steady State/SS3_secondary_pressure.pdf}    
+    \end{minipage}
+    \caption{\centering {Pressurizer Level (on the left) and Secondary Pressure (on the right).}}
+    \label{Presteady}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Steady State/SS5_SG_levels.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Steady State/SS6_core_temperatures.pdf}    
+    \end{minipage}
+    \caption{\centering { SG levels (on the left) and RCS temperatures (on the right).}}
+    \label{ss}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Steady State/SS7_primary_flow.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Steady State/SS8_feedwater_flow.pdf}    
+    \end{minipage}
+    \caption{\centering {Primary Mass Flow (on the left) and FW Mass Flow (on the right).}}
+    \label{flowsteady}
+\end{figure}
+
+As we can see, all the variables analyzed are stable and do not change over the time. 
+Some of them present little uncertainties that are probably due to numerical errors
+and the complexity of the phenomena involved.
+
+\section{Base Case Analysis}
+
+After the steady-state verification, the SBO base case is studied. The Station Black-Out is assumed to begin at $t=0$ s with aggravated conditions. 
+Under these conditions, every system that depends on electrical power is considered unavailable. 
+As a result, the reactor coolant pumps trip, the control rods are inserted, and other relevant functions, such as the cooling of the pump seals, are lost. 
+The general assumptions that are common to all the considered accident sequences are summarized in \tabref{tab:SBO_events} below.
+
+\begin{table}[H]
+\centering
+\caption{Main events to be included in the SBO base case description.}
+\label{tab:SBO_events}
+\begin{tabular}{p{4.5cm} p{10.5cm}}
+\toprule
+\textbf{Event / action} & \textbf{Short description} \\
+\midrule
+SBO initiation & Loss of off-site and on-site AC power according to project assumptions \\
+Reactor scram & Automatic shutdown following the transient logic \\
+RCP trip & Reactor coolant pumps stop after loss of power \\
+FW / AFW behavior & Feedwater and auxiliary feedwater response according to the base-case logic \\
+Pressurizer systems & Heater and control-system behavior during SBO \\
+Safety injection unavailability & HPSI and LPSI unavailable during the transient \\
+Steam line / relief actions & Valve actions according to the project assumptions \\
+Additional operator actions & To be completed based on the adopted base-case procedure \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In order to simulate all the accidental sequence, some actions that 
+could be performed from the operators have been taken into account. These are
+listed below. 
+
+
+
+
+
+
+
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{4.5cm}|p{10.5cm}|}
+\hline
+\textbf{Action / Event} & \textbf{Description} \\ \hline
+RCP Seal Leak & Starts 10 minutes after SBO initiation with a leak size of 0.00001 m2 per pump. \\ \hline
+Leak area increase & The leak area increases 4x when saturation takes place at the RCP. \\ \hline
+TDP AFW Injection & Auxiliary feed water is provided by a turbo-driven pump (TDP) which is controlled manually and requires batteries. \\ \hline
+TDP battery depletion & Batteries last for 5h, after which the TDP becomes uncontrolled, injecting water until the separator is flooded and the TDP stops. \\ \hline
+Cooldown strategy (EOP) & Operators follow a strategy to cool down the SG at a rate of 55 K/h until 15 bar. \\ \hline
+Primary depressurization (EOP) & Operators fully open the Pressurizer relief valves to depressurize the primary system if the Core Exit Temperature is higher than 923 K. \\ \hline
+AC power recovery & Recovery of AC power occurs after 12h, which recovers AFW, HPIS, and LPIS. \\ \hline
+\end{tabular}
+\caption{Configurable actions and conditions for the SBO sequences in the Zion model}
+\label{tab:sbo_actions_en}
+\end{table}
+
+\subsection{First Analysis}
+
+\noindent The first analysis was performed considering that all the EOPs
+listed in \tabref{tab:sbo_actions_en} have taken place. We are going to 
+analyze the transient in order to verify the situation of the plant after the 
+SBO has occurred. 
+
+\subsubsection{Reactor Coolant System}
+
+\noindent Right after the SBO event, the SCRAM immediately shuts down 
+the reactor by inserting the control rods, leading to a rapid decrease in power, that 
+is plotted in \figref{power}. The residual value present in the graph 
+is due to the decay heat, which represents the main issue in this types of scenarios.
+Moreover, the loss of AC power causes the immediate trip of the pumps.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Base Case/BC1_core_power.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Base Case/BC7_RCP_velocities.pdf}    
+    \end{minipage}
+    \caption{\centering {Core Power (on the left) and RCP velocities (on the right).}}
+    \label{power}
+\end{figure}
+
+
+
+\noindent The sudden power decrease causes a contraction within the coolant, 
+which lowers the level inside the pressurizer, as it is shown in \figref{plevels}.
+The level reaches zero and it starts to increase again after 12 hours, when 
+the AC power is recovered and water is introduced again by the means of HPIS, LPIS and the pumps. The loss of level is also enhanced by the loss of inventory, as 
+the seal injection system is not available during a SBO. This lead to some leaks from the pumps, which contributes to the decrease.
+However, an empty pressurizer does not imply that the core is uncovered. This situation 
+is properly described in \figref{plevels}.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Base Case/BC4_pressurizer_level.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Base Case/BC6_primary_levels.pdf}    
+    \end{minipage}
+    \caption{\centering {Pressurizer Level (on the left) and Core Levels (on the right).}}
+    \label{plevels}
+\end{figure}
+
+
+
+
+In \figref{RCP} the pumps's leaks is shown. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../Pictures/Base Case/BC12_RCP_seal_leaks.pdf}
+    \caption{\centering RCP Seals Leaks. Notice that the intact loop represents 3 loops.}
+    \label{RCP}
+\end{figure}
+
+According to the EOPs, if the outlet temperature from the core is higher than 
+923 K, the operators should depressurize the primary system using the PRZ valves. In our case, this procedure
+has not been necessary, as the core exit temperature does not overcome 923 K. \figref{tprimary} shows the main parameters related to 
+the temperatures of the core.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Base Case/BC8_primary_temperatures.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/Base Case/BC10_peak_clad_temperature.pdf}    
+    \end{minipage}
+    \caption{\centering {Core Temperatures (on the left) and Cladding Temperature (on the right).}}
+    \label{tprimary}
+\end{figure}
+
+The primary temperatures are lower than the threshold limit established 
+for the operator, as well as the peak cladding temperature. It remains lower than the safety limit, preventing 
+damages to the cladding. It also indicates that DNBR is prevented and the core is covered. The constant behaviour can be explained 
+as a consequence of some natural circulation phenomena that could have taken place inside the primary, due to the pressure difference 
+between primary and secondary. \figref{flow} shows that a little flow inside the RCS 
+is present, even if the pumps are tripped. The natural circulation guarantees the heat exchange 
+between the core and the SGs.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../Pictures/Base Case/BC15_primary_flow.pdf}
+    \caption{\centering Primary Mass Flow}
+    \label{flow}
+\end{figure}
+
+\subsection{Secondary System}
+\noindent It is finally the moment to take a look at the behaviour 
+of the secondary system. In a SBO scenario, this system plays a fundamental role, since 
+it is used to extract the heat coming from the core where no AC powered system is available. A natural circulation
+flow regime is established by the pressure's difference between the primary and the secondary, helped by the elevation of the latter. In fact, 
+the SG is usually located in a higher position than the core, in order to stimulate
+the gravity forces that act by density. \\
+As we said in the previous chapter, a cooldown procedure is performed by the operators. The aim is to 
+cool down the SG at a rate of 55 K/h, until a pressure of 15 bar (1.5 MPa)
+within the secondary is guaranteed. In \figref{sgp} this situation is well 
+described.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../Pictures/Base Case/BC3_secondary_pressure.pdf}
+    \caption{\centering SG Pressure Evolution during the Transient.}
+    \label{sgp}
+\end{figure}
+The procedure is done by the relief valves, located at the top of the SG. Their function is to release steam to the atmosphere, 
+in order to reduce the pressure inside the SG. As we can see from the picture, 
+the procedure is well carried out until the target pressure of 15 bar is reached. 
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../Pictures/Base Case/BC13_relief_valves.pdf}
+    \caption{\centering Relief Valves Flow. Notice that the flow coming from the PRZ valves is zero, as the primary depressurization has not been carried.}
+    \label{relief}
+\end{figure}
+
+\figref{relief} shows the flows coming from the relief valves. The behaviour of the valves is coherent with 
+the SG pressure curve, the most of the steam is released at the beginning of the procedure and gradually decreases. After that, 
+the flow remains constant, since the operators aimed to keep the SG pressure constant and the Auxiliary FeedWater is constantly injecting 
+water. The latter is shown in \figref{AFW1}. The batteries that power the turbo-driven AFW last for 5 hours. As mentioned in \tabref{tab:sbo_actions_en}, at this moment 
+the TDP becomes uncontrolled and injects water until the SG separator is flooded. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../Pictures/Base Case/BC11_AFW_TDP.pdf}
+    \caption{\centering Auxiliary Turbo-Driven Feedwater Flow. Remember that the intact loop represents 3 loops. }
+    \label{AFW1}
+\end{figure}
+
+
+\section{Additional Calculations}
+\noindent As part of the base case simulation, there are two operator procedures assumed to be preformed. These are the steady depressurization of the secondary system, and the depressurization of the primary based on a high outlet core temperature. 
+Apart from the complete base case, the simulation was also performed without these operator interventions in order to gauge their effectiveness. The second EOP mentioned above, pertaining to primary depressurization, was never actuated in the base case as the outlet temperature never reached the threshold value. Therefore, this case was identical to the base case and will not be analyzed further and only the additional case without the EOP 1  is analyzed below. This simulation analyzes the dynamics and critical values of the system when the steam generators are not depressurized allowing for a further reduction in primary temperature and pressure. 
+
+\figref{PSNOSG} below demonstrates the lack of pressure relief of the secondary system. The lack of the depressurization EOP maintains the pressure high in the secondary system. This graph verifies that the EOP is not initiated as intended. In the base case, the relief valve setpoint is progressively reduced from the nominal value of 6.7 MPa down to 1.5 MPa, following the 55 K/h cooldown ramp. Without this operator action, the setpoint remains fixed at the nominal opening value of 7.58 MPa throughout the entire transient. As a consequence, the secondary pressure does not decrease monotonically but instead exhibits a strong cyclic behaviour: as the decay heat continuously produces steam, the pressure rises until the relief valve opens at 7.58 MPa, releasing steam to the atmosphere. Once the pressure drops below the closing setpoint of 7.79 MPa, the valve closes and the pressure begins to rise again. This open-close cycling of the relief valves repeats continuously, maintaining the secondary pressure oscillating between approximately 4.5 and 8.0 MPa rather than reaching the 1.5 MPa target of the EOP.
+%Graph of Secondary Pressure
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../Pictures/No SG Case/noSG3_secondary_pressure.pdf}
+    \caption{\centering Secondary Pressure. }
+    \label{PSNOSG}
+\end{figure}
+
+
+
+
+One of the main concerns during the transient event is the protection of the fuel cladding. \figref{TcladNOSG} shows the temperature of the cladding as a way to verify a lack of oxidation of the zirconium. The temperature in the primary does not reach excessive levels. Although it is higher than the base case which sees a drop in temperature of the cladding shortly after the event initiation, the temperature is still a safe margin away from rapid oxidation.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../Pictures/No SG Case/noSG10_peak_clad_temperature.pdf}
+    \caption{\centering Peak Cladding Temperature.}
+    \label{TcladNOSG}
+\end{figure}
+
+
+Another factor of concern is the pressure in the primary. Without the further cooldown of primary system as a result of the steam generator depressurization, the pressure in the primary is much more elevated. One of the main concerns of this value is the correlation between leak rate and pressure. With higher primary pressures, we can expect to lose more inventory through the RCP seals.
+This situation is well represented in \figref{primaryNoSG}.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/No SG Case/noSG2_primary_pressure.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../Pictures/No SG Case/noSG12_RCP_seal_leaks.pdf}    
+    \end{minipage}
+    \caption{\centering {Primary pressure (on the left) and RCP seal leak rate (on the right).}}
+    \label{primaryNoSG}
+\end{figure}
+
+As discussed above, the leak rate of the RCP seals is of concern in this event, and becomes more of an issue with higher primary pressures. \figref{primaryNoSG} confirms this. The higher primary pressure has a direct consequence on the RCP seal leak rates. Since the leak flow is driven by the pressure difference between the primary circuit and the containment atmosphere, a higher primary pressure results in a significantly larger leak flow. The seal leak rates in the no-cooldown case reach peak values of approximately 8-10 kg/s for the intact loop, compared to roughly 2.5 kg/s in the base case — about 3-4 higher. The irregular oscillating pattern of the leak rate directly correlates with the cyclic pressure oscillations of the secondary system described above. Despite this increased inventory loss, no core uncovery is observed within the 12-hour simulation window, indicating that the plant remains in a safe condition. However, in a longer SBO scenario, the sustained high leak rate would represent a more serious concern for primary inventory management.
+
+The simulation demonstrated that the EOP does help to reduce the temperature of the core and the pressure of the primary system. However, based on this analysis is not essential in order to protect the integrity of the fuel cladding during a 12 hour station black out. 
+
+
+
+
+\section{Preliminary Conclusions}
+
+From the first analyses, the system code RELAP5 can be used as the model basis for the next stages of the project. The steady-state calculation is first checked against the target values, and the SBO base case is then used to observe the main thermal-hydraulic response of the plant under blackout conditions.
+
+The SBO base case transient showed that the plant is able to maintain core cooling for at least 12 hours without core damage. The decay heat is effectively removed through natural circulation in the primary system and by the Auxiliary Feedwater system on the secondary side. The peak cladding temperature remains well below the safety limit of 1477 K throughout the entire transient, and the core is never uncovered.
+
+Having analyzed two EOPs, we can say that the SG cooldown procedure (EOP 1) proved usefil but not strictly necessary to prevent core damage within the 12-hour simulation window. The cooldown EOP reduces primary pressure and lowers the RCP seal leak rate. It is therefore recommended as a prudent operator action. Instead, the primary depressurization procedure (EOP 2) was never triggered in either the base case or the no-cooldown case, as the Core Exit Temperature did not reach the 923 K threshold at any point during the transient. 
+Overall, the results demonstrate that the existing safety systems and operator procedures are sufficient to manage the SBO scenario for 12 hours. However, the analysis also highlights that the absence of the SG cooldown EOP leads to a more challenging scenario and could lead to core damage in a longer event.
+
+At this stage, the report is intended as a structured first draft. The final discussion will be completed after adding the detailed numerical results, the transient plots, and the comparison with the additional scenarios required in the following stages of the project.
+
+\newpage
+
+\section*{CRediT Author Statement}
+
+\begin{itemize}
+    \item \textbf{Filippo Dalmonego:} Coding, Writing, Review, Supervision, Visualization.
+    \item \textbf{Tyler Ewald:} Coding, Writing, Editing, Supervision.
+    \item \textbf{Riccardo Fasano:} Writing, Coding, Editing, Supervision.
+    \item \textbf{Francesco Qualizza:} Methodology, Supervision, Writing, Editing.
+\end{itemize}
+
+
+\end{document}
