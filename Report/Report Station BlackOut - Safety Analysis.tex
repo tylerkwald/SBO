@@ -571,7 +571,128 @@ As discussed above, the leak rate of the RCP seals is of concern in this event, 
 
 The simulation demonstrated that the EOP does help to reduce the temperature of the core and the pressure of the primary system. However, based on this analysis is not essential in order to protect the integrity of the fuel cladding during a 12 hour station black out. 
 
+\newpage 
+\section{Event tree for the SBO scenario}
+The event Tree analysis is an inductive procedure that aims to show all the possible outcomes of an initiating event, in our case an SBO with aggravated conditions. The objective is to identify all the potential accident scenario in a complex frequency. At the end of the process, it is possible to calculate the core damage frequency by assigning a frequency to each sequence. In this part an event tree for the SBO scenario regarding the ZION nuclear power plant is presented, together with the PSA frequency calculation. 
 
+\subsection{Initiating Event and Top Events considered in this analysis}
+
+The initiating event is the SBO occured in aggravated conditions. It implies that all the systems that require power are unavailable. The top events that were chosen to be analyzed in this event tree are listed in \tabref{TOPEVENTS}. 
+
+\begin{table}[H]
+\centering
+\caption{Top events considered in the SBO event tree.}
+\label{tab:top_events}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}cl>{\raggedright\arraybackslash}p{4.6cm}c>{\raggedright\arraybackslash}p{3.6cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Top event} & \textbf{Description} & \textbf{Timing} & \textbf{Success criterion} \\
+\midrule
+TE1 & Small leak &
+RCP seal LOCA induced by loss of seal injection and thermal barrier cooling. Break area $1\times 10^{-5}\ \mathrm{m^2}$ per pump (intact loop counts as three pumps). &
+$t = 10$ min &
+Seal integrity maintained; no leak develops. \\
+
+TE2 & AFW \& TDP &
+Turbine-driven pump delivers auxiliary feedwater to the steam generators, providing the only available secondary heat sink during SBO. &
+$t = 0^{+}$ (on demand) &
+TDP starts and supplies sufficient feedwater to both SGs. \\
+
+TE3 & Large leak &
+Amplification of the seal leak by a factor of four when saturation conditions are reached at the RCP location, according to NUREG/CR\,7110 Vol.~2. &
+$t = t_{\mathrm{sat,RCP}}$ &
+Leak area does not amplify (or saturation not reached at the seals). \\
+
+TE4 & Extra batteries &
+DC power supply enabling manual control of the TDP and key instrumentation. Beyond depletion the TDP runs uncontrolled until the SG separator floods and trips it. &
+$t = 5$ h &
+Batteries provide controlled TDP operation until AC restoration. \\
+
+TE5 & AC restoration &
+Recovery of off-site or emergency on-site AC power, restoring AFW, HPSI, LPSI and component cooling. &
+$t = 12$ h &
+AC power restored before core uncovery. \\
+\bottomrule
+\end{tabular}
+\label{TOPEVENTS}
+\end{table}
+
+Chosing 5 top events for the event tree would yield 32 possible sequences. However, some sequences can be discarded as their physical meaning stop being sensible in case of failure: 
+\begin{itemize}
+    \item \textbf{Loss of TDP collapses all downstream branches}. In case Turbo-Driven Pumps are not available right after the initiating event has taken place, a quick dry-out of the steam generator may occur. This would lead to lose the major heat sink to the secondary, ending up in core uncovery before any following event; 
+    \item \textbf{Large leak is logically disjoint from no small leak}.
+    TE3 represents the 4 amplification of the existing small seal leak when saturation is reached at the RCP. If TE1 = success (no seal leak ever develops), there is no leak to amplify. The two events are not independent.
+    The Large Leak top event is therefore not branched in the upper half of the tree, and the path goes directly from AFW \& TDP success to Extra Batteries. This eliminates 4 phantom sequences that have no physical meaning.
+\end{itemize}
+
+\subsection{Expected Results}
+This section presents the results we expect based on the expected physical behavior of the plant. Each sequence is derived taking into account the success criteria of each TE and the most likely outcome in case of failure or success. They can be seen in \tabref{tab:sequences}.
+
+
+\begin{table}[H]
+\centering
+\caption{Accident sequences expected. Y/N indicate success/failure
+of each top event; dashes indicate branches not developed.}
+\label{tab:sequences}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}cccccccc@{}}
+\toprule
+\textbf{Seq.} & \textbf{TE1} & \textbf{TE2} & \textbf{TE3} & \textbf{TE4} & \textbf{TE5} & \textbf{Outcome}\\
+              & SL          & AFW         & LL          & Batt        & AC          &                  &                              \\
+\midrule
+1  & Y & Y & Y & Y & Y & SAFE \\
+2  & Y & Y & Y & Y & N & CD   \\ 
+3  & Y & Y & Y & N & Y & SAFE \\
+4  & Y & Y & Y & N & N & CD   \\
+5  & Y & N & -- & -- & -- & C \\
+6  & N & Y & Y & Y & Y & SAFE \\
+7  & N & Y & Y & Y & N & CD   \\
+8  & N & Y & Y & N & Y & SAFE \\
+9  & N & Y & Y & N & N & CD   \\
+10 & N & Y & N & Y & Y & SAFE \\
+11 & N & Y & N & Y & N & CD    \\
+12 & N & Y & N & N & Y & \textbf{?}\\
+13 & N & Y & N & N & N & CD   \\
+14 & N & N & -- & -- & -- & CD \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Results}
+
+\begin{table}[H]
+\centering
+\caption{Y/N indicate success/failure
+of each top event; dashes indicate branches not developed. The PCT column
+reports the maximum cladding temperature reached in the RELAP5 simulation;
+core damage is declared when PCT exceeds the safety limit of 1477 K.}
+\label{tab:sequences}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}ccccccccc@{}}
+\toprule
+\textbf{Seq.} & \textbf{TE1} & \textbf{TE2} & \textbf{TE3} & \textbf{TE4} & \textbf{TE5} & \textbf{Outcome} & \textbf{PCT [K]} & \textbf{$t_\mathrm{CD}$ [h]} \\
+              & SL          & AFW         & LL          & Batt        & AC          &                  &                  &                              \\
+\midrule
+1  & Y & Y & Y & Y & Y & SAFE       & TBD & --- \\
+2  & Y & Y & Y & Y & N & CD         & TBD & TBD \\
+3  & Y & Y & Y & N & Y & SAFE       & TBD & --- \\
+4  & Y & Y & Y & N & N & CD         & TBD & TBD \\
+5  & Y & N & -- & -- & -- & CD      & TBD & TBD \\
+6  & N & Y & Y & Y & Y & SAFE       & TBD & --- \\
+7  & N & Y & Y & Y & N & CD         & TBD & TBD \\
+8  & N & Y & Y & N & Y & SAFE       & TBD & --- \\
+9  & N & Y & Y & N & N & CD         & TBD & TBD \\
+10 & N & Y & N & Y & Y & SAFE       & TBD & --- \\
+11 & N & Y & N & Y & N & CD         & TBD & TBD \\
+12 & N & Y & N & N & Y & \textbf{?} & TBD & to be confirmed \\
+13 & N & Y & N & N & N & CD         & TBD & TBD \\
+14 & N & N & -- & -- & -- & CD      & TBD & TBD \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 \section{Preliminary Conclusions}
