@@ -30,18 +30,21 @@ OUTPUT_FOLDER = os.path.join(BASE_DIR, 'Output', 'EventTree')
 # ==============================================================================
 
 EVENT_TREE_CASES = {
-    'ET01_all':                         (True,  True,  True,  True,  True ),
-    'ET02_noAC':                        (True,  True,  True,  True,  False),
-    'ET03_noBat':                       (True,  True,  True,  False, True ),
-    'ET04_noBat_noAC':                  (True,  True,  True,  False, False),
-    'ET05_noTDP':                       (True,  True,  False, True,  True ),
-    'ET06_noTDP_noAC':                  (True,  True,  False, True,  False),
-    'ET07_noTDP_noBat_noAC':            (True,  True,  False, False, False),
-    'ET08_noLeak':                      (False, False, True,  True,  True ),
-    'ET09_noLeak_noAC':                 (False, False, True,  True,  False),
-    'ET10_noLeak_noBat_noAC':           (False, False, True,  False, False),
-    'ET11_noLeak_noTDP_noAC':           (False, False, False, True,  False),
-    'ET12_noLeak_noTDP_noBat_noAC':     (False, False, False, False, False),
+    'ET01':                (True,  True,  True,  True,  True ),
+    'ET02':                (True,  True,  True,  True,  False),
+    'ET03':                (True,  True,  True,  False, True ),
+    'ET04':                (True,  True,  True,  False, False),
+    'ET05':                (True,  False, True,  True,  True ),  # afw=False ora è 2° posto
+    'ET06':                (False, True,  True,  True,  True ),
+    'ET07':                (False, True,  True,  True,  False),
+    'ET08':                (False, True,  True,  False, True ),
+    'ET09':                (False, True,  True,  False, False),
+    'ET10':                (False, True,  False, True,  True ),
+    'ET11':                (False, True,  False, True,  False),
+    'ET12':                (False, True,  False, False, True ),
+    'ET13':                (False, True,  False, False, False),
+    'ET14':                (False, False, False, True,  True),
+    'ET15':                (False, False, False, True,  False),
 }
 
 # ==============================================================================
@@ -119,16 +122,10 @@ def wait_for_relap(sftp, remote_work_dir, case_name, timeout=1800, poll=15):
     return False
 
 
-def generate_case_input(base_content, case_name, small_leak, large_leak, tdp, batteries, ac):
+def generate_case_input(base_content, case_name, small_leak, afw, large_leak, batteries, ac):
     """Generate modified input with disabled systems and verify replacements."""
     content = base_content
     changes = []
-    # In generate_case_input, dopo gli altri replace:
-    if case_name in ['ET02_noAC', 'ET09_noLeak_noAC']:
-        content = content.replace(
-            '201  50000.0    1.0e-7   0.1   3    50     50000  50000',
-            '201  259200.0   1.0e-7   0.1   3    50     50000  259200'
-        )
 
     def replace(key):
         nonlocal content
@@ -140,13 +137,13 @@ def generate_case_input(base_content, case_name, small_leak, large_leak, tdp, ba
         else:
             changes.append(f'  ✗ NOT FOUND: {key}  ← check spacing in TRIP_ORIGINALS')
 
-    if not small_leak:
+    if small_leak:
         replace('small_leak')
-    if not large_leak:
+    if not afw:
+        replace('tdp')
+    if large_leak:
         replace('large_leak_a')
         replace('large_leak_b')
-    if not tdp:
-        replace('tdp')
     if not batteries:
         replace('batteries')
     if not ac:
@@ -156,10 +153,32 @@ def generate_case_input(base_content, case_name, small_leak, large_leak, tdp, ba
     return header + content, changes
 
 
-def check_core_damage(dat_file):
-    """Parse strip .dat to find if PCT >= 1700 K (core damage)."""
-    CD_THRESHOLD   = 1477.0   # K — PCT regulatory limit (core damage)
-    RELAP_STOP     = 1700.0   # K — RELAP trip 455 (simulation stop)
+def check_core_damage(dat_file, output_file=None):
+    """Check strip .dat first, fallback to .o file."""
+    CD_THRESHOLD = 1477.0
+    RELAP_STOP   = 1700.0
+
+    # --- Prima controlla il .o se disponibile ---
+    if output_file and os.path.exists(output_file):
+        try:
+            with open(output_file, 'r', errors='ignore') as f:
+                content = f.read()
+            if 'Transient terminated by trip' in content:
+                # Cerca il tempo finale
+                import re
+                m = re.search(r'Final time=\s+([\d.]+)\s+sec', content)
+                t_end = float(m.group(1)) if m else 0
+                # Cerca temperatura massima dalla heat structure output
+                temps = re.findall(r'3360-0\d+\s+left\s+\S+\s+([\d.]+)', content)
+                max_t = max((float(t) for t in temps), default=0)
+                if max_t >= RELAP_STOP:
+                    return f'CD_SEVERE @ {t_end:.0f}s (T={max_t:.0f}K)'
+                elif max_t >= CD_THRESHOLD:
+                    return f'CD @ {t_end:.0f}s (T={max_t:.0f}K)'
+        except Exception:
+            pass
+
+    # --- Poi analizza il strip ---
     if not os.path.exists(dat_file):
         return 'NO DATA'
     try:
@@ -167,12 +186,10 @@ def check_core_damage(dat_file):
             lines = f.readlines()
         if not lines:
             return 'EMPTY'
-
         header = lines[0].split()
         httemp_idx = [i for i, c in enumerate(header) if 'httemp' in c.lower()]
         if not httemp_idx:
             return 'NO HTTEMP'
-
         max_t = 0.0
         for line in lines[1:]:
             parts = line.split()
@@ -232,9 +249,9 @@ def run_event_tree():
     os.makedirs(OUTPUT_FOLDER, exist_ok=True)
     case_files = {}
 
-    for case_name, (small, large, tdp, bat, ac) in EVENT_TREE_CASES.items():
+    for case_name, (sl, afw, ll, bat, ac) in EVENT_TREE_CASES.items():
         content, changes = generate_case_input(base_content, case_name,
-                                               small, large, tdp, bat, ac)
+                                               sl, afw, ll, bat, ac)
         filepath = os.path.join(INPUT_FOLDER, f'{case_name}.i')
         with open(filepath, 'w') as f:
             f.write(content)
@@ -278,10 +295,10 @@ def run_event_tree():
 
     results = {}
 
-    for i, (case_name, (small, large, tdp, bat, ac)) in enumerate(EVENT_TREE_CASES.items()):
+    for i, (case_name, (sl, afw, ll, bat, ac)) in enumerate(EVENT_TREE_CASES.items()):
 
         banner(f'CASE {i+1}/{len(EVENT_TREE_CASES)}: {case_name}')
-        print(f'  leak={small} lgLeak={large} TDP={tdp} bat={bat} AC={ac}')
+        print(f'  SL={sl} AFW={afw} LL={ll} bat={bat} AC={ac}')
 
         # Upload input
         sftp.put(case_files[case_name],
@@ -312,7 +329,7 @@ def run_event_tree():
         # Corretto: RELAP scrive sempre su restart.r
         cmd_extract = f'cd {remote_dir} && extract.sh {STRIP_NAME} restart'
         exec_wait(client, cmd_extract, label='extract')
-        time.sleep(3)
+        time.sleep(30)
 
         # Rinomina strip_base_restart.dat → ET01_all_strip.dat
         cmd_mv = f'mv {remote_dir}/{STRIP_NAME}_restart.dat {remote_dir}/{case_name}_strip.dat'
@@ -332,7 +349,9 @@ def run_event_tree():
                 print(f'  ~ {remote_name}: {e}')
 
         # Assess outcome
-        outcome = check_core_damage(os.path.join(OUTPUT_FOLDER, f'{case_name}_strip.dat'))
+        outcome = check_core_damage(os.path.join(OUTPUT_FOLDER, f'{case_name}_strip.dat'),
+                                    os.path.join(OUTPUT_FOLDER, f'{case_name}.o')
+                                    )
         results[case_name] = outcome
         print(f'  >>> {outcome}')
 
@@ -341,21 +360,20 @@ def run_event_tree():
 
     # --- Summary ---
     banner('EVENT TREE SUMMARY')
-    print(f'{"Case":<40} {"Lk":>3} {"LgLk":>4} {"TDP":>4} {"Bat":>4} {"AC":>4}  {"Outcome"}')
-    print('-' * 80)
+    print(f'{"Case":<40} {"SL":>4} {"AFW":>4} {"LL":>4} {"Bat":>4} {"AC":>4}  {"Outcome"}')
+    print('-' * 85)
     s = lambda x: 'Y' if x else 'N'
-    for case_name, (small, large, tdp, bat, ac) in EVENT_TREE_CASES.items():
+    for case_name, (sl, afw, ll, bat, ac) in EVENT_TREE_CASES.items():
         outcome = results.get(case_name, 'NOT RUN')
-        print(f'{case_name:<40} {s(small):>3} {s(large):>4} {s(tdp):>4} {s(bat):>4} {s(ac):>4}  {outcome}')
-
+        print(f'{case_name:<40} {s(sl):>4} {s(afw):>4} {s(ll):>4} {s(bat):>4} {s(ac):>4}  {outcome}')
     summary_path = os.path.join(OUTPUT_FOLDER, 'event_tree_summary.txt')
     with open(summary_path, 'w') as f:
         f.write('EVENT TREE RESULTS\n' + '='*80 + '\n')
-        f.write(f'{"Case":<40} {"Lk":>3} {"LgLk":>4} {"TDP":>4} {"Bat":>4} {"AC":>4}  Outcome\n')
-        f.write('-'*80 + '\n')
-        for case_name, (small, large, tdp, bat, ac) in EVENT_TREE_CASES.items():
+        f.write(f'{"Case":<40} {"SL":>4} {"AFW":>4} {"LL":>4} {"Bat":>4} {"AC":>4}  Outcome\n')
+        f.write('-'*85 + '\n')
+        for case_name, (sl, afw, ll, bat, ac) in EVENT_TREE_CASES.items():
             outcome = results.get(case_name, 'NOT RUN')
-            f.write(f'{case_name:<40} {s(small):>3} {s(large):>4} {s(tdp):>4} {s(bat):>4} {s(ac):>4}  {outcome}\n')
+            f.write(f'{case_name:<40} {s(sl):>4} {s(afw):>4} {s(ll):>4} {s(bat):>4} {s(ac):>4}  {outcome}\n')
 
     print(f'\n  Summary: {summary_path}')
 

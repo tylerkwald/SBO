@@ -4,7 +4,7 @@
 101 run
 103 0 restart.r 
 *
-201  259200.0   1.0e-7   0.1   3    50     50000  259200
+201  259200.0    1.0e-7   0.1   3    50     50000  50000
 
 *****************************************************************************************************
 *
@@ -87,8 +87,8 @@
 611          -501           and           501             n * always false
 691          -750           and          -750             n * not SCRAM
 750           501            or           452             n * SCRAM
-771           454           and           456             n
-772           454           and           457             n
+771           611           and           611             n * large leak DISABLED
+772           611           and           611             n * large leak DISABLED
 780           503           and           453             n * HPSI available (AC recovered + Low Press)
 781           520           and           453             n * LPSI available (AC recovered + Low Press)
 531   time         0 ge    timeof         750 0.0             l   * start cooldown immediately after SCRAM 
@@ -481,7 +481,7 @@
 *
 454   time         0 gt      timeof       452     600.0             n * start of leaking time after SBO
 458   time         0 lt      null          0      1.0e9           n * end of RCP leak
-770           458           and           454                     n 
+770           611           and           611                     n * small leak DISABLED 
 * 
 *                name          type
 5020000     "contain"       tmdpvol

@@ -1,16 +1,19 @@
 EVENT TREE RESULTS
 ================================================================================
-Case                                      Lk LgLk  TDP  Bat   AC  Outcome
---------------------------------------------------------------------------------
-ET01_all                                   Y    Y    Y    Y    Y  SUCCESS (max T=621K)
-ET02_noAC                                  Y    Y    Y    Y    N  CD @ 76400s (T=1477K)
-ET03_noBat                                 Y    Y    Y    N    Y  SUCCESS (max T=621K)
-ET04_noBat_noAC                            Y    Y    Y    N    N  SUCCESS (max T=621K)
-ET05_noTDP                                 Y    Y    N    Y    Y  CD @ 43950s (T=1478K)
-ET06_noTDP_noAC                            Y    Y    N    Y    N  CD @ 43950s (T=1478K)
-ET07_noTDP_noBat_noAC                      Y    Y    N    N    N  CD @ 11255s (T=1480K)
-ET08_noLeak                                N    N    Y    Y    Y  SUCCESS (max T=621K)
-ET09_noLeak_noAC                           N    N    Y    Y    N  CD @ 80685s (T=1480K)
-ET10_noLeak_noBat_noAC                     N    N    Y    N    N  SUCCESS (max T=621K)
-ET11_noLeak_noTDP_noAC                     N    N    N    Y    N  CD @ 46270s (T=1479K)
-ET12_noLeak_noTDP_noBat_noAC               N    N    N    N    N  CD @ 11430s (T=1478K)
+Case                                       SL  AFW   LL  Bat   AC  Outcome
+-------------------------------------------------------------------------------------
+ET01                                        Y    Y    Y    Y    Y  SUCCESS (max T=621K)
+ET02                                        Y    Y    Y    Y    N  CD_SEVERE @ 81070s (T=1702K)
+ET03                                        Y    Y    Y    N    Y  SUCCESS (max T=621K)
+ET04                                        Y    Y    Y    N    N  CD_SEVERE @ 66061s (T=1701K)
+ET05                                        Y    N    Y    Y    Y  SUCCESS (max T=963K)
+ET06                                        N    Y    Y    Y    Y  SUCCESS (max T=621K)
+ET07                                        N    Y    Y    Y    N  CD_SEVERE @ 76292s (T=1701K)
+ET08                                        N    Y    Y    N    Y  SUCCESS (max T=621K)
+ET09                                        N    Y    Y    N    N  CD_SEVERE @ 62600s (T=1701K)
+ET10                                        N    Y    N    Y    Y  SUCCESS (max T=621K)
+ET11                                        N    Y    N    Y    N  CD_SEVERE @ 76744s (T=1701K)
+ET12                                        N    Y    N    N    Y  SUCCESS (max T=621K)
+ET13                                        N    Y    N    N    N  CD_SEVERE @ 62712s (T=1701K)
+ET14                                        N    N    N    Y    Y  CD @ 43950s (T=1478K)
+ET15                                        N    N    N    Y    N  CD_SEVERE @ 44231s (T=1701K)
