@@ -268,7 +268,7 @@ RELAP are coherent with the steady state conditions the plant should be operatin
         \centering
         \includegraphics[width=\linewidth]{../Pictures/Steady State/SS4_pressurizer_level.pdf}
     \end{minipage}
-    \hfillSBO FirstReport/Images
+    %\hfillSBO FirstReport/Images
     \begin{minipage}{0.49\textwidth}  
         \centering
         \includegraphics[width=\linewidth]{../Pictures/Steady State/SS3_secondary_pressure.pdf}    
@@ -626,37 +626,20 @@ Chosing 5 top events for the event tree would yield 32 possible sequences. Howev
 \end{itemize}
 
 \subsection{Expected Results}
-This section presents the results we expect based on the expected physical behavior of the plant. Each sequence is derived taking into account the success criteria of each TE and the most likely outcome in case of failure or success. They can be seen in \tabref{tab:sequences}.
+This section presents the results we expect based on the expected physical behavior of the plant. Each sequence is derived taking into account the success criteria of each TE and the most likely outcome in case of failure or success. They can be seen in \figref{fig:event treeeee}. The lower half of the picture represents the possible outcomes in case of small leak (TE1) occurs, while the upper part represents the other possible path. As we said before, is TE1 = success, which implies no small leak occurring, a large leak is not going to amplify an already existing break (cause there is none) and therefore the two events are not indipendent. This "disjoint" is indicated at the corresponding place within the graph. \\
+In case extra batteries fail, together with no recover of the AC power, we expect the system to have core damage, as it would not be possible to cool the core. Moreover, if extra batteries are available but no AC power is recovered, core damage is expected to take place as the batteries would get depleted while operating. The unavailability of the Auxiliary Feedwater System and Turbo-Driven pumps would lead to core damage as the main heat sink present within the plant - the steam generators - would be lost. \\
 
 
-\begin{table}[H]
-\centering
-\caption{Accident sequences expected. Y/N indicate success/failure
-of each top event; dashes indicate branches not developed.}
-\label{tab:sequences}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{@{}cccccccc@{}}
-\toprule
-\textbf{Seq.} & \textbf{TE1} & \textbf{TE2} & \textbf{TE3} & \textbf{TE4} & \textbf{TE5} & \textbf{Outcome}\\
-              & SL          & AFW         & LL          & Batt        & AC          &                  &                              \\
-\midrule
-1  & Y & Y & Y & Y & Y & SAFE \\
-2  & Y & Y & Y & Y & N & CD   \\ 
-3  & Y & Y & Y & N & Y & SAFE \\
-4  & Y & Y & Y & N & N & CD   \\
-5  & Y & N & -- & -- & -- & C \\
-6  & N & Y & Y & Y & Y & SAFE \\
-7  & N & Y & Y & Y & N & CD   \\
-8  & N & Y & Y & N & Y & SAFE \\
-9  & N & Y & Y & N & N & CD   \\
-10 & N & Y & N & Y & Y & SAFE \\
-11 & N & Y & N & Y & N & CD    \\
-12 & N & Y & N & N & Y & \textbf{?}\\
-13 & N & Y & N & N & N & CD   \\
-14 & N & N & -- & -- & -- & CD \\
-\bottomrule
-\end{tabular}
-\end{table}
+At the lower part, the sequences are extrapolated following the same scheme applied on the upper part. Core damage will occur if no AFW \& TDP are available. Depending on the availability of the extra batteries and the capability of recovering AC power, the predicted outcomes are drawn. 
+
+The RELAP analysis will be used either to confirm this configuration or assess different types of events and outcomes. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{./Images/sboEventTree.png}
+    \caption{\centering Expected Event Tree.}
+    \label{fig:event treeeee}
+\end{figure}
 
 
 
@@ -698,7 +681,7 @@ core damage is declared when PCT exceeds the safety limit of 1477 K.}
 
 The creation and verification of the event tree for the SBO case allows for the calculation of the contributions of the SBO to the Core Damage Frequency and to identify the Conditional Core Damage Frequency (CCFD).
 
-\subsection{Mathmatical Representation}
+\subsection{Mathematical Representation}
 
 The first step to analysis the event tree qualitativly is identify the initating event frequency and the conditional probabilities of each of the elements of the event tree. The key variables under consideration are as follows: 
 
@@ -714,7 +697,7 @@ The first step to analysis the event tree qualitativly is identify the initating
 
 \subsubsection*{Initiating Event}
 
-The initiating event frequency of the SBO is derived from the NUREG CR-7110 Vol .2 /cite{nureg7110}. From this report the frequency of Long-Term SBO frequency is identified as $2\text{x}10^{-5}$ pry (per reactor year), and the Short-Term SBO frequency is defined as $2\text{x}10^{-6}$ pry. One interesting finding from this is the higher frequency of long-term SBOs than short term ones. From the frequencies above the initiaing event frequency is derived below:
+The initiating event frequency of the SBO is derived from the NUREG CR-7110 Vol 2 \cite{nureg7110}. From this report the frequency of Long-Term SBO frequency is identified as $2\text{x}10^{-5}$ pry (per reactor year), and the Short-Term SBO frequency is defined as $2\text{x}10^{-6}$ pry. One interesting finding from this is the higher frequency of long-term SBOs than short term ones. From the frequencies above the initiaing event frequency is derived below:
 
 \begin{flalign}
     F(I) & = F(LT \cup ST) \\ \nonumber
@@ -745,7 +728,7 @@ Giving a total probability of:
     P(A) = 4.54\text{x}10^{-5}
 \end{flalign}
 
-The data for the failure of the TDP was taken from the IHL TDP Performance Analysis \cite{IHL_TDP}.
+%The data for the failure of the TDP was taken from the IHL TDP Performance Analysis \cite{IHL_TDP}.
 
 \subsubsection*{Small Leak}
 
@@ -757,7 +740,7 @@ The small leak event is assumed to happen in the case that the Westinghouse Shut
 
 \subsubsection*{Large Leak}
 
-Large leaks in the RCP seals occur in the situation in which saturation temperatures are reached. The conditional probability of this event during an SBO is listed in the NUREG CR-7110 Vol 2. report \cite{nureg7110}, it gives a the following conditional proability. 
+Large leaks in the RCP seals occur in the situation in which saturation temperatures are reached. The conditional probability of this event during an SBO is listed in the NUREG CR-7110 Vol. 2 report \cite{nureg7110}, it gives a the following conditional proability. 
 
 \begin{equation}
     P(L) = 0.2 \nonumber
@@ -802,5 +785,5 @@ At this stage, the report is intended as a structured first draft. The final dis
     \item \textbf{Francesco Qualizza:} Methodology, Supervision, Writing, Editing.
 \end{itemize}
 
-
+\printbibliography
 \end{document}
