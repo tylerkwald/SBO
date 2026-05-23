@@ -647,37 +647,49 @@ The RELAP analysis will be used either to confirm this configuration or assess d
 
 \begin{table}[H]
 \centering
-\caption{Y/N indicate success/failure
-of each top event; dashes indicate branches not developed. The PCT column
-reports the maximum cladding temperature reached in the RELAP5 simulation;
-core damage is declared when PCT exceeds the safety limit of 1477 K.}
-\label{tab:sequences}
-\renewcommand{\arraystretch}{1.15}
-\setlength{\tabcolsep}{5pt}
-\begin{tabular}{@{}ccccccccc@{}}
+\caption{Results of the simulated sequences: \emph{Y/N} indicates success/failure. Core Damage is obtained when the peak cladding temperatures is higher than 1477K (1204 °C).}
+\label{tab:ET_results}
+\begin{tabular}{ccccccclr}
 \toprule
-\textbf{Seq.} & \textbf{TE1} & \textbf{TE2} & \textbf{TE3} & \textbf{TE4} & \textbf{TE5} & \textbf{Outcome} & \textbf{PCT [K]} & \textbf{$t_\mathrm{CD}$ [h]} \\
-              & SL          & AFW         & LL          & Batt        & AC          &                  &                  &                              \\
+\textbf{Seq.} & \textbf{TE1} & \textbf{TE2} & \textbf{TE3} & \textbf{TE4} & \textbf{TE5} & \textbf{Outcome} & \textbf{PCT [K]} & $t_\mathrm{CD}$ \textbf{[h]} \\
+ & SL & AFW & LL & Batt & AC & & & \\
 \midrule
-1  & Y & Y & Y & Y & Y & SAFE       & TBD & --- \\
-2  & Y & Y & Y & Y & N & CD         & TBD & TBD \\
-3  & Y & Y & Y & N & Y & SAFE       & TBD & --- \\
-4  & Y & Y & Y & N & N & CD         & TBD & TBD \\
-5  & Y & N & -- & -- & -- & CD      & TBD & TBD \\
-6  & N & Y & Y & Y & Y & SAFE       & TBD & --- \\
-7  & N & Y & Y & Y & N & CD         & TBD & TBD \\
-8  & N & Y & Y & N & Y & SAFE       & TBD & --- \\
-9  & N & Y & Y & N & N & CD         & TBD & TBD \\
-10 & N & Y & N & Y & Y & SAFE       & TBD & --- \\
-11 & N & Y & N & Y & N & CD         & TBD & TBD \\
-12 & N & Y & N & N & Y & \textbf{?} & TBD & to be confirmed \\
-13 & N & Y & N & N & N & CD         & TBD & TBD \\
-14 & N & N & -- & -- & -- & CD      & TBD & TBD \\
+1  & Y & Y & Y & Y & Y & SAFE       & 621  & --- \\
+2  & Y & Y & Y & Y & N & CD   & 1702 & 22.52 \\
+3  & Y & Y & Y & N & Y & SAFE       & 621  & --- \\
+4  & Y & Y & Y & N & N & CD  & 1701 & 18.35 \\
+5  & Y & N & Y & Y & Y & SAFE\,$^\dagger$ & 963  & --- \\
+6  & N & Y & Y & Y & Y & SAFE       & 621  & --- \\
+7  & N & Y & Y & Y & N & CD  & 1701 & 21.19 \\
+8  & N & Y & Y & N & Y & SAFE       & 621  & --- \\
+9  & N & Y & Y & N & N & CD  & 1701 & 17.39 \\
+10 & N & Y & N & Y & Y & SAFE       & 621  & --- \\
+11 & N & Y & N & Y & N & CD   & 1701 & 21.32 \\
+12 & N & Y & N & N & Y & SAFE       & 621  & --- \\
+13 & N & Y & N & N & N & CD  & 1701 & 17.42 \\
+14 & N & N & N & Y & Y & CD         & 1478 & 12.21 \\
+15 & N & N & N & Y & N & CD  & 1701 & 12.29 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Probabilstic Safety Analysis}
+\tabref{tab:ET_results} presents the RELAP simulation's results. Several considerations can be made regarding the difference between expected and actual results: 
+\begin{itemize}
+    \item AC and AFW recovery is the dominant factor that determines whether core damage will occur or not. In all the scenarios when AC and AFW are available, the PCT does not overcome 621 K. The combination of AFW and AC recovery is sufficient to prevent core damage. Once AC power is restored, HPIS and LPIS can keep on cooling the core. 
+    \item Sequence 5 (ET5) shows that, even though the AFW is not available, in a condition without leakages through the pump's seal the batteries are able to avoid core damage until the AC power is recovered. This can be explained taking a look at the PCT: without AFW, the temperature rises until the PORV valve starts operating, releasing steam from the pressurizer in order to depressurize the primary. This is different from what we have considered in the preliminary event tree, where the unavailability of AFW determines core damage indipendently from the other systems availability. 
+    \item The amplification of the leak, that takes place when the water reaches saturation temperature, has a small effect on the outcome of that sequence. For instance, if we compare ET07 to ET11 or ET09 with ET13, the difference in time is relatively small. This behavior suggest that the main mechanism that lead to core damage is the heat balance through the steam generators, while the leak from the RCP plays a marginal role in the behavior of the plant. 
+    \item ET14 can be considered as a "bordeline" case, since its PCT reaches 1478K, slightly above the safety limit. This demonstrates that in presence of leaks from the seals and no AFW, the batteries are not sufficient to prevent core damage. The time needed to reach PCT is 21 minutes higher than the recovery of the AC, which occurs at 12h after the SBO event.  
+\end{itemize}
+
+In \figref{fig:event treeeee} all the sequences are plotted, as a function of the peak cladding temperature and the time to reach core damage. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{../Pictures/EventTree/EventTree_PCT_all_cases.pdf}
+    \caption{\centering Obtained Event Tree.}
+    \label{fig:event treeeee}
+\end{figure}
+
+\section{Probabilistic Safety Analysis}
 
 The creation and verification of the event tree for the SBO case allows for the calculation of the contributions of the SBO to the Core Damage Frequency and to identify the Conditional Core Damage Frequency (CCFD).
 
