@@ -722,7 +722,7 @@ The initiating event frequency of the SBO is derived from the NUREG CR-7110 Vol 
 The AFW and TDP failure frequency is assumed to be largely driven by the failure of the TDP (try to find a source to back up this claim). As such, the probability of failure of this system is taken from the frequency of failure of the TDP system. This system has two failure modes: failure on demand and failure on run. To use a conservative estimate, the sum of the probability of the failure on demand and failure during a mission time of 5 hours is used. The failure on demand probability is:
 
 \begin{equation}
-    P(A_d) = 4.6\text{x}10{-3} \nonumber
+    P(A_d) = 4.6\text{x}10^{-3} \nonumber
 \end{equation}
 
 The failure on run probality is calculated as follows:
@@ -737,7 +737,7 @@ Giving a total probability of:
 
 \begin{flalign}
     P(A) = P(A_d \cup A_r) \\ \nonumber
-    P(A) = 4.54\text{x}10^{-5}
+    P(A) = 4.64\text{x}10^{-3}
 \end{flalign}
 
 %The data for the failure of the TDP was taken from the IHL TDP Performance Analysis \cite{IHL_TDP}.
@@ -772,6 +772,28 @@ The AC power restoration after 12 hours is estimating using the conditional prob
 \end{flalign}
 
 
+subsection{CCDF}
+
+The conditional core damage frequency is the probability of core damage given an intiaing event happens. This allows for the analysis of the consequence that an event can have even if the event is exceedingly rare. To begin the analyssi, a boolean representation of the event tree is made using the sum of the Minimal Cut Sets followed by the simplification of the equation. The minimum cut sets are the paths that lead to core damage and are taken from \figref{fig:event treeeee}. The equation begins as follows:
+
+\begin{flalign}
+    P(CD|I) = & \; P(S)\, P(A)\, P(E)\, \overline{P(R)}  \\ \nonumber
+              & + P(S)\, P(A)\, \overline{P(E)}\, \overline{P(R)}  \\ \nonumber
+              & + P(S)\, \overline{P(A)} \\ \nonumber
+              & + \overline{P(S)}\, P(A)\, P(L)\, P(E)\, \overline{P(R)}  \\ \nonumber
+              & + \overline{P(S)}\, P(A)\, P(L)\, \overline{P(E)}\, \overline{P(R)}  \\ \nonumber
+              & + \overline{P(S)}\, P(A)\, \overline{P(L)}\, P(E)\, \overline{P(R)}  \\ \nonumber
+              & + \overline{P(S)}\, P(A)\, \overline{P(L)}\, \overline{P(E)} \\ \nonumber
+              & + \overline{P(S)}\, \overline{P(A)}
+\end{flalign}
+
+This equation is then simplified using boolean algebra identifies to get the final CCDF equation below:
+
+\begin{flalign}
+    P(CD|I) = & \; \overline{P(A)} + P(S)P(A)\overline{P(R)}+  \biggl( \overline{P(E)}+P(E)\overline{P(R)}   \biggr)  \biggl( \overline{P(S)}P(A)\overline{P(L)} \biggr)  \\ \nonumber
+            = &\; 4.64\text{x}10^{-3} + 0.089 + ()(0.002) \\ \nonumber
+            = & \; ...
+\end{flalign}
 
 
 
