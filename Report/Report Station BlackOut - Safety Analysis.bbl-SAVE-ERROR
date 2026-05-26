@@ -16,5 +16,63 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{nureg7110}{report}{}{}
+      \name{author}{4}{}{%
+        {{hash=a95357e79998085f11680a50a1120229}{%
+           family={Bixler},
+           familyi={B\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+        {{hash=735541e7c21ba7b1132e2787fd2d9a57}{%
+           family={Gauntt},
+           familyi={G\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=83348e9dade2178e219172d1159861c8}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=921eca83d5060537683ad56d38ddbd1b}{%
+           family={Leonard},
+           familyi={L\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {U.S. Nuclear Regulatory Commission}%
+      }
+      \list{location}{1}{%
+        {Washington, DC, USA}%
+      }
+      \strng{namehash}{9b3c756bae3c1cac4a37e0e8fafe8560}
+      \strng{fullhash}{27c55e8d8a1ea8a20e3d7bd8fc1cf909}
+      \strng{fullhashraw}{27c55e8d8a1ea8a20e3d7bd8fc1cf909}
+      \strng{bibnamehash}{27c55e8d8a1ea8a20e3d7bd8fc1cf909}
+      \strng{authorbibnamehash}{27c55e8d8a1ea8a20e3d7bd8fc1cf909}
+      \strng{authornamehash}{9b3c756bae3c1cac4a37e0e8fafe8560}
+      \strng{authorfullhash}{27c55e8d8a1ea8a20e3d7bd8fc1cf909}
+      \strng{authorfullhashraw}{27c55e8d8a1ea8a20e3d7bd8fc1cf909}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{8}
+      \field{number}{NUREG/CR-7110, Vol.~2, Rev.~1}
+      \field{title}{{State-of-the-Art Reactor Consequence Analyses Project, Volume 2: Surry Integrated Analysis}}
+      \field{type}{techreport}
+      \field{year}{2013}
+      \verb{urlraw}
+      \verb https://www.nrc.gov/reading-rm/doc-collections/nuregs/contract/cr7110/v2/index.html
+      \endverb
+      \verb{url}
+      \verb https://www.nrc.gov/reading-rm/doc-collections/nuregs/contract/cr7110/v2/index.html
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 
