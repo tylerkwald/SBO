@@ -478,7 +478,7 @@
 * 1.0e7 1  
 *****************************************************************************************************{{{
 *
-454   time         0 gt      timeof       452     600.0             n * start of leaking time after SBO
+454   time         0 gt      timeof       452     6.0e6             n * start of leaking time after SBO
 458   time         0 lt      null          0      1.0e9           n * end of RCP leak
 770           458           and           454                     n 
 * 
@@ -739,7 +739,7 @@
 4620101      0.012272             8
 *            x-length         volid
 4620301         4.125             4
-4620302         2.125             8
+4620302         2.625             8
 *              volume         volid
 4620401           0.0             8
 *          azim-angle         volid
@@ -770,7 +770,7 @@
 *              ncells
 4650001             3 
 *              x-area         volid
-4650101      0.057149             3   * JF total area 5 times more?
+4650101     0.0424115             3   * JF total area 5 times more?
 *            x-length         volid
 4650301       1.66667             3
 *              volume         volid
@@ -778,7 +778,7 @@
 *          vert-angle         volid
 4650601         -90.0             3
 *              x-wall           xhd         volid
-4650801        1.5e-5       0.021             3 * JF pipes are very big, this diameter is wrong
+4650801        1.5e-5       0.015             3 * JF pipes are very big, this diameter is wrong
 *             x-flags         volid
 4651001             0             3
 *       ebt   press qual none none none id
@@ -802,7 +802,7 @@
 *              x-area         volid
 4670101      0.012272             8
 *            x-length         volid
-4670301         3.024             4
+4670301         3.524             4
 4670302         4.125             8
 *              volume         volid
 4670401           0.0             8
@@ -911,14 +911,14 @@
 10012401         305.0             4
 *   Left Boundary Condition Data 
 *            bound      incr      type      code        factor      node
-10012501 465010000         0       101         1         275.0         1 * JF 165 x 1.66667
-10012502 465020000         0       101         1         275.0         2 * JF 165 x 1.66667
-10012503 465030000         0       101         1         275.0         3 * JF 165 x 1.66667
+10012501 465030000         0       101         1         400.0         1 * JF 165 x 1.66667 240 * 1.667
+10012502 465020000         0       101         1         400.0         2 * JF 165 x 1.66667
+10012503 465010000         0       101         1         400.0         3 * JF 165 x 1.66667
 *   Right Boundary Condition Data 
 *            bound      incr      type      code        factor      node
-10012601 469010000         0       101         1         275.0         1 * JF 165 x 1.66667
-10012602 469020000         0       101         1         275.0         2 * JF 165 x 1.66667
-10012603 469030000         0       101         1         275.0         3 * JF 165 x 1.66667
+10012601 469010000         0       101         1         400.0         1 * JF 165 x 1.66667
+10012602 469020000         0       101         1         400.0         2 * JF 165 x 1.66667
+10012603 469030000         0       101         1         400.0         3 * JF 165 x 1.66667
 *               source          mult          dmhl          dmhr           num
 10012701             0           0.0           0.0           0.0            3
 *   Left Additional Boundary Condition Data 

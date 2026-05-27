@@ -772,7 +772,7 @@ The AC power restoration after 12 hours is estimating using the conditional prob
 \end{flalign}
 
 
-subsection{CCDF}
+subsection{CCDP}
 
 The conditional core damage frequency is the probability of core damage given an intiaing event happens. This allows for the analysis of the consequence that an event can have even if the event is exceedingly rare. To begin the analyssi, a boolean representation of the event tree is made using the sum of the Minimal Cut Sets followed by the simplification of the equation. The minimum cut sets are the paths that lead to core damage and are taken from \figref{fig:event treeeee}. The equation begins as follows:
 
@@ -795,7 +795,11 @@ This equation is then simplified using boolean algebra identifies to get the fin
             = & \; ...
 \end{flalign}
 
+\subsection{Core Damage Frequency}
 
+\begin{equation}
+    F(CD) = F(I)\;P(CD|I)
+\end{equation}
 
 \section{Preliminary Conclusions}
 

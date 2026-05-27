@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 #case = 'reflood_trialsFlatProfile'
 case = 'noTDPBatAC_orig'#'your_system'
 #rp.run_case(case)
+data, variables = rp.extract_data('dataPull.txt', case)
 #rp.set_figures_loc('./figures/')
 # nodes = [
 #     '1000110',
@@ -47,4 +48,4 @@ case = 'noTDPBatAC_orig'#'your_system'
 # ]
 #times = [30.,80.,120.,150.,180.,210.,240.,270.,300.,330.,360.,]
 #rp.plot_profile('httemp', nodes,times, case)
-data, variables = rp.extract_data('dataPull.txt', case)
+
