@@ -867,7 +867,7 @@
 *                name          type
 4700000        "porv"         valve
 *                from            to          area
-4700101     469000000     471000000    8.70966e-3
+4700101     469100002     471000000    8.70966e-3
 *           fwd. loss     rev. loss       efvcahs
 4700102           0.0           0.0           100
 *           discharge       thermal       
