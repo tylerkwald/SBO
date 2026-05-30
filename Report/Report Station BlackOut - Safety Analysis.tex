@@ -707,6 +707,12 @@ The first step to analysis the event tree qualitativly is identify the initating
     $R$ & Restoration of AC \\
 \end{tabular}
 
+In order to calculate the probability of each individual event, first the probability of failure of a single component is calculated. This calculation is followed by a calculation to determine the probability of at least 3 loops working. This is because we consider a conservative approach in our modeling and consider only 3 of our system working. The equation to transform the probability of an individual component failure ($P(F_C)$) to the overall system operability ($P(O)$) is as follows:
+
+\begin{equation}\label{eq:1}
+    P(O) = \bigl( \overline{P(F_C)}\bigr)^4 + \bigl(\overline{P(F_C)}\bigr)^3\,P(F_C)\,\bigl(^4_1\bigr)
+\end{equation}
+
 \subsubsection*{Initiating Event}
 
 The initiating event frequency of the SBO is derived from the NUREG CR-7110 Vol 2 \cite{nureg7110}. From this report the frequency of Long-Term SBO frequency is identified as $2\text{x}10^{-5}$ pry (per reactor year), and the Short-Term SBO frequency is defined as $2\text{x}10^{-6}$ pry. One interesting finding from this is the higher frequency of long-term SBOs than short term ones. From the frequencies above the initiaing event frequency is derived below:
@@ -736,9 +742,18 @@ The failure on run probality is calculated as follows:
 Giving a total probability of:
 
 \begin{flalign}
-    P(A) = P(A_d \cup A_r) \\ \nonumber
-    P(A) = 4.54\text{x}10^{-5}
+    P(A_f) = P(A_d \cup A_r) \\ \nonumber
+    P(A_f) = 4.54\text{x}10^{-5}
 \end{flalign}
+
+Using equation~\ref{eq:1}, the probability of the operability of the AFW \& TDP is:
+
+\begin{flalign}
+    P(A) &= \bigl( \overline{P(A_f)}\bigr)^4 + \bigl(\overline{P(A_f)}\bigr)^3\,P(A_f)\,\bigl(^4_1\bigr) \\ \nonumber
+         &=  (1-4.54\text{x}10^{-5})^4 + (1-4.54\text{x}10^{-5})^3 (4.54\text{x}10^{-5}) (4) \\ \nonumber
+         &=   0.99999998
+\end{flalign}
+    
 
 %The data for the failure of the TDP was taken from the IHL TDP Performance Analysis \cite{IHL_TDP}.
 
@@ -747,7 +762,13 @@ Giving a total probability of:
 The small leak event is assumed to happen in the case that the Westinghouse Shut Down Seal. A primilinary safety analysis of this component from Westinghouse gives it a conservative failure frequency of 1 in 100 cases giving us the follow probability:
 
 \begin{equation}
-    P(S) = 0.01 \nonumber
+    P(S_f) = 0.01 \nonumber
+\end{equation}
+
+This leads to an operability probability of:
+
+\begin{equation}
+    P(S) = 0.99940 \nonumber
 \end{equation}
 
 \subsubsection*{Large Leak}
@@ -755,8 +776,15 @@ The small leak event is assumed to happen in the case that the Westinghouse Shut
 Large leaks in the RCP seals occur in the situation in which saturation temperatures are reached. The conditional probability of this event during an SBO is listed in the NUREG CR-7110 Vol. 2 report \cite{nureg7110}, it gives a the following conditional proability. 
 
 \begin{equation}
-    P(L) = 0.2 \nonumber
+    P(L_f) = 0.2 \nonumber
 \end{equation}
+
+For the overall operability of the large leak condition, it is assumed that the system fails even if there only a single large leak in a pump. This gives the following proability:
+
+\begin{flalign}
+    P(L) &= 1-P(L_f) \\ \nonumber
+        &= 0.8
+\end{flalign}
 
 The conditional probability is used in this case as the probability of a large leak dramatically increases during an SBO event. 
 
@@ -765,14 +793,19 @@ The conditional probability is used in this case as the probability of a large l
 The AC power restoration after 12 hours is estimating using the conditional probability of a long term SBO given an SBO event. This method allows us to obtain the probability that AC power is restored within a 12 hour window. The calculation is done using Bayes Theroum for conditional probabilities:
 
 \begin{flalign}
-    P(R)    & = P(LT|I) \\ \nonumber
+    P(R_f)    & = P(LT|I) \\ \nonumber
             & =\frac{P(I|LT)*P(LT)}{P(I)} \\ \nonumber
             & = \frac{1(2\text{x}10^{-5})}{2.2\text{x}10^{-5}} \\ \nonumber
             & = 0.909
 \end{flalign}
 
+Similarly to the large leak condition, the Restore AC probability is no subject to equation~\ref{eq:1}. So the probability of sucess is:
+\begin{equation}
+    P(R) = 0.091 \nonumber
+\end{equation}
 
-subsection{CCDP}
+
+\subsection{CCDP}
 
 The conditional core damage frequency is the probability of core damage given an intiaing event happens. This allows for the analysis of the consequence that an event can have even if the event is exceedingly rare. To begin the analyssi, a boolean representation of the event tree is made using the sum of the Minimal Cut Sets followed by the simplification of the equation. The minimum cut sets are the paths that lead to core damage and are taken from \figref{fig:event treeeee}. The equation begins as follows:
 
@@ -787,11 +820,11 @@ The conditional core damage frequency is the probability of core damage given an
               & + \overline{P(S)}\, \overline{P(A)}
 \end{flalign}
 
-This equation is then simplified using boolean algebra identifies to get the final CCDF equation below:
+This equation is then simplified using boolean algebra identifies to get the final CCDP equation below:
 
 \begin{flalign}
     P(CD|I) = & \; \overline{P(A)} + P(S)P(A)\overline{P(R)}+  \biggl( \overline{P(E)}+P(E)\overline{P(R)}   \biggr)  \biggl( \overline{P(S)}P(A)\overline{P(L)} \biggr)  \\ \nonumber
-            = &\; 4.64\text{x}10^{-3} + 0.089 + ()(0.002) \\ \nonumber
+            = &\; 1.2\text{x}10^{-8} + 0.908 + ()()) \\ \nonumber
             = & \; ...
 \end{flalign}
 
