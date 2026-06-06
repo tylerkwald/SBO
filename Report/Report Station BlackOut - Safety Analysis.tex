@@ -704,6 +704,7 @@ The first step to analysis the event tree qualitativly is identify the initating
     $A$ & AFW \& TDP\\
     $S$ & Small Leak\\
     $L$ & Large Leak\\
+    $E$ & Extra Batteries \\
     $R$ & Restoration of AC \\
 \end{tabular}
 
@@ -725,7 +726,7 @@ The initiating event frequency of the SBO is derived from the NUREG CR-7110 Vol 
 
 \subsubsection*{AFW \& TDP}
 
-The AFW and TDP failure frequency is assumed to be largely driven by the failure of the TDP (try to find a source to back up this claim). As such, the probability of failure of this system is taken from the frequency of failure of the TDP system. This system has two failure modes: failure on demand and failure on run. To use a conservative estimate, the sum of the probability of the failure on demand and failure during a mission time of 5 hours is used. The failure on demand probability is:
+The AFW and TDP failure frequency is assumed to be largely driven by the failure of the TDP based on the findings of the ORNL CONF-920375-6 analysis \cite{afwFailure}. As such, the probability of failure of this system is taken from the frequency of failure of the TDP system. This system has two failure modes: failure on demand and failure on run. To use a conservative estimate, the sum of the probability of the failure on demand and failure during a mission time of 5 hours is used. The failure on demand probability is:
 
 \begin{equation}
     P(A_d) = 4.6 \cdot 10^{-3} \nonumber
@@ -755,11 +756,11 @@ Using equation~\ref{eq:1}, the probability of the operability of the AFW \& TDP 
 \end{flalign}
     
 
-%The data for the failure of the TDP was taken from the IHL TDP Performance Analysis \cite{IHL_TDP}.
+The data for the failure of the TDP was taken from the IHL TDP Performance Analysis \cite{IHL_TDP}.
 
 \subsubsection*{Small Leak}
 
-The small leak event is assumed to happen in the case that the Westinghouse Shut Down Seal. A primilinary safety analysis of this component from Westinghouse gives it a conservative failure frequency of 1 in 100 cases giving us the follow probability:
+The small leak event is assumed to happen in the case that the Westinghouse Shut Down Seal fails. A preliminary safety analysis of this component from Westinghouse gives it a conservative failure frequency of 1 in 100 cases giving us the follow probability:
 
 \begin{equation}
     P(S_f) = 0.01 \nonumber
@@ -782,15 +783,27 @@ Large leaks in the RCP seals occur in the situation in which saturation temperat
 For the overall operability of the large leak condition, it is assumed that the system fails even if there only a single large leak in a pump. This gives the following proability:
 
 \begin{flalign}
-    P(L) &= 1-P(L_f) \\ \nonumber
-        &= 0.8
+    P(L) &= \biggl( 1-P(L_f) \biggr)^4 \\ \nonumber
+        &= 0.4096
 \end{flalign}
 
 The conditional probability is used in this case as the probability of a large leak dramatically increases during an SBO event. 
 
+\subsubsection*{Extra Batteries}
+
+This section was the most difficult to model. This is because the existence of additional batteries is either an existing plant aspect or the result of proper load shedding which requires extensive human error analysis. In the end, the probability of the extra batteries has a long impact on the overall CCDP as seen in Equation~/ref{eq:CCDP} below. An alternative method to determine this probability is considering the proper implementation of FLEX-DG (portable diesel generators) that are now implemented in all US NPP and the vast majority of the global fleet.
+
+The analysis of the proper operator installation and equipment performance is done in Universidad Politíecnica de Madrid \cite{flex}. This gives the follow probability below where $P(E_o)$ and $P(E_f)$ are the probabilities of operator human error and the probability of equipment functionality respectively:
+
+\begin{flalign}
+    P(E) & = \overline{P(E_o)} + \overline{P(E_f)} \\ \nonumber
+         & =  0.015 + 0.2905 \\ \nonumber
+         & =  0.3055
+\end{flalign}
+
 \subsubsection*{AC Power Restoration}
 
-The AC power restoration after 12 hours is estimating using the conditional probability of a long term SBO given an SBO event. This method allows us to obtain the probability that AC power is restored within a 12 hour window. The calculation is done using Bayes Theroum for conditional probabilities:
+The AC power restoration after 12 hours is estimating using the conditional probability of a long term SBO given an SBO event. This method allows us to obtain the probability that AC power is restored within a 12-hour window. The calculation is done using Bayes Theorem for conditional probabilities:
 
 \begin{flalign}
     P(R_f)    & = P(LT|I) \\ \nonumber
@@ -799,7 +812,7 @@ The AC power restoration after 12 hours is estimating using the conditional prob
             & = 0.909
 \end{flalign}
 
-Similarly to the large leak condition, the Restore AC probability is no subject to equation~\ref{eq:1}. So the probability of sucess is:
+Similarly to the large leak condition, the Restore AC probability is not subject to equation~\ref{eq:1}. This is because the Bayesian analysis above is down for at plant level and not at an individual component level. So the probability of success is:
 \begin{equation}
     P(R) = 0.091 \nonumber
 \end{equation}
@@ -807,7 +820,7 @@ Similarly to the large leak condition, the Restore AC probability is no subject 
 
 \subsection{CCDP}
 
-The conditional core damage frequency is the probability of core damage given an intiaing event happens. This allows for the analysis of the consequence that an event can have even if the event is exceedingly rare. To begin the analyssi, a boolean representation of the event tree is made using the sum of the Minimal Cut Sets followed by the simplification of the equation. The minimum cut sets are the paths that lead to core damage and are taken from \figref{fig:event treeeee}. The equation begins as follows:
+The conditional core damage frequency is the probability of core damage given an initiating event happens. This allows for the analysis of the consequence of an event even if the event is exceedingly rare. To begin the analysis, a boolean representation of the event tree is made using the sum of the Minimal Cut Sets followed by the simplification of the equation. The minimum cut sets are the paths that lead to core damage and are taken from \figref{fig:event treeeee}. The equation begins as follows:
 
 \begin{flalign}
     P(CD|I) = & \; P(S)\, P(A)\, P(E)\, \overline{P(R)}  \\ \nonumber
@@ -822,17 +835,23 @@ The conditional core damage frequency is the probability of core damage given an
 
 This equation is then simplified using boolean algebra identifies to get the final CCDP equation below:
 
-\begin{flalign}
+\begin{flalign}\label{eq:CCDP}
     P(CD|I) = & \; \overline{P(A)} + P(S)P(A)\overline{P(R)}+  \biggl( \overline{P(E)}+P(E)\overline{P(R)}   \biggr)  \biggl( \overline{P(S)}P(A)\overline{P(L)} \biggr)  \\ \nonumber
-            = &\; 1.2\text{x}10^{-8} + 0.908 + ()()) \\ \nonumber
-            = & \; ...
+            = &\; 1.2\text{x}10^{-8} + 0.908 + (0.1928)(0.00035) \\ \nonumber
+            = & \; 0.908
 \end{flalign}
 
 \subsection{Core Damage Frequency}
 
-\begin{equation}
-    F(CD) = F(I)\;P(CD|I)
-\end{equation}
+\begin{flalign}
+    F(CD) & = F(I)\;P(CD|I) \\ \nonumber
+          & = (2,2\cdot10^{-5})(0.908)\\ \nonumber
+          & = 1.99\cdot10^{-5}
+\end{flalign}
+
+This number is incredibly high in terms of plant safety. However, this is incredibly similar to analyzes down by the NRC, in for the Surry NPP \cite{Surry}, the total core damage frequency from all SBO initiating events (SBO+Battery Depletion, SBO+SBLOCA, SBO+AFWfail + SBO+SORV + ...) is $2.7664\cdot10^{-5}$ pry. This puts the above estimate well within the same order of magnitude. The core damage frequency for the Zion NPP is a similar estimate of $9.34\cdot10^{-6}$ from the NRC \cite{ZionCD}. 
+
+\section{Safety System Implementation}
 
 \section{Preliminary Conclusions}
 
