@@ -72,6 +72,215 @@
       \verb https://www.nrc.gov/reading-rm/doc-collections/nuregs/contract/cr7110/v2/index.html
       \endverb
     \endentry
+    \entry{afwFailure}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=f8778eb4eede8d29d30d9d26f214e844}{%
+           family={Casada},
+           familyi={C\bibinitperiod},
+           given={Don},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Oak Ridge National Laboratory}%
+      }
+      \strng{namehash}{f8778eb4eede8d29d30d9d26f214e844}
+      \strng{fullhash}{f8778eb4eede8d29d30d9d26f214e844}
+      \strng{fullhashraw}{f8778eb4eede8d29d30d9d26f214e844}
+      \strng{bibnamehash}{f8778eb4eede8d29d30d9d26f214e844}
+      \strng{authorbibnamehash}{f8778eb4eede8d29d30d9d26f214e844}
+      \strng{authornamehash}{f8778eb4eede8d29d30d9d26f214e844}
+      \strng{authorfullhash}{f8778eb4eede8d29d30d9d26f214e844}
+      \strng{authorfullhashraw}{f8778eb4eede8d29d30d9d26f214e844}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Nuclear Plant Aging Research Program Conference}
+      \field{number}{Conf. 720-79}
+      \field{series}{CONF-920375--6}
+      \field{title}{Operating Experiences and Degradation Detection for Auxiliary Feedwater Systems}
+      \field{year}{1992}
+    \endentry
+    \entry{IHL_TDP}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=f673846bd5b75c2dc763b7791eb19856}{%
+           family={Zhegang\bibnamedelima Ma},
+           familyi={Z\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Sai\bibnamedelima Zhang},
+           giveni={S\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Idaho National Laboratory (INL)}%
+      }
+      \strng{namehash}{f673846bd5b75c2dc763b7791eb19856}
+      \strng{fullhash}{f673846bd5b75c2dc763b7791eb19856}
+      \strng{fullhashraw}{f673846bd5b75c2dc763b7791eb19856}
+      \strng{bibnamehash}{f673846bd5b75c2dc763b7791eb19856}
+      \strng{authorbibnamehash}{f673846bd5b75c2dc763b7791eb19856}
+      \strng{authornamehash}{f673846bd5b75c2dc763b7791eb19856}
+      \strng{authorfullhash}{f673846bd5b75c2dc763b7791eb19856}
+      \strng{authorfullhashraw}{f673846bd5b75c2dc763b7791eb19856}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Component Performance Study: Turbine-Driven Pumps (TDP)}
+      \field{type}{techreport}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://nrcoe.inl.gov/publicdocs/CompPerf/tdp-2024.pdf
+      \endverb
+      \verb{url}
+      \verb https://nrcoe.inl.gov/publicdocs/CompPerf/tdp-2024.pdf
+      \endverb
+    \endentry
+    \entry{flex}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=896d5f21f4c4029e80381852a45029ef}{%
+           family={Courtin},
+           familyi={C\bibinitperiod},
+           given={Sergio},
+           giveni={S\bibinitperiod}}}%
+        {{hash=724272f949163b1571d8bce39bee685b}{%
+           family={Queral},
+           familyi={Q\bibinitperiod},
+           given={César},
+           giveni={C\bibinitperiod}}}%
+        {{hash=805acee6c1d2a5d6b4cd4fe80ddf927a}{%
+           family={García-Herranz},
+           familyi={G\bibinithyphendelim H\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{f28f2430b1b512881968a481a929f542}
+      \strng{fullhash}{68adf8cf4ecbac732210407ad1cdcc12}
+      \strng{fullhashraw}{68adf8cf4ecbac732210407ad1cdcc12}
+      \strng{bibnamehash}{68adf8cf4ecbac732210407ad1cdcc12}
+      \strng{authorbibnamehash}{68adf8cf4ecbac732210407ad1cdcc12}
+      \strng{authornamehash}{f28f2430b1b512881968a481a929f542}
+      \strng{authorfullhash}{68adf8cf4ecbac732210407ad1cdcc12}
+      \strng{authorfullhashraw}{68adf8cf4ecbac732210407ad1cdcc12}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nuclear Engineering and Design}
+      \field{title}{Risk reduction by means of {FLEX} strategies in pressurized water reactors}
+      \field{volume}{414}
+      \field{year}{2023}
+      \field{pages}{112656}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.nucengdes.2023.112656
+      \endverb
+    \endentry
+    \entry{Surry}{report}{}{}
+      \name{author}{2}{}{%
+        {{hash=4a32985a016f4f0e5573cbbcb97c3d20}{%
+           family={Bertucio},
+           familyi={B\bibinitperiod},
+           given={R.\bibnamedelimi C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=0d09c30cd1fed846028e3bf7aa83002a}{%
+           family={Julius},
+           familyi={J\bibinitperiod},
+           given={J.\bibnamedelimi A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Sandia National Laboratories}%
+      }
+      \list{publisher}{1}{%
+        {U.S. Nuclear Regulatory Commission}%
+      }
+      \strng{namehash}{b273ab3ac4849fe5c76642e1cab6d2b1}
+      \strng{fullhash}{b273ab3ac4849fe5c76642e1cab6d2b1}
+      \strng{fullhashraw}{b273ab3ac4849fe5c76642e1cab6d2b1}
+      \strng{bibnamehash}{b273ab3ac4849fe5c76642e1cab6d2b1}
+      \strng{authorbibnamehash}{b273ab3ac4849fe5c76642e1cab6d2b1}
+      \strng{authornamehash}{b273ab3ac4849fe5c76642e1cab6d2b1}
+      \strng{authorfullhash}{b273ab3ac4849fe5c76642e1cab6d2b1}
+      \strng{authorfullhashraw}{b273ab3ac4849fe5c76642e1cab6d2b1}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{NUREG/CR-4550, Vol. 3, Rev. 1, Part 2}
+      \field{title}{Analysis of {Core} {Damage} {Frequency}: {Surry}, {Unit 1}. {I}nternal {E}vents {A}ppendices}
+      \field{type}{Technical Report}
+      \field{year}{1990}
+      \verb{urlraw}
+      \verb https://www.nrc.gov/docs/ML1815/ML18150A450.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.nrc.gov/docs/ML1815/ML18150A450.pdf
+      \endverb
+    \endentry
+    \entry{ZionCD}{report}{}{}
+      \name{author}{6}{}{%
+        {{hash=ed483dc498ff6dcbd50326456402eafc}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={C.\bibnamedelimi K.},
+           giveni={C\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=cf8b3a6cca6590d02ee8ed729e2c463d}{%
+           family={Cazzoli},
+           familyi={C\bibinitperiod},
+           given={E.\bibnamedelimi G.},
+           giveni={E\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=118f21292970f1d5f1456e835b22b732}{%
+           family={Grimshaw},
+           familyi={G\bibinitperiod},
+           given={C.\bibnamedelimi A.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=e1a87f9769907bc47fd24d9934123cf0}{%
+           family={Tingle},
+           familyi={T\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=14f87fbb1fcbb064a8eb8c80398f618b}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ef588bebae9299979a7245afdb6937da}{%
+           family={Pratt},
+           familyi={P\bibinitperiod},
+           given={W.\bibnamedelimi T.},
+           giveni={W\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Brookhaven National Laboratory}%
+      }
+      \list{publisher}{1}{%
+        {U.S. Nuclear Regulatory Commission}%
+      }
+      \strng{namehash}{a443db497226e0b5469799bfa4181b3f}
+      \strng{fullhash}{baeaff38822e5b9fe137cd201a080eb7}
+      \strng{fullhashraw}{baeaff38822e5b9fe137cd201a080eb7}
+      \strng{bibnamehash}{baeaff38822e5b9fe137cd201a080eb7}
+      \strng{authorbibnamehash}{baeaff38822e5b9fe137cd201a080eb7}
+      \strng{authornamehash}{a443db497226e0b5469799bfa4181b3f}
+      \strng{authorfullhash}{baeaff38822e5b9fe137cd201a080eb7}
+      \strng{authorfullhashraw}{baeaff38822e5b9fe137cd201a080eb7}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{NUREG/CR-4551, Vol. 7, Rev. 1, Part 1}
+      \field{title}{Evaluation of Severe Accident Risks: {Zion}, {Unit 1}. {M}ain {R}eport}
+      \field{type}{Technical Report}
+      \field{year}{1993}
+      \verb{urlraw}
+      \verb https://www.nrc.gov/docs/ml0705/ml070530424.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.nrc.gov/docs/ml0705/ml070530424.pdf
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

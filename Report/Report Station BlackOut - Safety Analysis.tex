@@ -851,18 +851,154 @@ This equation is then simplified using boolean algebra identifies to get the fin
 
 This number is incredibly high in terms of plant safety. However, this is incredibly similar to analyzes down by the NRC, in for the Surry NPP \cite{Surry}, the total core damage frequency from all SBO initiating events (SBO+Battery Depletion, SBO+SBLOCA, SBO+AFWfail + SBO+SORV + ...) is $2.7664\cdot10^{-5}$ pry. This puts the above estimate well within the same order of magnitude. The core damage frequency for the Zion NPP is a similar estimate of $9.34\cdot10^{-6}$ from the NRC \cite{ZionCD}. 
 
-\section{Safety System Implementation}
+\section{Safety System Implementation: Passive Secondary Heat Removal System}
+\label{sec:pshrs}
 
-\section{Preliminary Conclusions}
+The Passive Secondary Heat Removal System (PSHRS) has been designed to extend
+the SBO coping capability of the Zion NPP from the current 12~h up to the
+72~h required by the revised 10~CFR~50.63. The system is fully passive:
+it does not rely on AC power, AAC sources, active pumps, compressed air,
+or operator action once the actuation condition is reached.
 
-From the first analyses, the system code RELAP5 can be used as the model basis for the next stages of the project. The steady-state calculation is first checked against the target values, and the SBO base case is then used to observe the main thermal-hydraulic response of the plant under blackout conditions.
+The PSHRS consists of a closed natural-circulation loop connected in
+parallel to the Main Steam Line (MSL) and the Main Feedwater Line of each
+Steam Generator, with all connections placed \emph{outside} the containment
+in order to avoid additional containment penetrations (GDC~54). The loop
+routes saturated steam from the SG outlet to a vertical tube-bundle Heat
+Exchanger (HX) immersed in an Elevated Evaporation Pool (EEP) located
+above the SG elevation. The steam condenses on the HX tubes, and the
+condensate returns by gravity to the SG feedwater line, closing the loop.
+The heat absorbed by the pool is removed by evaporation to the atmosphere
+through a dedicated vent line at the top of the EEP enclosure. The driving
+head is provided by the density difference between the saturated vapour
+in the hot leg and the subcooled condensate in the cold leg, both at the
+secondary-side pressure of $\sim$67~bar.
 
-The SBO base case transient showed that the plant is able to maintain core cooling for at least 12 hours without core damage. The decay heat is effectively removed through natural circulation in the primary system and by the Auxiliary Feedwater system on the secondary side. The peak cladding temperature remains well below the safety limit of 1477 K throughout the entire transient, and the core is never uncovered.
+Isolation during normal plant operation is ensured by fail-open
+electromagnetic valves arranged in a series--parallel configuration that
+satisfies the single failure criterion: valves required to open on demand
+are placed in parallel, while valves required to remain closed during
+power operation are placed in series. The system is normally kept closed
+by the DC bus; upon sustained loss of both AC and DC power
+(filtered to discriminate the short transient at battery switch-over),
+the valves automatically open and natural circulation establishes itself.
+
+The peak thermal load on the system occurs at $t = 5$~h after SBO, when
+the DC batteries are depleted and the AFW Turbine-Driven Pump becomes
+uncontrolled. This instant defines the worst-case condition for the
+hydraulic sizing of the loop. The main design parameters are summarised
+in Table~\ref{tab:pshrs_design}.
+
+\begin{table}[H]
+\centering
+\caption{Main design parameters of the PSHRS (per loop).}
+\label{tab:pshrs_design}
+\begin{tabular}{lcc}
+\hline
+Parameter & Value & Unit \\
+\hline
+Reactor thermal power $P_0$              & 3250                  & MW$_{\text{th}}$ \\
+Peak decay power at $t=5$\,h             & 31.8                  & MW \\
+Total decay energy ($5$--$72$\,h)        & $4.286\times10^{12}$  & J \\
+Secondary-side pressure                  & 67                    & bar \\
+Latent heat of vaporisation at 67\,bar   & 1524                  & kJ/kg \\
+Saturated liquid density at 67\,bar      & 745.28                & kg/m$^{3}$ \\
+Saturated vapour density at 67\,bar      & 34.786                & kg/m$^{3}$ \\
+Required steam mass flow rate per loop   & 5.22                  & kg/s \\
+Elevation difference $H$ (SG--HX)        & 8.5                   & m \\
+Natural circulation driving pressure     & $5.92\times10^{4}$    & Pa \\
+Minimum pipe diameter $D_{\min}$         & 0.125                 & m \\
+Steam velocity at $D_{\min}$             & 12.16                 & m/s \\
+Reynolds number at $D_{\min}$            & $2.65\times10^{6}$    & -- \\
+Total pressure losses                    & $5.48\times10^{4}$    & Pa \\
+Natural circulation margin               & 1.08                  & -- \\
+Evaporated water mass (5--72\,h)         & 1652.9                & t \\
+Required pool volume (incl.\ 20\% margin)& 1989.5                & m$^{3}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+The natural-circulation margin $\Delta p_{\text{drive}}/\Delta p_{\text{loss}}=1.08$
+confirms that the loop is self-driven under worst-case conditions,
+while the pool inventory is sufficient to absorb the decay energy
+released between battery depletion and AC restoration at $t=72$\,h.
+
+
+
+\subsection{Design Modifications from the Preliminary Configuration}
+\label{sec:pshrs_mods}
+
+With respect to the preliminary design presented in the hydraulic
+pre-sizing report, three modifications have been introduced in order to
+improve the robustness of the system, simplify its actuation logic and
+guarantee the integrity of the natural-circulation flow path during the
+entire 72-hour transient.
+
+\paragraph{T-shaped Evaporation Pool.}
+The EEP has been reshaped from a uniform prismatic geometry to a
+T-shaped cross-section, with a wider upper section acting as the main
+evaporation reservoir and a narrower lower section that hosts the Heat
+Exchanger bundle. This geometry guarantees that the HX remains fully
+submerged throughout the transient even after a significant fraction of
+the pool inventory has been boiled off: as the pool level decreases
+with time, the residual water remains confined in the narrow lower
+section, preserving the heat transfer surface in contact with liquid
+water. In the original cylindrical/prismatic design, the same loss of
+inventory would have produced a faster drop in water level and a
+premature partial uncovery of the HX tubes, degrading the condensation
+performance well before the 72-h mission time. The total water inventory
+is unchanged with respect to the value reported in
+Table~\ref{tab:pshrs_design}, but its vertical distribution is now
+optimised to maintain HX submergence as the dominant geometric
+constraint.
+
+\paragraph{Enlarged Atmospheric Vent.}
+The cross-sectional area of the vent line connecting the EEP headspace
+to the atmosphere has been increased with respect to the preliminary
+sizing. The objective is to keep the pool effectively at atmospheric
+pressure during the entire transient, avoiding pressurisation of the
+EEP enclosure caused by the steam generated by pool boiling.
+A pressurised pool would raise the saturation temperature of the water,
+reduce the temperature difference available for condensation on the HX
+tubes and ultimately reduce the heat removal capability of the system.
+The enlarged vent ensures that the steam produced at the peak
+evaporation rate can be discharged without appreciable pressure
+build-up, keeping the pool boundary condition consistent with the
+hypothesis used in the sizing calculations
+($p_{\text{pool}} \approx p_{\text{atm}}$, $T_{\text{sat}} \approx 100^{\circ}$C).
+
+\paragraph{Delayed Actuation (5\,h after SBO).}
+The actuation logic has been tied to the depletion of the DC batteries
+at $t \approx 5$\,h after the initiating event, rather than to the SBO
+signal itself. During the first 5\,h, decay heat removal is already
+ensured by the existing Turbine-Driven AFW supplied from the
+Condensate Storage Tank and controlled through DC power. Activating
+the PSHRS during this phase would be redundant and could interfere
+with AFW operation, introduce unnecessary pool inventory consumption
+and complicate the cooldown strategy followed by the operators.
+The PSHRS is therefore designed to engage exactly when the existing
+heat-removal chain is about to be lost: the fail-open isolation valves
+open upon sustained loss of the DC signal, with a time-filter that
+discriminates the brief AC-to-DC switch-over from a genuine battery
+depletion. This staged actuation maximises the useful pool inventory
+available for the long-term passive phase and ensures a smooth
+hand-over from the active (AFW + batteries) to the passive (PSHRS)
+heat removal mode.
+
+
+
+
+
+\section{Conclusions}
+
+The steady-state calculation is first checked against the target values, and the SBO base case is then used to observe the main thermal-hydraulic response of the plant under blackout conditions. \\
+
+The SBO base case transient showed that the plant is able to maintain core cooling for at least 12 hours without core damage. The decay heat is effectively removed through natural circulation in the primary system and by the Auxiliary Feedwater system on the secondary side. The peak cladding temperature remains well below the safety limit of 1477 K throughout the entire transient, and the core is never uncovered. 
 
 Having analyzed two EOPs, we can say that the SG cooldown procedure (EOP 1) proved usefil but not strictly necessary to prevent core damage within the 12-hour simulation window. The cooldown EOP reduces primary pressure and lowers the RCP seal leak rate. It is therefore recommended as a prudent operator action. Instead, the primary depressurization procedure (EOP 2) was never triggered in either the base case or the no-cooldown case, as the Core Exit Temperature did not reach the 923 K threshold at any point during the transient. 
-Overall, the results demonstrate that the existing safety systems and operator procedures are sufficient to manage the SBO scenario for 12 hours. However, the analysis also highlights that the absence of the SG cooldown EOP leads to a more challenging scenario and could lead to core damage in a longer event.
+Overall, the results demonstrate that the existing safety systems and operator procedures are sufficient to manage the SBO scenario for 12 hours. However, the analysis also highlights that the absence of the SG cooldown EOP leads to a more challenging scenario and could lead to core damage in a longer event. \\
 
-At this stage, the report is intended as a structured first draft. The final discussion will be completed after adding the detailed numerical results, the transient plots, and the comparison with the additional scenarios required in the following stages of the project.
+The event tree proved that the AC power restoration is the most relevant action in order to avoid core damage in most of the cases analyzed. In every related case, the PCT stays below the safety limit for core damage and the outcome is safe regardless of the seal leak, its amplification or extra-batteries availability. AC restoration is therefore the most important risk reduction factor. Moreover, seal leak amplification has a marginal impact on the system condition. Comparison between cases where the TE3 is present (i.e. ET07 vs ET11, or ET09 vs ET13)shows that the difference in time to core damage is at most 2 hours and the asymptotic PCT is almost identical. This confirm that, in the time scale considered for this scenario, the dominant mechanism of failure is the loss of heat sink rather than the loss of inventory from the RCP seals. 
 
 \newpage
 
