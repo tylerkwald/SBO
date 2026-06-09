@@ -837,26 +837,36 @@ The conditional core damage frequency is the probability of core damage given an
 This equation is then simplified using boolean algebra identifies to get the final CCDP equation below:
 
 \begin{flalign}\label{eq:CCDP}
-    P(CD|I) = & \; \overline{P(A)} + P(S)P(A)\overline{P(R)}+  \biggl( \overline{P(E)}+P(E)\overline{P(R)}   \biggr)  \biggl( \overline{P(S)}P(A)\overline{P(L)} \biggr)  \\ \nonumber
-            = &\; 1.2\text{x}10^{-8} + 0.908 + (0.1928)(0.00035) \\ \nonumber
-            = & \; 0.908
+    P(CD|I) = & \; \overline{P(A)} + P(S)P(A)P(L)\overline{P(R)}+  \biggl( \overline{P(E)}+P(E)\overline{P(R)}   \biggr)  \biggl( \overline{P(S)}P(A)P(R)\overline{P(L)} \biggr)  \\ \nonumber
+            = &\; 1.5\text{x}10^{-7} + 0.372 + 2.3\text{x}10^{-4}\\ \nonumber
+            = & \; 0.373
 \end{flalign}
 
 \subsection{Core Damage Frequency}
 
 \begin{flalign}
     F(CD) & = F(I)\;P(CD|I) \\ \nonumber
-          & = (2,2\cdot10^{-5})(0.908)\\ \nonumber
-          & = 1.99\cdot10^{-5}
+          & = (2,2\cdot10^{-5})(0.373)\\ \nonumber
+          & = 8.2\cdot10^{-6}
 \end{flalign}
 
-This number is incredibly high in terms of plant safety. However, this is incredibly similar to analyzes down by the NRC, in for the Surry NPP \cite{Surry}, the total core damage frequency from all SBO initiating events (SBO+Battery Depletion, SBO+SBLOCA, SBO+AFWfail + SBO+SORV + ...) is $2.7664\cdot10^{-5}$ pry. This puts the above estimate well within the same order of magnitude. The core damage frequency for the Zion NPP is a similar estimate of $9.34\cdot10^{-6}$ from the NRC \cite{ZionCD}. 
+This number is aligned with the general order of magnitude in plant safety and similar to the one analyzed down by the NRC, in for the Surry NPP \cite{Surry}, the total core damage frequency from all SBO initiating events (SBO+Battery Depletion, SBO+SBLOCA, SBO+AFWfail + SBO+SORV + ...) is $2.7664\cdot10^{-5}$ pry. 
 
 \section{Safety System Implementation: Passive Secondary Heat Removal System}
 \label{sec:pshrs}
+This section is dedicated to the analysis and implementation of a passive safety system specifically designed to cope with an SBO scenario. A deterministic safety analysis is performerd with the aim to evaluate the performance of the new system into the scenario treated in this report. Although the system was originally designed to activate after the batteries that power the AFW got depleted (i.e after 5 hours in this scenario), two cases are analyzed: with and without the AFW system. The case where the AFW is not available remains the most severe one. \\ 
+
+
+
+
+
+
+
+
+\subsection{Description of the system}
 
 The Passive Secondary Heat Removal System (PSHRS) has been designed to extend
-the SBO coping capability of the Zion NPP from the current 12~h up to the
+the SBO coping capability of the Zion NPP from 5 h up to the
 72~h required by the revised 10~CFR~50.63. The system is fully passive:
 it does not rely on AC power, AAC sources, active pumps, compressed air,
 or operator action once the actuation condition is reached.
@@ -924,18 +934,122 @@ confirms that the loop is self-driven under worst-case conditions,
 while the pool inventory is sufficient to absorb the decay energy
 released between battery depletion and AC restoration at $t=72$\,h.
 
-
+\figref{core power} shows the evolution of the decay heat after shutdown. The most of the power is released at the initial hours from the shutdown and therefore are the most severe one.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../OurSytem/graphs/reactor_power.png}
+    \caption{\centering Core Decay Power}
+    \label{core power}
+\end{figure}    
+   
 
 \subsection{Design Modifications from the Preliminary Configuration}
 \label{sec:pshrs_mods}
 
-With respect to the preliminary design presented in the hydraulic
-pre-sizing report, three modifications have been introduced in order to
-improve the robustness of the system, simplify its actuation logic and
-guarantee the integrity of the natural-circulation flow path during the
-entire 72-hour transient.
+The first RELAP5 simulations of the PSHRS coupled to the Zion model
+revealed that the system, as initially sized in the hydraulic
+pre-design report, was not able to prevent core damage within
+the 72-hour SBO coping period, in neither of the two reference
+configurations tested (with and without auxiliary feedwater
+contribution during the first 5\,h). Although the hand-calculated
+natural-circulation margin was positive, the integrated transient
+behaviour highlighted three limiting factors that had been
+underestimated by the preliminary lumped-parameter sizing:
 
-\paragraph{T-shaped Evaporation Pool.}
+\begin{itemize}
+  \item the available heat-exchange surface of the HX bundle was
+        insufficient to condense the steam flow at the rate required
+        by the peak decay heat, leading to a progressive degradation
+        of the secondary heat sink;
+  \item the hydraulic resistance of the inlet pipe to the HX
+        produced a pressure drop comparable to the natural-circulation
+        driving head when evaluated with the realistic two-phase flow
+        distribution computed by RELAP5;
+  \item the EEP water inventory, although sufficient on the basis of
+        the integral decay energy balance, was depleted earlier than
+        predicted because of the higher-than-expected evaporation
+        rate during the initial transient phase, when the primary
+        system is still releasing its stored sensible heat in
+        addition to the decay heat.
+\end{itemize}
+
+In addition, the secondary depressurisation strategy inherited from
+the EOPs (cooldown down to 15\,bar) was found to be detrimental in
+the long-term passive phase, because the associated steam release
+through the SG relief valves wasted secondary inventory that would
+otherwise be available for the natural-circulation loop. As a
+consequence, several design modifications have been implemented in order to solve this set of problems. The full set of modifications is described in the
+following paragraphs.
+
+\subsubsection{Reduced Secondary Depressurisation Target}
+The cooldown setpoint of the SG relief valves has been modified
+from the EOP-prescribed value of 15\,bar to a higher target of
+53.6\,bar. The rationale is twofold: first, a higher secondary
+pressure preserves the secondary inventory by avoiding the
+prolonged steam release through the SG relief valves observed in
+the base-case transient (Section~\ref{sec:base_case}); second, the
+PSHRS is designed to operate at the secondary saturation pressure
+of $\sim$67\,bar used for the hydraulic sizing, and a moderate
+cooldown to 53.6\,bar -- rather than to 15\,bar -- keeps the loop
+boundary conditions close to the design point of the heat
+exchanger, where the condensation performance is maximised. The
+modified cooldown is still consistent with the safety function of
+the EOP (bringing the plant to a more benign state), while
+preventing the unnecessary depletion of the SG water inventory
+that the long-term passive phase relies upon.
+
+\subsubsection{Enlarged HX Inlet Pipe}
+The cross-sectional flow area of the inlet pipe connecting the
+Main Steam Line to the HX has been increased from the preliminary
+value of 0.0122\,m$^{2}$ to 0.5\,m$^{2}$ (a factor $\sim 40$
+increase). The preliminary sizing, based on a single-phase
+turbulent friction estimate at the design steam velocity, severely
+underestimated the actual two-phase pressure drop computed by
+RELAP5 along the loop. The enlarged inlet area reduces the steam
+velocity and the associated frictional losses, restoring a
+positive natural-circulation margin under the realistic flow
+distribution and allowing the loop to self-establish without
+external assistance. This modification is consistent with the IAEA
+TECDOC-1624 guidance on passive natural-circulation loops, which
+recommends generous oversizing of the flow areas to compensate for
+the modelling uncertainties typical of preliminary one-dimensional
+sizing.
+
+\subsubsection{Increased HX Heat-Transfer Area}
+The total heat-transfer surface of the HX tube bundle has been
+increased from 0.042\,m$^{2}$ to 0.61\,m$^{2}$ per tube (a factor
+$\sim 14.5$ increase), achieved by lengthening the tubes and
+increasing their number. The original sizing was based on a
+LMTD-type estimate at the peak decay heat condition, but the
+RELAP5 simulations showed that the actual condensation heat
+transfer coefficient is significantly lower than the textbook
+correlation value, especially during the initial transient phase
+when the pool is still being heated up and the saturation
+temperature on the pool side is not yet fully developed. The
+enlarged heat-transfer area provides the additional margin needed
+to condense the full steam flow at the peak load, and ensures that
+the temperature difference across the bundle remains within
+reasonable values throughout the 72-hour transient.
+
+\subsubsection{Pool Volume Increased by 50\%}
+The total water inventory of the EEP, in the case without axuliary feedwater, has been increased by a
+factor 1.5 with respect to the value reported in
+Table~\ref{tab:pshrs_design}, bringing the pool volume from
+$\sim$2000\,m$^{3}$ to $\sim$3000\,m$^{3}$. This additional margin
+absorbs three effects that were not captured by the preliminary
+integral energy balance: (i) the higher evaporation rate during
+the initial passive phase, dominated by the residual sensible
+heat of the primary system in addition to the decay heat;
+(ii) the lower-than-ideal HX efficiency, which leads to a higher
+pool temperature and therefore to a larger fraction of the heat
+removal being achieved by latent (evaporative) rather than
+sensible heat-up; (iii) the modelling uncertainties associated
+with the new flow distribution after the enlargement of the inlet
+pipe and of the HX area. The increased inventory ensures that the
+HX bundle remains submerged for the full 72-hour mission time,
+preserving the heat-removal function until the end of the
+transient.
+\subsubsection{T-shaped Evaporation Pool}
 The EEP has been reshaped from a uniform prismatic geometry to a
 T-shaped cross-section, with a wider upper section acting as the main
 evaporation reservoir and a narrower lower section that hosts the Heat
@@ -953,7 +1067,7 @@ Table~\ref{tab:pshrs_design}, but its vertical distribution is now
 optimised to maintain HX submergence as the dominant geometric
 constraint.
 
-\paragraph{Enlarged Atmospheric Vent.}
+\subsubsection{Enlarged Atmospheric Vent}
 The cross-sectional area of the vent line connecting the EEP headspace
 to the atmosphere has been increased with respect to the preliminary
 sizing. The objective is to keep the pool effectively at atmospheric
@@ -968,7 +1082,7 @@ build-up, keeping the pool boundary condition consistent with the
 hypothesis used in the sizing calculations
 ($p_{\text{pool}} \approx p_{\text{atm}}$, $T_{\text{sat}} \approx 100^{\circ}$C).
 
-\paragraph{Delayed Actuation (5\,h after SBO).}
+\subsubsection{Delayed Actuation (5\,h after SBO)}
 The actuation logic has been tied to the depletion of the DC batteries
 at $t \approx 5$\,h after the initiating event, rather than to the SBO
 signal itself. During the first 5\,h, decay heat removal is already
@@ -987,8 +1101,7 @@ hand-over from the active (AFW + batteries) to the passive (PSHRS)
 heat removal mode.
 
 
-
-\subsection{Deterministic Safety Analysis: Worst Case Without RCP Leak}
+\subsection{Deterministic Safety Analysis: Case without AFW}
 \label{sec:pshrs_dsa}
 
 In accordance with the project statement, the deterministic safety analysis
@@ -998,30 +1111,14 @@ unavailability of the AFW system from $t = 0$ (i.e.\ the PSHRS is the only
 secondary heat removal path for the entire transient), no AC restoration,
 and no operator intervention. This represents a conservative envelope:
 if the PSHRS alone is sufficient to prevent core damage under these
-conditions, the same conclusion holds \emph{a fortiori} for all the less
+conditions, the same conclusion belongs to all the less
 demanding sequences in which the AFW + TDP contributes for the first
 5\,h. The simulation has been carried out for the full 72-hour SBO coping
 period required by 10\,CFR\,50.63.
 
-\paragraph{Decay heat removal.}
-The reactor power curve (Figure~\ref{fig:reactor_power}) follows the
-expected decay heat profile: an immediate drop at SCRAM from
-3250\,MW$_{\text{th}}$ to a few percent of nominal power, followed by
-the slow asymptotic decrease characteristic of fission-product and
-actinide decay. At $t = 72$\,h the residual thermal power is
-$\sim 15$\,MW, which is more than a factor two below the peak passive
-load of 31.8\,MW used for the PSHRS sizing
-(Table~\ref{tab:pshrs_design}). The system is therefore sized on the
-worst instant of the passive phase, and operates with increasing
-margin throughout the rest of the transient.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.55\linewidth]{../OurSytem/graphs/reactor_power.png}
-    \caption{\centering Core Power}
-    \label{fig:reactor_power}
-\end{figure}
 
-\paragraph{Core coverage.}
+\subsubsection{Core Level and Peak Cladding Temperature}
+These parameters are the acceptance criteria that determine whether core damage has occurred or not. 
 Figure~\ref{fig:core_level} shows the collapsed liquid level in the
 core and in the upper plenum. The core level remains constant at
 $\sim 4.08$\,m for the entire 72-hour transient, well above the top
@@ -1042,8 +1139,18 @@ two-phase natural-circulation regime sustained by the PSHRS heat sink.
 \end{figure}
 
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../OurSytem/graphs/pct.png}
+    \caption{\centering Peak Cladding Temperature Evolution}
+    \label{fig:PCT}
+\end{figure}
+\figref{fig:PCT} shows that the acceptance criteria is fully respected as the PCT does not go close to 1477 K, confirming that there is no core damage and the fuel rods are being cooled.
 
-\paragraph{Pool inventory and HX submergence.}
+
+
+
+\subsubsection{Pool inventory and HX submergence}
 Figure~\ref{fig:pool_void} shows the time evolution of the EEP
 collapsed liquid level. Starting from an initial value of
 $\sim 20$\,m, the pool level decreases monotonically as steam is
@@ -1061,8 +1168,8 @@ permanently at high void as they constitute the steam plenum
 connected to the atmospheric vent. The intermediate volumes void
 progressively from top to bottom: volume 7 around $t \approx 8$\,h,
 volume 6 around $t \approx 28$\,h, volume 5 around $t \approx 61$\,h,
-and volume 4 around $t \approx 67$\,h. \textbf{At $t = 72$\,h,
-volume 3 still contains liquid water}, and crucially the HX bundle
+and volume 4 around $t \approx 67$\,h. At $t = 72$\,h,
+volume 3 still contains liquid water, and crucially the HX bundle
 remains submerged thanks to the T-shaped pool geometry introduced
 in Section~\ref{sec:pshrs_mods}: the narrower lower section retains
 sufficient water inventory to keep the heat exchange surface in
@@ -1089,25 +1196,32 @@ performance.
 \end{figure}
 
 
-\paragraph{Absence of AFW contribution.}
-Figure~\ref{fig:afw_flow} confirms that the AFW mass flow is
+\subsubsection{Absence of AFW contribution and SG Level}
+\figref{sg_level} confirms that the AFW mass flow is
 identically zero throughout the simulation. This validates the
 worst-case assumption adopted in this analysis: the entire decay
 heat extraction during the 72-hour transient is provided by the
 PSHRS alone, with no contribution from the active feedwater systems.
+Due to this reason, the dry-out occurs very early at $\approx$ 3 hours after the SBO. 
+
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.55\linewidth]{../OurSytem/graphs/AFW_flow.png}
-    \caption{\centering AFW Flow}
-    \label{fig:afw_flow}
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../OurSytem/graphs/AFW_flow.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../OurSytem/graphs/SG_level.png}    
+    \end{minipage}
+    \caption{\centering {AFW flow (on the left) and SG Level (on the right).}}
+    \label{sg_level}
 \end{figure}
+ 
 
-
-
-
-
-\paragraph{Conclusion of the DSA.}
+\subsubsection{Conclusion of the DSA}
 The deterministic simulation demonstrates that the PSHRS, acting as
 the sole secondary heat removal system, is able to:
 \begin{itemize}
@@ -1141,17 +1255,168 @@ estimate of $q_{\text{PSHRS}} = 10^{-2}$, consistent with literature
 values for passive natural-circulation heat removal systems with
 redundant fail-open isolation valves, the new figures become:
 \begin{equation}
-\text{CCDP}_{\text{new}} \approx 9.08 \times10^{-3},
+\text{CCDP}_{\text{new}} \approx 3.73 \times10^{-3},
 \qquad
-F(CD)_{\text{SBO,new}} \approx 1.99\times 10^{-7}\ \text{pry},
+F(CD)_{\text{SBO,new}} \approx 8.21\times 10^{-8}\ \text{pry},
 \end{equation}
 corresponding to a reduction of approximately two orders of
 magnitude (i.e.\ $\sim$99\%) with respect to the current
-configuration. A more refined estimate, based on a dedicated
-fault-tree analysis of the PSHRS components and on a more accurate
-quantification of common-cause failures between the active and
-passive heat-removal paths, is beyond the scope of the present
-preliminary design and is recommended as a follow-up activity.
+configuration. 
+
+\subsection{Deterministic Safety Analysis: Realistic Case With AFW Contribution}
+\label{sec:pshrs_dsa_withafw}
+
+In addition to the worst-case scenario without AFW analysed in
+Section~\ref{sec:pshrs_dsa}, a second simulation has been carried
+out under more realistic assumptions: the Turbine-Driven AFW
+operates during the first 5\,h of the transient (until battery
+depletion), after which the PSHRS takes over as the only available
+secondary heat removal path. This case corresponds to the actual
+design intent of the PSHRS and to the most probable accident
+sequence in which the system is called to operate, and provides a
+complementary check of the system performance under nominal
+boundary conditions. We expect to obtain even more optimistic outcomes from this case.
+
+
+
+
+
+\subsubsection{Core Level and Peak Cladding Temperature} 
+Figure~\ref{pct_with} shows the collapsed liquid level
+in the core and in the upper plenum during the 72-hour transient, together with the Peak Cladding Temperature.
+The core level remains constant at $\sim$4.08\,m for the entire
+simulation, well above the top of the active fuel: the core
+is never uncovered, and the cladding integrity is preserved at
+all times. The upper plenum level, on the other hand, shows a
+richer dynamic behaviour that reflects the different phases of
+the transient:
+\begin{itemize}
+  \item an initial sharp depression down to $\sim$2.72\,m at
+        $t \approx 6$\,h, corresponding to the transition between
+        the active AFW phase and the passive PSHRS phase. When
+        the AFW trips at battery depletion ($t \approx 5$\,h),
+        the primary system has to re-establish a new equilibrium
+        between the residual stored heat, the decay power, and
+        the still-developing PSHRS condensation flow. During this
+        short transient, the upper plenum partially voids as
+        steam is generated in the core but the condensation rate
+        in the HX has not yet reached its steady value;
+  \item a stable plateau at $\sim$3.6\,m between $t \approx 14$\,h
+        and $t \approx 50$\,h, corresponding to the long-term
+        natural-circulation regime sustained by the PSHRS. During
+        this phase the upper plenum operates in a stationary
+        two-phase condition with constant void fraction, which is
+        the design operating point of the passive loop;
+  \item a final progressive drop down to $\sim$2.5\,m between
+        $t \approx 55$\,h and $t = 72$\,h, associated with the
+        degradation of the HX condensation efficiency as the
+        evaporation pool approaches depletion. As the pool level
+        decreases, the saturation temperature on the pool side
+        rises (the upper volumes of the pool become superheated
+        steam) and the LMTD across the HX decreases, reducing the
+        heat removal rate and increasing the void fraction in the
+        primary upper plenum.
+\end{itemize}
+
+This behaviour is fully consistent with the PCT evolution: the upper plenum drop at $t \approx
+6$\,h coincides with the PCT drop to $\sim$480\,K, the long stable
+plateau at $\sim$3.6\,m coincides with the slow U-shaped PCT
+recovery between $\sim$15\,h and $\sim$55\,h, and the final
+upper-plenum depression mirrors the asymptotic rise of the PCT
+to $\sim$555\,K at the end of the transient. The physical
+consistency between the two figures confirms the reliability of
+the RELAP5 results and shows that the PSHRS fullfills the acceptance criteria in this case as it was in the previous one.
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../OurSytem/graphs/core_level_wafw.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../OurSytem/graphs/pct_wafw.png}    
+    \end{minipage}
+    \caption{\centering {Core Level (on the left) and Peak Cladding Temperature (on the right). Case with AFW.}}
+    \label{pct_with}
+\end{figure}
+
+
+
+\subsubsection{Pool Inventory: Comparison with the Worst Case} 
+\figref{pool_with} shows the pool collapsed level and the axial void distribution
+for the realistic case with AFW. The qualitative behaviour is
+the same as in the worst case without AFW
+(Section~\ref{sec:pshrs_dsa}): the pool drains progressively from
+the top downwards, with the upper volumes losing their liquid
+content first as evaporation proceeds and the lower volumes
+hosting the HX bundle remaining submerged for the longest time,
+thanks to the T-shaped geometry. The sequential voiding pattern
+visible in \figref{pool_with} -- with the top
+volumes (1 and 2) reaching high void fraction from the very
+beginning of the passive phase and the intermediate volumes
+(3 to 7) draining one after the other over the course of the
+transient -- confirms that the boil-off proceeds in an orderly
+fashion from top to bottom, as expected for a vented
+atmospheric pool.
+The level drops appears faster since the volume of the pool is reduced to the original one in this case, as mentioned in the design modifications chapter.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../OurSytem/graphs/pool_level_wafw.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}  
+        \centering
+        \includegraphics[width=\linewidth]{../OurSytem/graphs/pool_void_wafw.png}    
+    \end{minipage}
+    \caption{\centering {Pool Level (on the left) and Pool Void (on the right). Case with AFW.}}
+    \label{pool_with}
+\end{figure}
+
+
+\subsubsection{SG Inventory and Transition to the PSHRS}
+\figref{SG_level_with} shows the collapsed liquid level in
+the Steam Generator secondary side. The level initially drops to
+$\sim$8\,m at SCRAM because of the swell collapse, and is then
+recovered to $\sim$13.7\,m by the AFW during the first 5\,h.
+After the AFW trip, the SG level is maintained at this value by
+the PSHRS condensate return for $\sim$50\,h, demonstrating that
+the passive loop is effective at preserving the secondary
+inventory once established. The level finally starts to decrease
+around $t \approx 58$\,h, when the EEP water inventory is
+approaching depletion and the condensation rate at the HX begins
+to degrade. The SG is not yet dry at $t = 72$\,h, which means that
+the secondary heat sink is preserved for the full required
+duration.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{../OurSytem/graphs/SG_level_wafw.png}
+    \caption{\centering SG Level. Case with AFW.}
+    \label{SG_level_with}
+\end{figure}
+
+\subsubsection{Conclusion of the realistic case}
+The simulation with AFW operating during the first 5\,h confirms
+the conclusions drawn from the worst-case analysis: the PSHRS, in
+its modified configuration, is able to maintain the plant in a
+safe state for the full 72-hour SBO coping period. The PCT
+remains $\sim$925\,K below the acceptance limit, the core is
+never uncovered, the secondary inventory is preserved by the
+combined effect of AFW and PSHRS condensate return, and the EEP
+inventory is sufficient to sustain heat removal up to $t = 72$\,h
+even after the conservative pool volume increase by a factor 1.5.
+The two simulated cases (with and without AFW) bracket the
+realistic range of operating conditions and demonstrate the
+robustness of the proposed design with respect to the actual
+hand-over time between active and passive heat removal.
+
+
+
+
 
 \section{Conclusions}
 
@@ -1163,38 +1428,11 @@ Having analyzed two EOPs, we can say that the SG cooldown procedure (EOP 1) prov
 Overall, the results demonstrate that the existing safety systems and operator procedures are sufficient to manage the SBO scenario for 12 hours. However, the analysis also highlights that the absence of the SG cooldown EOP leads to a more challenging scenario and could lead to core damage in a longer event. \\
 
 The event tree proved that the AC power restoration is the most relevant action in order to avoid core damage in most of the cases analyzed. In every related case, the PCT stays below the safety limit for core damage and the outcome is safe regardless of the seal leak, its amplification or extra-batteries availability. AC restoration is therefore the most important risk reduction factor. Moreover, seal leak amplification has a marginal impact on the system condition. Comparison between cases where the TE3 is present (i.e. ET07 vs ET11, or ET09 vs ET13)shows that the difference in time to core damage is at most 2 hours and the asymptotic PCT is almost identical. This confirm that, in the time scale considered for this scenario, the dominant mechanism of failure is the loss of heat sink rather than the loss of inventory from the RCP seals. \\ 
-The proposed PSHRS is a fully passive natural-circulation loop
-connecting the secondary side of each Steam Generator to an
-elevated evaporation pool through an external heat exchanger.
-The system is automatically actuated by the loss of the DC signal
-at battery depletion ($t \approx 5$\,h), without requiring AC
-power, AAC sources or operator intervention. Three design
-modifications have been introduced with respect to the
-preliminary configuration: a T-shaped pool geometry that
-guarantees HX submergence even after extensive boil-off, an
-enlarged atmospheric vent that maintains the pool at atmospheric
-pressure during the entire transient, and a filtered actuation
-logic that engages the system only at the actual end of the
-active heat removal phase. The preliminary hydraulic sizing
-yielded a natural-circulation margin of 1.08 and a required
-pool volume of $\sim$2000\,m$^3$ (with 20\% design margin),
-demonstrating the feasibility of the passive heat removal path
-under worst-case decay heat conditions.\\
 
-The RELAP5 simulation of the worst case among the sequences
-without RCP seal leakage, performed under the conservative
-assumption of total AFW unavailability from $t = 0$, confirmed
-that the PSHRS is able to maintain the plant in a safe condition
-for the full 72-hour SBO coping period. The core level remains
-constant at $\sim$4.08\,m throughout the transient -- the core
-is never uncovered -- and the primary system establishes a stable
-two-phase natural circulation supported by condensation in the
-external heat exchanger. The pool inventory is sufficient to
-sustain decay heat removal for the entire mission time, with the
-T-shaped geometry ensuring that the HX bundle remains submerged
-at $t = 72$\,h. The acceptance criteria associated with the
-hydraulic design bases (DB-1, DB-3, DB-4, DB-5) are therefore
-satisfied by direct deterministic verification.
+
+Finally, it has been demonstrated that the PSHRS system is able to cope with these type of scenario, lowering the frequency of core damage. It allows the system to survive to the SBO event in both cases, with and without the AFW, avoiding core damage. Each acceptance criteria has not been overcome (PCT, Core Level) during the transients. 
+
+
 \newpage
 
 \section*{CRediT Author Statement}
@@ -1207,4 +1445,6 @@ satisfied by direct deterministic verification.
 \end{itemize}
 
 \printbibliography
+
+
 \end{document}
