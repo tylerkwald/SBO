@@ -200,7 +200,7 @@
 *****************************************************************************************************{{{
 *
 515   time         0 ge    timeof        750 0.000 l * AFW signal with delay (5 h)
-491   time         0 gt      null          0   1.0e9   n * Bat DISABLED
+491   time         0 lt    timeof        515   1.8e4   n * Bat DISABLED
 758           515           and           491             n
 759           758            or           453             n
 *
@@ -731,7 +731,7 @@
 *----------------
 *- Change scram to 500s and system activation to 550s
 * activation signal
-534   time         0 ge      null          0  550.0        n
+534   time         0 ge      timeof       515 18000.0      n
 * -----------------------------------------------------------------
 *                name          type
 * 4610000    "unnamed"       sngljun
@@ -889,7 +889,7 @@
 4690102         140.0             8
 *            x-length         volid
 4690301        1.25               5
-4690302        2.5                8
+4690302        3.0                8
 *              volume         volid
 4690401           0.0             8 
 *          azim-angle         volid
