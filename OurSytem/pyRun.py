@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #case = 'reflood_trialsFlatProfile'
-case = 'noTDPBatAC_orig'#'your_system'
+case = 'first'#'your_system'
 rp.run_case(case)
 #rp.set_figures_loc('./figures/')
 # nodes = [
