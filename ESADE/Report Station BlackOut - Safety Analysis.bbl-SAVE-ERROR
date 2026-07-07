@@ -219,68 +219,6 @@
       \verb https://www.nrc.gov/docs/ML1815/ML18150A450.pdf
       \endverb
     \endentry
-    \entry{ZionCD}{report}{}{}
-      \name{author}{6}{}{%
-        {{hash=ed483dc498ff6dcbd50326456402eafc}{%
-           family={Park},
-           familyi={P\bibinitperiod},
-           given={C.\bibnamedelimi K.},
-           giveni={C\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
-        {{hash=cf8b3a6cca6590d02ee8ed729e2c463d}{%
-           family={Cazzoli},
-           familyi={C\bibinitperiod},
-           given={E.\bibnamedelimi G.},
-           giveni={E\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
-        {{hash=118f21292970f1d5f1456e835b22b732}{%
-           family={Grimshaw},
-           familyi={G\bibinitperiod},
-           given={C.\bibnamedelimi A.},
-           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-        {{hash=e1a87f9769907bc47fd24d9934123cf0}{%
-           family={Tingle},
-           familyi={T\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=14f87fbb1fcbb064a8eb8c80398f618b}{%
-           family={Lee},
-           familyi={L\bibinitperiod},
-           given={M.},
-           giveni={M\bibinitperiod}}}%
-        {{hash=ef588bebae9299979a7245afdb6937da}{%
-           family={Pratt},
-           familyi={P\bibinitperiod},
-           given={W.\bibnamedelimi T.},
-           giveni={W\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Brookhaven National Laboratory}%
-      }
-      \list{publisher}{1}{%
-        {U.S. Nuclear Regulatory Commission}%
-      }
-      \strng{namehash}{a443db497226e0b5469799bfa4181b3f}
-      \strng{fullhash}{baeaff38822e5b9fe137cd201a080eb7}
-      \strng{fullhashraw}{baeaff38822e5b9fe137cd201a080eb7}
-      \strng{bibnamehash}{baeaff38822e5b9fe137cd201a080eb7}
-      \strng{authorbibnamehash}{baeaff38822e5b9fe137cd201a080eb7}
-      \strng{authornamehash}{a443db497226e0b5469799bfa4181b3f}
-      \strng{authorfullhash}{baeaff38822e5b9fe137cd201a080eb7}
-      \strng{authorfullhashraw}{baeaff38822e5b9fe137cd201a080eb7}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{number}{NUREG/CR-4551, Vol. 7, Rev. 1, Part 1}
-      \field{title}{Evaluation of Severe Accident Risks: {Zion}, {Unit 1}. {M}ain {R}eport}
-      \field{type}{Technical Report}
-      \field{year}{1993}
-      \verb{urlraw}
-      \verb https://www.nrc.gov/docs/ml0705/ml070530424.pdf
-      \endverb
-      \verb{url}
-      \verb https://www.nrc.gov/docs/ml0705/ml070530424.pdf
-      \endverb
-    \endentry
   \enddatalist
 \endrefsection
 \endinput
